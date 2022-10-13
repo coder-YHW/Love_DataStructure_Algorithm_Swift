@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class Statck<E> {
+class Statck<E: Comparable> {
     
     //MARK: - 属性
     fileprivate var arrayList = ArrayList<E>()
@@ -20,12 +20,14 @@ class Statck<E> {
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return arrayList.isEmpty
+        return arrayList.isEmpty()
     }
     
     /// 入栈
     func push(_ element: E?) {
-        arrayList.add(element)
+        if let element {
+            arrayList.add(element)
+        }
     }
     
     /// 出栈

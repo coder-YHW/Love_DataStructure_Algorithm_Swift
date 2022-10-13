@@ -355,47 +355,47 @@ extension BinarySearchTree {
 extension BinarySearchTree {
     /// 107. 二叉树的层序遍历 II : https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/
     /// 给定一个二叉树，返回其节点值自底向上的层序遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
-    func levelOrderBottom() -> [[E]] {
-        if root == nil { return [] }
-        
-        var leverCount = 1
-        var elementArr = [E]()
-        var node = root
-        let stack = Statck<[E]>()
-        
-        let queueLink = SingleQueue<Node<E>>()
-        queueLink.enQueue(root)
-        
-        while !queueLink.isEmpty() {
-            leverCount -= 1
-            
-            node = queueLink.deQueue()
-            if let element = node?.element {
-                elementArr.append(element)
-            }
-            
-            if node?.left != nil {
-                queueLink.enQueue(node?.left)
-            }
-            if node?.right != nil {
-                queueLink.enQueue(node?.right)
-            }
-            
-            if leverCount == 0 {
-                stack.push(elementArr)
-                leverCount = queueLink.size()
-                elementArr.removeAll()
-            }
-        }
-        
-        var array = [[E]]()
-        for _ in 0..<stack.size() {
-            if let element = stack.pop() {
-                array.append(element)
-            }
-        }
-        return array
-    }
+//    func levelOrderBottom() -> [[E]] {
+//        if root == nil { return [] }
+//
+//        var leverCount = 1
+//        var elementArr = [E]()
+//        var node = root
+//        let stack = Statck<[E]>()
+//
+//        let queueLink = SingleQueue<Node<E>>()
+//        queueLink.enQueue(root)
+//
+//        while !queueLink.isEmpty() {
+//            leverCount -= 1
+//
+//            node = queueLink.deQueue()
+//            if let element = node?.element {
+//                elementArr.append(element)
+//            }
+//
+//            if node?.left != nil {
+//                queueLink.enQueue(node?.left)
+//            }
+//            if node?.right != nil {
+//                queueLink.enQueue(node?.right)
+//            }
+//
+//            if leverCount == 0 {
+//                stack.push(elementArr)
+//                leverCount = queueLink.size()
+//                elementArr.removeAll()
+//            }
+//        }
+//
+//        var array = [[E]]()
+//        for _ in 0..<stack.size() {
+//            if let element = stack.pop() {
+//                array.append(element)
+//            }
+//        }
+//        return array
+//    }
     
     
     /// 二叉树的宽度: https://leetcode-cn.com/problems/maximum-width-of-binary-tree
