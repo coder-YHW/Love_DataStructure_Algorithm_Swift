@@ -10,50 +10,62 @@ import Cocoa
 /// 双端队列
 class SingleDeque<E: Comparable> {
     
-    fileprivate var list = DoubleLinkList<E>()
+    //MARK: - 属性
+    fileprivate var LinkList = DoubleLinkList<E>()
     
+    
+    //MARK: - 方法
     /// 元素数量
     func size() -> Int {
-        return list.count
+        return LinkList.count
     }
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return list.count == 0
+        return LinkList.count == 0
     }
     
     /**清除所有元素*/
     func clear() {
-        list.clear()
+        LinkList.clear()
     }
     
     /// 从队头入队
-    func enQueueHeader(_ element: E) {
-        list.add(by: 0, element: element)
+    func enQueueFront(_ element: E) {
+        LinkList.add(by: 0, element: element)
     }
     
     /// 从队头出队
-    func deQueueHeader() -> E? {
-        return list.remove(0)
+    func deQueueFront() -> E? {
+        return LinkList.remove(0)
     }
     
     /// 从队尾入队
     func enQueueTail(_ element: E) {
-        list.add(element)
+        LinkList.add(element)
     }
     
     /// 从队尾出队
     func deQueueTail() -> E? {
-        return list.remove(list.count - 1)
+        return LinkList.remove(LinkList.count - 1)
     }
     
     /// 获取队列的头元素
-    func header() -> E? {
-        return list.get(0)
+    func front() -> E? {
+        return LinkList.get(0)
     }
     
     /// 获取队列的尾元素
     func tail() -> E? {
-        return list.get(list.count - 1)
+        return LinkList.get(LinkList.count - 1)
+    }
+}
+
+
+// MARK: - 打印
+extension SingleDeque : CustomStringConvertible {
+    
+    var description: String {
+        return LinkList.description
     }
 }

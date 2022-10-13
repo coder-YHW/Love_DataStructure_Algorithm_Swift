@@ -7,9 +7,10 @@
 
 import Cocoa
 
-/// 双端循环队列
+/// 双端循环队列 - 用优化后的动态数组实现
 class CircleDeque<E: Comparable> {
 
+    //MARK: - 属性
     fileprivate var elements = [E?]()
     fileprivate var front = 0
     fileprivate var count = 0

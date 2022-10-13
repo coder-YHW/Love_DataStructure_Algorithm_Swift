@@ -9,8 +9,10 @@ import Cocoa
 
 class Statck<E> {
     
+    //MARK: - 属性
     fileprivate var list: [E] = []
 
+    //MARK: - 方法
     /**元素个数*/
     func size() -> Int {
         return list.count

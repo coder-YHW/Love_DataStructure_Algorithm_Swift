@@ -17,15 +17,24 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
     
     //MARK: - 构造函数
     /// 初始化一个容量为capaticy的动态数组
-    init(capaticy: Int) {
+    override init() {
 //        elements = Array<E?>() // 初始化一个泛型空数组1
         elements = [E?]() // 初始化一个泛型空数组2
-        for _ in 0..<capaticy {
+        for _ in 0..<Const.capacity {
             elements.append(nil)
         }
         front = 0
     }
     
+    init(capacity : Int) {
+        var capacity = capacity < Const.capacity ? Const.capacity : capacity
+//        elements = Array<E?>() // 初始化一个泛型空数组1
+        elements = [E?]() // 初始化一个泛型空数组2
+        for _ in 0..<capacity {
+            elements.append(nil)
+        }
+        front = 0
+    }
     
     //MARK: - override
     /**清除所有元素*/
@@ -37,6 +46,9 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
         }
         count = 0
         front = 0
+        
+        // 数组缩容检查
+        cutCapacity()
     }
     
     /**
@@ -167,6 +179,9 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
         // 索引-=
         count -= 1
         
+        // 数组缩容检查
+        cutCapacity()
+        
         return element
     }
     
@@ -176,7 +191,6 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
     private func ensureCapacity(capacity : Int) {
         
         let oldCapacity = elements.count;
-        
         if capacity <= oldCapacity {
             return
         }
@@ -188,12 +202,37 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
         }
         
         for i in 0..<count {
-            newElements[i] = elements[i]
+            let index = getIndex(index: i)
+            newElements[i] = elements[index]
         }
         
         elements = newElements
         
         print("扩容为:\(newCapacity)")
+    }
+    
+    /// 动态数组缩容
+    fileprivate func cutCapacity() {
+        
+        let oldCapacity = elements.count
+        let newCapacity = oldCapacity >> 1
+        if (newCapacity < Const.capacity || newCapacity <= count) {
+            return
+        }
+        
+        var newElements = [E?]()
+        for _ in 0..<newCapacity {
+            newElements.append(nil)
+        }
+        
+        for i in 0..<count {
+            let index = getIndex(index: i)
+            newElements[i] = elements[index]
+        }
+        
+        elements = newElements
+        
+        print("缩容为：\(newCapacity)")
     }
     
     //MARK: - 动态数组索引映射 - 对i和index索引映射

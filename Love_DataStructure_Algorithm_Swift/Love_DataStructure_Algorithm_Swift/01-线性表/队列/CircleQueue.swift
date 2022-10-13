@@ -7,123 +7,105 @@
 
 import Cocoa
 
-/// 单端循环队列
+/// 单端循环队列 - 用优化后的动态数组实现
 class CircleQueue<E: Comparable> {
 
-    fileprivate var elements = [E?]()
+    //MARK: - 属性
+    fileprivate var arrayList = ArrayListUpgrade<E>()
     fileprivate var front = 0
     fileprivate var count = 0
     
     
-    required init() {
-        for _ in 0..<Const.capacity {
-            elements.append(nil)
-        }
-    }
-    
-    
+    //MARK: - 方法
     /// 元素数量
     func size() -> Int {
-        return count
+        return arrayList.count
     }
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return count == 0
+        return arrayList.isEmpty()
     }
     
     /**清除所有元素*/
     func clear() {
-        for i in 0..<elements.count {
-            elements[i] = nil
-        }
-        count = 0
+        arrayList.clear()
     }
     
     /// 入队
     func enQueue(_ element: E) {
-        ensureCapacity(count + 1)
-        
-        let index = getIndex(count)
-        elements[index] = element
-        count += 1
+        arrayList.add(element)
     }
 
     /// 出队
     func deQueue() -> E? {
-        let element = elements[front]
-        elements[front] = nil
-        
-        front = getIndex(1)
-        count -= 1
-        cutCapacity()
-        return element
+        return arrayList.remove(0)
     }
 
     /// 获取队列的头元素
     func header() -> E? {
-        return elements[front]
+        return arrayList.get(0)
     }
     
-    func toString() -> String {
-        var text = "count = \(count), ["
-        for i in 0..<elements.count {
-            if i != 0 {
-                text += ", "
-            }
-            if let e = elements[i] {
-                text += "\(e)"
-            } else {
-                text += "nil"
-            }
-        }
-        text += "]"
-        return text
-    }
+//    func toString() -> String {
+//        var text = "count = \(count), ["
+//        for i in 0..<arrayList.count {
+//            if i != 0 {
+//                text += ", "
+//            }
+//            if let e = arrayList[i] {
+//                text += "\(e)"
+//            } else {
+//                text += "nil"
+//            }
+//        }
+//        text += "]"
+//        return text
+//    }
 }
 
 
-extension CircleQueue {
-    /// 数组扩容
-    fileprivate func ensureCapacity(_ capacity: Int) {
-        let oldCapacity = elements.count
-        if capacity <= oldCapacity { return }
-        let newCapacity = oldCapacity + oldCapacity >> 1
-        
-        var newElements = [E?]()
-        for _ in 0..<newCapacity {
-            newElements.append(nil)
-        }
-        for i in 0..<count {
-            let index = getIndex(i)
-            newElements[i] = elements[index]
-        }
-        elements = newElements
-        front = 0
-    }
-    
-    /// 数组缩容
-    fileprivate func cutCapacity() {
-        let oldCapacity = elements.count
-        let newCapacity = oldCapacity >> 1
-        if count < newCapacity {
-            var newElements = [E?]()
-            for _ in 0..<newCapacity {
-                newElements.append(nil)
-            }
-            for i in 0..<count {
-                let index = getIndex(i)
-                newElements[i] = elements[index]
-            }
-            elements = newElements
-            front = 0
-        }
-    }
-    
-    /// 获取当前索引所在数组的真正索引
-    fileprivate func getIndex(_ index: Int) -> Int {
-        let newIndex = index + front
-        let length = elements.count
-        return newIndex >= length ? newIndex - length : newIndex
-    }
-}
+//extension CircleQueue {
+//    /// 数组扩容
+//    fileprivate func ensureCapacity(_ capacity: Int) {
+//        let oldCapacity = arrayList.count
+//        if capacity <= oldCapacity { return }
+//        let newCapacity = oldCapacity + oldCapacity >> 1
+//        
+//        var newarrayList = [E?]()
+//        for _ in 0..<newCapacity {
+//            newarrayList.append(nil)
+//        }
+//        for i in 0..<count {
+//            let index = getIndex(i)
+//            newarrayList[i] = arrayList[index]
+//        }
+//        arrayList = newarrayList
+//        front = 0
+//    }
+//    
+//    /// 数组缩容
+//    fileprivate func cutCapacity() {
+//        let oldCapacity = arrayList.count
+//        let newCapacity = oldCapacity >> 1
+//        if count < newCapacity {
+//            var newarrayList = [E?]()
+//            for _ in 0..<newCapacity {
+//                newarrayList.append(nil)
+//            }
+//            for i in 0..<count {
+//                let index = getIndex(i)
+//                newarrayList[i] = arrayList[index]
+//            }
+//            arrayList = newarrayList
+//            front = 0
+//        }
+//    }
+//    
+//    /// 获取当前索引所在数组的真正索引
+//    fileprivate func getIndex(_ index: Int) -> Int {
+//        let newIndex = index + front
+//        let length = arrayList.count
+//        return newIndex >= length ? newIndex - length : newIndex
+//    }
+//}

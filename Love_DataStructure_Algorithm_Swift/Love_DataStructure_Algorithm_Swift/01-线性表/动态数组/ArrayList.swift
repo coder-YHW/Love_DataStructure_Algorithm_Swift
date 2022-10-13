@@ -15,10 +15,19 @@ class ArrayList <E: Comparable>: AbstractList<E> {
     
     //MARK: - 构造函数
     /// 初始化一个容量为capaticy的动态数组
-    init(capaticy: Int) {
+    override init() {
 //        elements = Array<E?>() // 初始化一个泛型空数组1
         elements = [E?]() // 初始化一个泛型空数组2
-        for _ in 0..<capaticy {
+        for _ in 0..<Const.capacity {
+            elements.append(nil)
+        }
+    }
+    
+    init(capacity : Int) {
+        var capacity = capacity < Const.capacity ? Const.capacity : capacity
+//        elements = Array<E?>() // 初始化一个泛型空数组1
+        elements = [E?]() // 初始化一个泛型空数组2
+        for _ in 0..<capacity {
             elements.append(nil)
         }
     }
@@ -31,6 +40,9 @@ class ArrayList <E: Comparable>: AbstractList<E> {
             elements[i] = nil
         }
         count = 0
+        
+        // 数组缩容检查
+        cutCapacity()
     }
     
     /**
@@ -113,6 +125,9 @@ class ArrayList <E: Comparable>: AbstractList<E> {
         // 索引-=
         count -= 1
         
+        // 数组缩容检查
+        cutCapacity()
+        
         return element
     }
     
@@ -122,13 +137,13 @@ class ArrayList <E: Comparable>: AbstractList<E> {
     private func ensureCapacity(capacity : Int) {
         
         let oldCapacity = elements.count;
-        
         if capacity <= oldCapacity {
             return
         }
         
         let newCapacity = oldCapacity + oldCapacity>>1
         var newElements = Array<E?>()
+        
         for _ in 0..<newCapacity {
             newElements.append(nil)
         }
@@ -138,8 +153,32 @@ class ArrayList <E: Comparable>: AbstractList<E> {
         }
         
         elements = newElements
+        
+        print("扩容为：\(newCapacity)")
     }
     
+    /// 动态数组缩容
+    fileprivate func cutCapacity() {
+        
+        let oldCapacity = elements.count
+        let newCapacity = oldCapacity >> 1
+        if (newCapacity < Const.capacity || newCapacity <= count ) {
+            return
+        }
+        
+        var newElements = [E?]()
+        for _ in 0..<newCapacity {
+            newElements.append(nil)
+        }
+        
+        for i in 0..<count {
+            newElements[i] = elements[i]
+        }
+        
+        elements = newElements
+        
+        print("缩容为：\(newCapacity)")
+    }
 }
 
 

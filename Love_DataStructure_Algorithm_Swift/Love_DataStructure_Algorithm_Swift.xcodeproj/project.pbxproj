@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D66C5A228F7DC9E00D280E2 /* StackQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5A128F7DC9E00D280E2 /* StackQueue.swift */; };
 		0DC90AB828EF4F0300AA8754 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90AB728EF4F0300AA8754 /* main.swift */; };
 		0DC90BF528F01E9300AA8754 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B8C28F01E9000AA8754 /* PriorityQueue.swift */; };
 		0DC90BF628F01E9300AA8754 /* HashMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B8E28F01E9000AA8754 /* HashMap.swift */; };
@@ -107,6 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D66C5A128F7DC9E00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0DC90AB428EF4F0300AA8754 /* Love_DataStructure_Algorithm_Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Love_DataStructure_Algorithm_Swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC90AB728EF4F0300AA8754 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0DC90B8C28F01E9000AA8754 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 			children = (
 				0DC90BF028F01E9300AA8754 /* SingleQueue.swift */,
 				0DC90BED28F01E9300AA8754 /* SingleDeque.swift */,
+				0D66C5A128F7DC9E00D280E2 /* StackQueue.swift */,
 				0DC90BEF28F01E9300AA8754 /* CircleQueue.swift */,
 				0DC90BEE28F01E9300AA8754 /* CircleDeque.swift */,
 			);
@@ -658,6 +661,7 @@
 				0DC90C0E28F01E9300AA8754 /* RecallLeetCode.swift in Sources */,
 				0DC90C0528F01E9300AA8754 /* GraphTest.swift in Sources */,
 				0DC90BF528F01E9300AA8754 /* PriorityQueue.swift in Sources */,
+				0D66C5A228F7DC9E00D280E2 /* StackQueue.swift in Sources */,
 				0DC90C2028F01E9300AA8754 /* MapNode.swift in Sources */,
 				0DC90C6328F02C4400AA8754 /* TrieNode.swift in Sources */,
 				0DC90C1C28F01E9300AA8754 /* BinaryTreeTest.swift in Sources */,

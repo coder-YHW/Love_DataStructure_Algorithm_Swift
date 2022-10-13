@@ -13,13 +13,21 @@ import Foundation
 /// 动态数组测试用例
 func testArrayList() {
     
-//    let arrayList = ArrayList<Int>(capaticy: 10)
-//    let data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-//    for obj in data {
-//        arrayList.add(obj)
-//    }
-//    print(arrayList)
-//
+    let arrayList = ArrayListUpgrade<Int>()
+    let data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    for obj in data {
+        arrayList.add(obj)
+    }
+    for obj in data {
+        arrayList.add(obj)
+    }
+    print(arrayList)
+    
+    for _ in 0...8 {
+        arrayList.remove(0)
+        print(arrayList)
+    }
+
 //    arrayList.remove(5)
 //    print(arrayList)
 //
@@ -33,18 +41,18 @@ func testArrayList() {
 //    print(arrayList)
     
     
-    let arrayList = ArrayListUpgrade<Int>(capaticy: 10)
-    print(arrayList)
-    
-    // 在数组开头添加元素
-    arrayList.add(by: 0, element: 0)
-    print(arrayList)
-    arrayList.add(by: 0, element: 1)
-    print(arrayList)
-    arrayList.add(by: 0, element: 2)
-    print(arrayList)
-    arrayList.add(by: 0, element: 3)
-    print(arrayList)
+//    let arrayList = ArrayListUpgrade<Int>()
+//    print(arrayList)
+//    
+//    // 在数组开头添加元素
+//    arrayList.add(by: 0, element: 0)
+//    print(arrayList)
+//    arrayList.add(by: 0, element: 1)
+//    print(arrayList)
+//    arrayList.add(by: 0, element: 2)
+//    print(arrayList)
+//    arrayList.add(by: 0, element: 3)
+//    print(arrayList)
     
     // 测试查询修改
 //    let a = arrayList.get(3)
@@ -95,14 +103,14 @@ func testArrayList() {
 //    print(arrayList)
     
     // 删除末尾开头元素
-    arrayList.remove(arrayList.count-1)
-    print(arrayList)
-    arrayList.remove(arrayList.count-1)
-    print(arrayList)
-    arrayList.remove(arrayList.count-1)
-    print(arrayList)
-    arrayList.remove(arrayList.count-1)
-    print(arrayList)
+//    arrayList.remove(arrayList.count-1)
+//    print(arrayList)
+//    arrayList.remove(arrayList.count-1)
+//    print(arrayList)
+//    arrayList.remove(arrayList.count-1)
+//    print(arrayList)
+//    arrayList.remove(arrayList.count-1)
+//    print(arrayList)
     
 //    arrayList.clear()
 //    print(arrayList)
@@ -161,6 +169,6 @@ func testLinkList() {
 
 
 //MARK: - 测试入口
-//testArrayList()
+testArrayList()
 
-testLinkList()
+//testLinkList()
