@@ -7,7 +7,7 @@
 
 import Cocoa
 
-/// 双端队列
+/// 双端队列 - 用循环链表实现
 class SingleDeque<E: Comparable> {
     
     //MARK: - 属性

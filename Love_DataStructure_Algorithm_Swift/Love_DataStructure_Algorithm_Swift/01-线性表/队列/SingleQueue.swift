@@ -7,7 +7,7 @@
 
 import Cocoa
 
-/// 单端队列
+/// 单端队列 - 用动态数组实现
 class SingleQueue<E: Comparable> {
 
     //MARK: - 属性
