@@ -24,10 +24,10 @@ class ArrayList <E: Comparable>: AbstractList<E> {
     }
     
     init(capacity : Int) {
-        var capacity = capacity < Const.capacity ? Const.capacity : capacity
+        let newCapacity = capacity < Const.capacity ? Const.capacity : capacity
 //        elements = Array<E?>() // 初始化一个泛型空数组1
         elements = [E?]() // 初始化一个泛型空数组2
-        for _ in 0..<capacity {
+        for _ in 0..<newCapacity {
             elements.append(nil)
         }
     }
