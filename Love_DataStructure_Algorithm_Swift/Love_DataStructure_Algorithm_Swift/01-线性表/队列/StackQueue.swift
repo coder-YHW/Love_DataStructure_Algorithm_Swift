@@ -92,3 +92,12 @@ class StackQueue<E: Comparable> {
     }
 
 }
+
+
+// MARK: - 打印
+extension StackQueue : CustomStringConvertible {
+    
+    var description: String {
+        return "inStack:\(inStack.description) \n outStack:\(outStack.description)"
+    }
+}
