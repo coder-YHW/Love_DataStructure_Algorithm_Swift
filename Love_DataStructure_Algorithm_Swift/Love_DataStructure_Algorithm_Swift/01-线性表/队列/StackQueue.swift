@@ -8,76 +8,87 @@
 import Cocoa
 
 
+/// 用2个栈实现队列操作 （inStack➕outStack）
 class StackQueue<E: Comparable> {
     
     //MARK: - 属性
-    fileprivate var queue = SingleQueue<E>()
-    fileprivate var last = SingleQueue<E>()
+    fileprivate var inStack = Statck<E>()
+    fileprivate var outStack = Statck<E>()
     
     
     //MARK: - 方法
     /**元素个数*/
     func size() -> Int {
-        return queue.size()
+        return inStack.size() + outStack.size()
     }
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return queue.isEmpty()
+        return inStack.isEmpty() && outStack.isEmpty()
     }
     
     /**清空元素*/
     func clear() {
-        queue.clear()
+        
+        while !inStack.isEmpty() {
+            inStack.pop()
+        }
+        
+        while !outStack.isEmpty() {
+            outStack.pop()
+        }
     }
     
-    /// 入栈
-    func push(_ element: E) {
-        queue.enQueue(element)
+    /** 入队 */
+    func enQueue(element: E) {
+        inStack.push(element)
     }
     
-    /// 出栈
+    /// 出队
     @discardableResult
-    func pop() -> E? {
-        let tmpQueue = SingleQueue<E>()
-        for _ in 0..<queue.size() - 1 {
-            tmpQueue.enQueue(queue.deQueue()!)
+    func deQueue() -> E? {
+
+        // 0、队列为空
+        if isEmpty() {
+            return nil
         }
-        let element = queue.deQueue()
-        for _ in 0..<tmpQueue.size() {
-            queue.enQueue(tmpQueue.deQueue()!)
+        
+        // 1、outStack不为空 从outStack出队
+        if !outStack.isEmpty() {
+            return outStack.pop()
         }
-        return element
+        
+        // 2、outStack为空 inStack不为空
+        // 将inStack的元素全部压入outStack
+        while !inStack.isEmpty() {
+            outStack.push(inStack.pop())
+        }
+        
+        // 3、再弹出outStack栈顶元素
+        return outStack.pop()
     }
     
     /// 获取栈顶元素
     func peek() -> E? {
-        let tmpQueue = SingleQueue<E>()
-        for _ in 0..<queue.size() - 1 {
-            tmpQueue.enQueue(queue.deQueue()!)
+
+        // 0、队列为空
+        if isEmpty() {
+            return nil
         }
-        let element = queue.front()
-        for _ in 0..<tmpQueue.size() {
-            queue.enQueue(tmpQueue.deQueue()!)
+        
+        // 1、outStack不为空 从outStack出队
+        if !outStack.isEmpty() {
+            return outStack.peek()
         }
-        queue.enQueue(element!)
-        return element
+        
+        // 2、outStack为空 inStack不为空
+        // 将inStack的元素全部压入outStack
+        while !inStack.isEmpty() {
+            outStack.push(inStack.pop())
+        }
+        
+        // 3、再弹出outStack栈顶元素
+        return outStack.peek()
     }
-    
-    func toString() -> String {
-        let count = queue.size()
-        var text = "count = \(count), ["
-        for i in 0..<count {
-            if i != 0 {
-                text += ", "
-            }
-            if let e = queue.deQueue() {
-                text += "\(e)"
-            } else {
-                text += "nil"
-            }
-        }
-        text += "]"
-        return text
-    }
+
 }
