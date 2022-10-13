@@ -12,8 +12,6 @@ class CircleQueue<E: Comparable> {
 
     //MARK: - 属性
     fileprivate var arrayList = ArrayListUpgrade<E>()
-    fileprivate var front = 0
-    fileprivate var count = 0
     
     
     //MARK: - 方法
@@ -47,65 +45,13 @@ class CircleQueue<E: Comparable> {
         return arrayList.get(0)
     }
     
-//    func toString() -> String {
-//        var text = "count = \(count), ["
-//        for i in 0..<arrayList.count {
-//            if i != 0 {
-//                text += ", "
-//            }
-//            if let e = arrayList[i] {
-//                text += "\(e)"
-//            } else {
-//                text += "nil"
-//            }
-//        }
-//        text += "]"
-//        return text
-//    }
 }
 
 
-//extension CircleQueue {
-//    /// 数组扩容
-//    fileprivate func ensureCapacity(_ capacity: Int) {
-//        let oldCapacity = arrayList.count
-//        if capacity <= oldCapacity { return }
-//        let newCapacity = oldCapacity + oldCapacity >> 1
-//        
-//        var newarrayList = [E?]()
-//        for _ in 0..<newCapacity {
-//            newarrayList.append(nil)
-//        }
-//        for i in 0..<count {
-//            let index = getIndex(i)
-//            newarrayList[i] = arrayList[index]
-//        }
-//        arrayList = newarrayList
-//        front = 0
-//    }
-//    
-//    /// 数组缩容
-//    fileprivate func cutCapacity() {
-//        let oldCapacity = arrayList.count
-//        let newCapacity = oldCapacity >> 1
-//        if count < newCapacity {
-//            var newarrayList = [E?]()
-//            for _ in 0..<newCapacity {
-//                newarrayList.append(nil)
-//            }
-//            for i in 0..<count {
-//                let index = getIndex(i)
-//                newarrayList[i] = arrayList[index]
-//            }
-//            arrayList = newarrayList
-//            front = 0
-//        }
-//    }
-//    
-//    /// 获取当前索引所在数组的真正索引
-//    fileprivate func getIndex(_ index: Int) -> Int {
-//        let newIndex = index + front
-//        let length = arrayList.count
-//        return newIndex >= length ? newIndex - length : newIndex
-//    }
-//}
+//MARK: - 打印 
+extension CircleQueue : CustomStringConvertible {
+    
+    var description: String {
+        return arrayList.description
+    }
+}

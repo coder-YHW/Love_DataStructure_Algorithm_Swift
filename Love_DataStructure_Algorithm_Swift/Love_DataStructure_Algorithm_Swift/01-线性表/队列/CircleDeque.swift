@@ -11,156 +11,61 @@ import Cocoa
 class CircleDeque<E: Comparable> {
 
     //MARK: - 属性
-    fileprivate var elements = [E?]()
-    fileprivate var front = 0
-    fileprivate var count = 0
+    fileprivate var arrayList = ArrayListUpgrade<E>()
     
     
-    required init() {
-        for _ in 0..<Const.capacity {
-            elements.append(nil)
-        }
-    }
-    
-    
+    //MARK: - 方法
     /// 元素数量
     func size() -> Int {
-        return count
+        return arrayList.count
     }
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return count == 0
+        return arrayList.isEmpty()
     }
     
     /**清除所有元素*/
     func clear() {
-        for i in 0..<elements.count {
-            elements[i] = nil
-        }
-        count = 0
+        arrayList.clear()
     }
     
-    /**
-     *[0, nil, nil, nil, nil, nil, nil, nil, nil, nil]
-     *[0, nil, nil, nil, nil, nil, nil, nil, nil, 1]
-     */
     /// 从队头入队
-    func enQueueHeader(_ element: E) {
-        addCapacity(count + 1)
-        
-        front = getIndex(-1)
-        elements[front] = element
-        count += 1
-    }
-    
-    /// 从队头出队
-    func deQueueHeader() -> E? {
-        let element = elements[front]
-        elements[front] = nil
-        
-        front = getIndex(1)
-        count -= 1
-        cutCapacity()
-        
-        return element
+    func enQueueFront(_ element: E) {
+        arrayList.add(by: 0, element: element)
     }
     
     /// 从队尾入队
     func enQueueTail(_ element: E) {
-        addCapacity(count + 1)
-        
-        let index = getIndex(count)
-        elements[index] = element
-        count += 1
+        arrayList.add(element)
+    }
+    
+    /// 从队头出队
+    func deQueueFront() -> E? {
+        arrayList.remove(0)
     }
     
     /// 从队尾出队
     func deQueueTail() -> E? {
-        let index = front + count - 1
-        let element = elements[index]
-        elements[index] = nil
-        
-        count -= 1
-        cutCapacity()
-        
-        return element
+        arrayList.remove(arrayList.count - 1)
     }
     
     /// 获取队列的头元素
-    func header() -> E? {
-        return elements[front]
+    func front() -> E? {
+        return arrayList.get(0)
     }
     
     /// 获取队列的尾元素
     func tail() -> E? {
-        let index = front + count - 1
-        return elements[index]
-    }
-    
-    func toString() -> String {
-        var text = "count = \(count), ["
-        for i in 0..<elements.count {
-            if i != 0 {
-                text += ", "
-            }
-            if let e = elements[i] {
-                text += "\(e)"
-            } else {
-                text += "nil"
-            }
-        }
-        text += "]"
-        return text
+        return arrayList.get(arrayList.count - 1)
     }
 }
 
 
-extension CircleDeque {
-    /// 数组扩容
-    fileprivate func addCapacity(_ capacity: Int) {
-        let oldCapacity = elements.count
-        if capacity <= oldCapacity { return }
-        let newCapacity = oldCapacity + oldCapacity >> 1
-        
-        var newElements = [E?]()
-        for _ in 0..<newCapacity {
-            newElements.append(nil)
-        }
-        for i in 0..<count {
-            let index = getIndex(i)
-            newElements[i] = elements[index]
-        }
-        elements = newElements
-        front = 0
-    }
+//MARK: - 打印 
+extension CircleDeque : CustomStringConvertible {
     
-    /// 数组缩容
-    fileprivate func cutCapacity() {
-        let oldCapacity = elements.count
-        let newCapacity = oldCapacity >> 1
-        if count < newCapacity {
-            var newElements = [E?]()
-            for _ in 0..<newCapacity {
-                newElements.append(nil)
-            }
-            for i in 0..<count {
-                let index = getIndex(i)
-                newElements[i] = elements[index]
-            }
-            elements = newElements
-            front = 0
-        }
-    }
-    
-    /// 获取当前索引所在数组的真正索引
-    fileprivate func getIndex(_ index: Int) -> Int {
-        var newIndex = index + front
-        let length = elements.count
-        if newIndex < 0 {
-            newIndex = newIndex + length
-        }
-        return newIndex >= length ? newIndex - length : newIndex
+    var description: String {
+        return arrayList.description
     }
 }
-

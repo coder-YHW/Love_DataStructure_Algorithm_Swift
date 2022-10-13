@@ -10,43 +10,46 @@ import Cocoa
 class Statck<E> {
     
     //MARK: - 属性
-    fileprivate var list: [E] = []
+    fileprivate var arrayList = ArrayList<E>()
 
     //MARK: - 方法
     /**元素个数*/
     func size() -> Int {
-        return list.count
+        return arrayList.count
     }
     
     /**是否为空*/
     func isEmpty() -> Bool {
-        return list.isEmpty
+        return arrayList.isEmpty
     }
     
     /// 入栈
     func push(_ element: E?) {
-        if let tmp = element {
-            list.append(tmp)
-        }
+        arrayList.add(element)
     }
     
     /// 出栈
     @discardableResult
     func pop() -> E? {
-        if list.isEmpty {
-            return nil
-        }
-        return list.removeLast()
+        arrayList.remove(arrayList.count - 1)
     }
     
     /// 获取栈顶元素
     func peek() -> E? {
-        return list.last
+        return arrayList.get(arrayList.count - 1)
     }
     
     /**清空元素*/
     func clear() {
-        list.removeAll()
+        arrayList.clear()
+    }
+}
+
+// MARK: - 打印
+extension Statck : CustomStringConvertible {
+    
+    var description: String {
+        return arrayList.description
     }
 }
 
