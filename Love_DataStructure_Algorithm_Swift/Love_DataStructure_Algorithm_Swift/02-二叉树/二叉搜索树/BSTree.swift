@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// 二叉搜索树
 class BSTree<E: Comparable> : BinaryTree<E> {
 
     //MARK: - 方法
@@ -59,7 +60,7 @@ class BSTree<E: Comparable> : BinaryTree<E> {
             
             // 添加节点后平衡二叉搜索树 - 子类实现
             afterAdd(root!)
-            
+        
             return
         }
         

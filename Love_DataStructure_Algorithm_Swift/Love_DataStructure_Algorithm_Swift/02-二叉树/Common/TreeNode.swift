@@ -7,7 +7,7 @@
 
 import Cocoa
 
-
+/// 二叉树节点
 class TreeNode<E: Comparable>: Comparable {
     
     //MARK: - 属性

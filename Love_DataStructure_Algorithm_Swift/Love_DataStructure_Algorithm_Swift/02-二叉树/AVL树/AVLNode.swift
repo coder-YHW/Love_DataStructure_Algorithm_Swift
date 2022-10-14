@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// AVL树节点
 class AVLNode<E: Comparable>: TreeNode<E> {
 
     //MARK: - 属性

@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// 二叉树
 class BinaryTree<E: Comparable> {
 
     // MARK: - 属性
@@ -428,12 +429,19 @@ extension BinaryTree: BinaryTreeProtocol {
     }
     
     func string(node: Any?) -> String {
-        if let n = node as? TreeNode<E> {
-//            if let parent = n.parent {
-//                return "\(n.element!)_p\(parent.element!)"
-//            }
-            return "\(n.element!)"
+        
+        if let rbNode = node as? RBNode<E> {
+            
+            if rbNode.isRed {
+                return "R_\(rbNode.element!)"
+            }else {
+                return "\(rbNode.element!)"
+            }
+            
+        }else if let treeNode = node as? TreeNode<E> {
+            return "\(treeNode.element!)"
         }
+        
         return "-"
     }
 }

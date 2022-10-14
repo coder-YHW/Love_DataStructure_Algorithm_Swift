@@ -169,23 +169,32 @@ func testLinkList() {
 
 
 //MARK: - 二叉树测试用例
+func printTree(tree: BSTree<Int>) {
+    let log = InorderPrinter.printTree(tree)
+    log.printIn()
+}
+
 /// 二叉树测试用例
 func testBSTree() {
     
-//    let tree = BSTree<Int>()
-//    let data = [7, 4, 9, 2, 5, 8, 11]
-//    for e in data {
-//        tree.add(e)
-//    }
-//    printTree(tree: tree)
-////    MJBinaryTrees.print(tree)
-//
-//    tree.remove(8)
-//    printTree(tree: tree)
-//
-//    tree.remove(5)
-//    printTree(tree: tree)
+    let tree = BSTree<Int>()
+    let data = [7, 4, 9, 2, 5, 8, 11]
+    for e in data {
+        tree.add(e)
+    }
+    printTree(tree: tree)
+//    MJBinaryTrees.print(tree)
 
+    tree.remove(8)
+    printTree(tree: tree)
+
+    tree.remove(5)
+    printTree(tree: tree)
+}
+
+/// AVL树测试用例
+func testAVLTree() {
+    
     let tree = AVLTree<Int>()
     let data = [2, 98, 100, 84, 7, 42, 20, 63, 53, 95, 91, 28, 19, 75, 59, 99, 29, 86]
     for e in data {
@@ -201,15 +210,33 @@ func testBSTree() {
     printTree(tree: tree)
 }
 
-func printTree(tree: BSTree<Int>) {
-    let log = InorderPrinter.printTree(tree)
-    log.printIn()
+//MARK: - 红黑树测试用例
+/// 红黑树测试用例
+func testRBTree() {
+
+    let tree = RBTree<Int>()
+    let data = [55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50]
+//    let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+//    let data = [0, 1, 2]
+    for e in data {
+        tree.add(e)
+    }
+    printTree(tree: tree)
+//    MJBinaryTrees.print(tree)
+    
+//    tree.remove(20)
+//    printTree(tree: tree)
+//
+//    tree.remove(82)
+//    printTree(tree: tree)
 }
 
 
 //MARK: - 测试入口
-//testArrayList()
 
+//testArrayList()
 //testLinkList()
 
-testBSTree()
+//testBSTree()
+//testAVLTree()
+testRBTree()
