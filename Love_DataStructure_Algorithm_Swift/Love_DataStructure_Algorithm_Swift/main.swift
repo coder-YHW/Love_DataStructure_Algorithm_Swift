@@ -168,7 +168,48 @@ func testLinkList() {
 }
 
 
+//MARK: - 二叉树测试用例
+/// 二叉树测试用例
+func testBSTree() {
+    
+//    let tree = BSTree<Int>()
+//    let data = [7, 4, 9, 2, 5, 8, 11]
+//    for e in data {
+//        tree.add(e)
+//    }
+//    printTree(tree: tree)
+////    MJBinaryTrees.print(tree)
+//
+//    tree.remove(8)
+//    printTree(tree: tree)
+//
+//    tree.remove(5)
+//    printTree(tree: tree)
+
+    let tree = AVLTree<Int>()
+    let data = [2, 98, 100, 84, 7, 42, 20, 63, 53, 95, 91, 28, 19, 75, 59, 99, 29, 86]
+    for e in data {
+        tree.add(e)
+    }
+    printTree(tree: tree)
+//    MJBinaryTrees.print(tree)
+    
+    tree.remove(20)
+    printTree(tree: tree)
+    
+    tree.remove(82)
+    printTree(tree: tree)
+}
+
+func printTree(tree: BSTree<Int>) {
+    let log = InorderPrinter.printTree(tree)
+    log.printIn()
+}
+
+
 //MARK: - 测试入口
-testArrayList()
+//testArrayList()
 
 //testLinkList()
+
+testBSTree()

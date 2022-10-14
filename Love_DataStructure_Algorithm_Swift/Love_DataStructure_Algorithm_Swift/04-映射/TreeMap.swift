@@ -76,7 +76,7 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
     
     //MARK: 前驱节点/后继节点
     /** 获取当前节点的前序节点 */
-    func frontNode(_ node: MapNode<K, V>?) -> MapNode<K, V>? {
+    func prevNode(_ node: MapNode<K, V>?) -> MapNode<K, V>? {
         if node == nil || node?.left == nil { return nil }
         var tmpNode = node?.left
         while tmpNode?.right != nil {
@@ -86,7 +86,7 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
     }
     
     /** 获取当前节点的后序节点*/
-    func behindRoot(_ node: MapNode<K, V>?) -> MapNode<K, V>? {
+    func nextNode(_ node: MapNode<K, V>?) -> MapNode<K, V>? {
         if node == nil || node?.right == nil { return nil }
         var tmpNode = node?.right
         while tmpNode?.left != nil {
@@ -152,9 +152,9 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
             size -= 1
             
             var tmpNode = node
-            if tmpNode.twoChildren() {
+            if tmpNode.hasTwoChildren() {
                 // 找后继结点
-                if let front = behindRoot(tmpNode) {
+                if let front = nextNode(tmpNode) {
                     // 值覆盖
                     tmpNode.val = front.val
                     // 删除前寄结点
@@ -364,7 +364,7 @@ extension TreeMap {
         let child = pNode.left
         grand.right = child
         pNode.left = grand
-        afterRorate(grand, pNode: pNode, child: child)
+        afterRotate(grand, pNode: pNode, child: child)
     }
     
     /// 右旋转
@@ -373,11 +373,11 @@ extension TreeMap {
         let child = pNode.right
         grand.left = child
         pNode.right = grand
-        afterRorate(grand, pNode: pNode, child: child)
+        afterRotate(grand, pNode: pNode, child: child)
     }
     
     /// 旋转
-    fileprivate func afterRorate(_ grand: MapNode<K, V>, pNode: MapNode<K, V>, child: MapNode<K, V>?) {
+    fileprivate func afterRotate(_ grand: MapNode<K, V>, pNode: MapNode<K, V>, child: MapNode<K, V>?) {
         // 设置根节点
         pNode.parent = grand.parent
         if grand.isLeftChild() {

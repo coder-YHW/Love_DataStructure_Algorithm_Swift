@@ -12,5 +12,9 @@ class BinaryTreesPrint {
     static func println(_ tree: BinaryTreeProtocol) {
         let log = InorderPrinter.printTree(tree)
         log.printIn()
+        
+//        let log = MJLevelOrderPrinter(tree: tree)
+//        log.printIn()
+        
     }
 }

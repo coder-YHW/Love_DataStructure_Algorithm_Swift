@@ -31,7 +31,7 @@ class MapNode<K: Comparable, V: Comparable>: Comparable {
     }
     
     /// 有两个节点
-    func twoChildren() -> Bool {
+    func hasTwoChildren() -> Bool {
         return left != nil && right != nil
     }
     

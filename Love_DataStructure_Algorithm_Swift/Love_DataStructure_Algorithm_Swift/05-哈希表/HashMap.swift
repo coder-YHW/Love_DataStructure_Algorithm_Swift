@@ -300,7 +300,7 @@ extension HashMap {
         size -= 1
         
         let oldVal = curNode?.val
-        if curNode?.twoChildren() == true {
+        if curNode?.hasTwoChildren() == true {
             // 度为2的节点, 找后继节点
             let s = successor(curNode)
             node?.key = s?.key
@@ -558,7 +558,7 @@ extension HashMap {
         let child = pNode.left
         grand.right = child
         pNode.left = grand
-        afterRorate(grand, pNode: pNode, child: child)
+        afterRotate(grand, pNode: pNode, child: child)
     }
     
     /// 右旋转
@@ -567,11 +567,11 @@ extension HashMap {
         let child = pNode.right
         grand.left = child
         pNode.right = grand
-        afterRorate(grand, pNode: pNode, child: child)
+        afterRotate(grand, pNode: pNode, child: child)
     }
     
     /// 旋转
-    fileprivate func afterRorate(_ grand: HashNode<K, V>, pNode: HashNode<K, V>, child: HashNode<K, V>?) {
+    fileprivate func afterRotate(_ grand: HashNode<K, V>, pNode: HashNode<K, V>, child: HashNode<K, V>?) {
         // 设置根节点
         pNode.parent = grand.parent
         if grand.isLeftChild() {

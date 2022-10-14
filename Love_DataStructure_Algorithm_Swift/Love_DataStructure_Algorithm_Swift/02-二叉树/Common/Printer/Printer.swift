@@ -23,7 +23,7 @@ class Printer {
     }
     
     func printOut() {
-        print(printString() ?? "")
+        print(printString()?.utf8 ?? "")
     }
     
     func printString() -> String? {
