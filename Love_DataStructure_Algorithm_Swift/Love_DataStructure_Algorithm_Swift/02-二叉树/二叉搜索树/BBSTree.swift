@@ -10,6 +10,7 @@ import Cocoa
 /// 平衡二叉搜索树 - 旋转操作
 class BBSTree<E: Comparable>: BSTree<E> {
     
+    //MARK: - 左旋转
     /// 左旋转
     func rotateLeft(_ grand: TreeNode<E>) {
         // 1、找到parent和child
@@ -26,6 +27,7 @@ class BBSTree<E: Comparable>: BSTree<E> {
         afterRotate(grand, parent: parent, child: child)
     }
     
+    //MARK: - 右旋转
     /// 右旋转
     func rotateRight(_ grand: TreeNode<E>) {
         
@@ -43,6 +45,7 @@ class BBSTree<E: Comparable>: BSTree<E> {
         afterRotate(grand, parent: parent, child: child)
     }
     
+    //MARK: - 旋转之后更新parent和height
     /// 旋转之后 - 依次更新parent、child、grand的parent
     /// 旋转之后记得更新高度 - 子类重写
     func afterRotate(_ grand: TreeNode<E>, parent: TreeNode<E>, child: TreeNode<E>?) {
@@ -68,6 +71,7 @@ class BBSTree<E: Comparable>: BSTree<E> {
         grand.parent = parent
     }
     
+    //MARK: - 统一旋转
     /// 平衡旋转 - - 旋转之后记得更新高度 - 子类重写
     func rotate(r: TreeNode<E>,
                 a: TreeNode<E>?, b: TreeNode<E>?, c: TreeNode<E>?,
