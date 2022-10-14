@@ -170,6 +170,8 @@
 		0D1BDBB428F9D935004F1D93 /* LinkedList02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList02.PNG; sourceTree = "<group>"; };
 		0D1BDBB528F9D935004F1D93 /* LinkedList03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList03.PNG; sourceTree = "<group>"; };
 		0D1BDBB628F9D935004F1D93 /* LinkedList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList01.PNG; sourceTree = "<group>"; };
+		0D1BDBB828F9DA6A004F1D93 /* 恋上数据结构与算法-第二季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第二季.pdf"; sourceTree = "<group>"; };
+		0D1BDBB928F9DA6B004F1D93 /* 恋上数据结构与算法-第一季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第一季.pdf"; sourceTree = "<group>"; };
 		0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueStack.swift; sourceTree = "<group>"; };
 		0D66C5A328F8081F00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVLNode.swift; sourceTree = "<group>"; };
@@ -432,6 +434,8 @@
 			isa = PBXGroup;
 			children = (
 				0DC90AB728EF4F0300AA8754 /* main.swift */,
+				0D1BDBB928F9DA6B004F1D93 /* 恋上数据结构与算法-第一季.pdf */,
+				0D1BDBB828F9DA6A004F1D93 /* 恋上数据结构与算法-第二季.pdf */,
 				0DC90BE428F01E9200AA8754 /* 00-pulic */,
 				0DC90B9128F01E9000AA8754 /* 01-线性表 */,
 				0DC90BB828F01E9100AA8754 /* 02-二叉树 */,
