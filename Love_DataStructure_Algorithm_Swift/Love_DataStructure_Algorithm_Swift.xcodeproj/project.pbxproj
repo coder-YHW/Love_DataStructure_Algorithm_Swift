@@ -116,6 +116,60 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0D1BDB7E28F9D85A004F1D93 /* ALV树.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ALV树.PNG"; sourceTree = "<group>"; };
+		0D1BDB8028F9D870004F1D93 /* 红黑树删除03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除03.PNG"; sourceTree = "<group>"; };
+		0D1BDB8128F9D870004F1D93 /* 红黑树删除02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除02.PNG"; sourceTree = "<group>"; };
+		0D1BDB8228F9D870004F1D93 /* 红黑树删除01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除01.PNG"; sourceTree = "<group>"; };
+		0D1BDB8328F9D870004F1D93 /* 红黑树删除05.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除05.PNG"; sourceTree = "<group>"; };
+		0D1BDB8428F9D870004F1D93 /* 红黑树添加08.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加08.PNG"; sourceTree = "<group>"; };
+		0D1BDB8528F9D870004F1D93 /* 红黑树删除04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除04.PNG"; sourceTree = "<group>"; };
+		0D1BDB8628F9D870004F1D93 /* 红黑树删除06.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除06.PNG"; sourceTree = "<group>"; };
+		0D1BDB8728F9D870004F1D93 /* 红黑树删除07.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除07.PNG"; sourceTree = "<group>"; };
+		0D1BDB8828F9D870004F1D93 /* 红黑树添加07.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加07.PNG"; sourceTree = "<group>"; };
+		0D1BDB8928F9D870004F1D93 /* 红黑树添加06.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加06.PNG"; sourceTree = "<group>"; };
+		0D1BDB8A28F9D870004F1D93 /* 红黑树添加04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加04.PNG"; sourceTree = "<group>"; };
+		0D1BDB8B28F9D870004F1D93 /* 红黑树添加05.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加05.PNG"; sourceTree = "<group>"; };
+		0D1BDB8C28F9D870004F1D93 /* 红黑树删除08.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树删除08.PNG"; sourceTree = "<group>"; };
+		0D1BDB8D28F9D870004F1D93 /* 红黑树添加01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加01.PNG"; sourceTree = "<group>"; };
+		0D1BDB8E28F9D870004F1D93 /* 红黑树添加02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加02.PNG"; sourceTree = "<group>"; };
+		0D1BDB8F28F9D870004F1D93 /* 红黑树添加03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树添加03.PNG"; sourceTree = "<group>"; };
+		0D1BDB9028F9D870004F1D93 /* 红黑树.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "红黑树.PNG"; sourceTree = "<group>"; };
+		0D1BDB9228F9D8D6004F1D93 /* 二叉树遍历04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历04.PNG"; sourceTree = "<group>"; };
+		0D1BDB9328F9D8D6004F1D93 /* 二叉树02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树02.PNG"; sourceTree = "<group>"; };
+		0D1BDB9428F9D8D6004F1D93 /* 二叉树03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树03.PNG"; sourceTree = "<group>"; };
+		0D1BDB9528F9D8D6004F1D93 /* 二叉树遍历05.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历05.PNG"; sourceTree = "<group>"; };
+		0D1BDB9628F9D8D6004F1D93 /* 二叉树遍历07.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历07.PNG"; sourceTree = "<group>"; };
+		0D1BDB9728F9D8D6004F1D93 /* 二叉树01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树01.PNG"; sourceTree = "<group>"; };
+		0D1BDB9828F9D8D6004F1D93 /* 二叉树后继节点.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树后继节点.PNG"; sourceTree = "<group>"; };
+		0D1BDB9928F9D8D6004F1D93 /* 二叉树遍历06.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历06.PNG"; sourceTree = "<group>"; };
+		0D1BDB9A28F9D8D6004F1D93 /* 二叉树遍历02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历02.PNG"; sourceTree = "<group>"; };
+		0D1BDB9B28F9D8D6004F1D93 /* 二叉树04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树04.PNG"; sourceTree = "<group>"; };
+		0D1BDB9C28F9D8D6004F1D93 /* 二叉树05.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树05.PNG"; sourceTree = "<group>"; };
+		0D1BDB9D28F9D8D6004F1D93 /* 二叉树遍历03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历03.PNG"; sourceTree = "<group>"; };
+		0D1BDB9E28F9D8D6004F1D93 /* 二叉树遍历01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历01.PNG"; sourceTree = "<group>"; };
+		0D1BDB9F28F9D8D6004F1D93 /* 二叉树07.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树07.PNG"; sourceTree = "<group>"; };
+		0D1BDBA028F9D8D6004F1D93 /* 二叉树06.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树06.PNG"; sourceTree = "<group>"; };
+		0D1BDBA128F9D8D6004F1D93 /* 二叉树遍历00.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历00.PNG"; sourceTree = "<group>"; };
+		0D1BDBA228F9D8D6004F1D93 /* 二叉树08.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树08.PNG"; sourceTree = "<group>"; };
+		0D1BDBA328F9D8D6004F1D93 /* 二叉树09.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树09.PNG"; sourceTree = "<group>"; };
+		0D1BDBA428F9D8D6004F1D93 /* 二叉树遍历08.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树遍历08.PNG"; sourceTree = "<group>"; };
+		0D1BDBA528F9D8D6004F1D93 /* 二叉树前驱节点.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉树前驱节点.PNG"; sourceTree = "<group>"; };
+		0D1BDBA728F9D935004F1D93 /* DoubleCircleLinkedList02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleCircleLinkedList02.PNG; sourceTree = "<group>"; };
+		0D1BDBA828F9D935004F1D93 /* DoubleCircleLinkedList03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleCircleLinkedList03.PNG; sourceTree = "<group>"; };
+		0D1BDBA928F9D935004F1D93 /* DoubleCircleLinkedList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleCircleLinkedList01.PNG; sourceTree = "<group>"; };
+		0D1BDBAA28F9D935004F1D93 /* DoubleLinkList04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleLinkList04.PNG; sourceTree = "<group>"; };
+		0D1BDBAB28F9D935004F1D93 /* DoubleCircleLinkedList04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleCircleLinkedList04.PNG; sourceTree = "<group>"; };
+		0D1BDBAC28F9D935004F1D93 /* DoubleLinkList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleLinkList01.PNG; sourceTree = "<group>"; };
+		0D1BDBAD28F9D935004F1D93 /* DoubleLinkList03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleLinkList03.PNG; sourceTree = "<group>"; };
+		0D1BDBAE28F9D935004F1D93 /* DoubleLinkList02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoubleLinkList02.PNG; sourceTree = "<group>"; };
+		0D1BDBAF28F9D935004F1D93 /* 循环链表扩展.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "循环链表扩展.PNG"; sourceTree = "<group>"; };
+		0D1BDBB028F9D935004F1D93 /* SingleCircleLinkedList03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SingleCircleLinkedList03.PNG; sourceTree = "<group>"; };
+		0D1BDBB128F9D935004F1D93 /* SingleCircleLinkedList02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SingleCircleLinkedList02.PNG; sourceTree = "<group>"; };
+		0D1BDBB228F9D935004F1D93 /* SingleCircleLinkedList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SingleCircleLinkedList01.PNG; sourceTree = "<group>"; };
+		0D1BDBB328F9D935004F1D93 /* SingleCircleLinkedList04.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SingleCircleLinkedList04.PNG; sourceTree = "<group>"; };
+		0D1BDBB428F9D935004F1D93 /* LinkedList02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList02.PNG; sourceTree = "<group>"; };
+		0D1BDBB528F9D935004F1D93 /* LinkedList03.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList03.PNG; sourceTree = "<group>"; };
+		0D1BDBB628F9D935004F1D93 /* LinkedList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList01.PNG; sourceTree = "<group>"; };
 		0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueStack.swift; sourceTree = "<group>"; };
 		0D66C5A328F8081F00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVLNode.swift; sourceTree = "<group>"; };
@@ -241,6 +295,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D1BDB7D28F9D85A004F1D93 /* 图片 */ = {
+			isa = PBXGroup;
+			children = (
+				0D1BDB7E28F9D85A004F1D93 /* ALV树.PNG */,
+			);
+			path = "图片";
+			sourceTree = "<group>";
+		};
+		0D1BDB7F28F9D870004F1D93 /* 图片 */ = {
+			isa = PBXGroup;
+			children = (
+				0D1BDB9028F9D870004F1D93 /* 红黑树.PNG */,
+				0D1BDB8D28F9D870004F1D93 /* 红黑树添加01.PNG */,
+				0D1BDB8E28F9D870004F1D93 /* 红黑树添加02.PNG */,
+				0D1BDB8F28F9D870004F1D93 /* 红黑树添加03.PNG */,
+				0D1BDB8A28F9D870004F1D93 /* 红黑树添加04.PNG */,
+				0D1BDB8B28F9D870004F1D93 /* 红黑树添加05.PNG */,
+				0D1BDB8928F9D870004F1D93 /* 红黑树添加06.PNG */,
+				0D1BDB8828F9D870004F1D93 /* 红黑树添加07.PNG */,
+				0D1BDB8428F9D870004F1D93 /* 红黑树添加08.PNG */,
+				0D1BDB8228F9D870004F1D93 /* 红黑树删除01.PNG */,
+				0D1BDB8128F9D870004F1D93 /* 红黑树删除02.PNG */,
+				0D1BDB8028F9D870004F1D93 /* 红黑树删除03.PNG */,
+				0D1BDB8528F9D870004F1D93 /* 红黑树删除04.PNG */,
+				0D1BDB8328F9D870004F1D93 /* 红黑树删除05.PNG */,
+				0D1BDB8628F9D870004F1D93 /* 红黑树删除06.PNG */,
+				0D1BDB8728F9D870004F1D93 /* 红黑树删除07.PNG */,
+				0D1BDB8C28F9D870004F1D93 /* 红黑树删除08.PNG */,
+			);
+			path = "图片";
+			sourceTree = "<group>";
+		};
+		0D1BDB9128F9D8D6004F1D93 /* 图片 */ = {
+			isa = PBXGroup;
+			children = (
+				0D1BDB9728F9D8D6004F1D93 /* 二叉树01.PNG */,
+				0D1BDB9328F9D8D6004F1D93 /* 二叉树02.PNG */,
+				0D1BDB9428F9D8D6004F1D93 /* 二叉树03.PNG */,
+				0D1BDB9B28F9D8D6004F1D93 /* 二叉树04.PNG */,
+				0D1BDB9C28F9D8D6004F1D93 /* 二叉树05.PNG */,
+				0D1BDBA028F9D8D6004F1D93 /* 二叉树06.PNG */,
+				0D1BDB9F28F9D8D6004F1D93 /* 二叉树07.PNG */,
+				0D1BDBA228F9D8D6004F1D93 /* 二叉树08.PNG */,
+				0D1BDBA328F9D8D6004F1D93 /* 二叉树09.PNG */,
+				0D1BDBA128F9D8D6004F1D93 /* 二叉树遍历00.PNG */,
+				0D1BDB9E28F9D8D6004F1D93 /* 二叉树遍历01.PNG */,
+				0D1BDB9A28F9D8D6004F1D93 /* 二叉树遍历02.PNG */,
+				0D1BDB9D28F9D8D6004F1D93 /* 二叉树遍历03.PNG */,
+				0D1BDB9228F9D8D6004F1D93 /* 二叉树遍历04.PNG */,
+				0D1BDB9528F9D8D6004F1D93 /* 二叉树遍历05.PNG */,
+				0D1BDB9928F9D8D6004F1D93 /* 二叉树遍历06.PNG */,
+				0D1BDB9628F9D8D6004F1D93 /* 二叉树遍历07.PNG */,
+				0D1BDBA428F9D8D6004F1D93 /* 二叉树遍历08.PNG */,
+				0D1BDBA528F9D8D6004F1D93 /* 二叉树前驱节点.PNG */,
+				0D1BDB9828F9D8D6004F1D93 /* 二叉树后继节点.PNG */,
+			);
+			path = "图片";
+			sourceTree = "<group>";
+		};
+		0D1BDBA628F9D935004F1D93 /* 图片 */ = {
+			isa = PBXGroup;
+			children = (
+				0D1BDBB628F9D935004F1D93 /* LinkedList01.PNG */,
+				0D1BDBB428F9D935004F1D93 /* LinkedList02.PNG */,
+				0D1BDBB528F9D935004F1D93 /* LinkedList03.PNG */,
+				0D1BDBAC28F9D935004F1D93 /* DoubleLinkList01.PNG */,
+				0D1BDBAE28F9D935004F1D93 /* DoubleLinkList02.PNG */,
+				0D1BDBAD28F9D935004F1D93 /* DoubleLinkList03.PNG */,
+				0D1BDBAA28F9D935004F1D93 /* DoubleLinkList04.PNG */,
+				0D1BDBB228F9D935004F1D93 /* SingleCircleLinkedList01.PNG */,
+				0D1BDBB128F9D935004F1D93 /* SingleCircleLinkedList02.PNG */,
+				0D1BDBB028F9D935004F1D93 /* SingleCircleLinkedList03.PNG */,
+				0D1BDBB328F9D935004F1D93 /* SingleCircleLinkedList04.PNG */,
+				0D1BDBA928F9D935004F1D93 /* DoubleCircleLinkedList01.PNG */,
+				0D1BDBA728F9D935004F1D93 /* DoubleCircleLinkedList02.PNG */,
+				0D1BDBA828F9D935004F1D93 /* DoubleCircleLinkedList03.PNG */,
+				0D1BDBAB28F9D935004F1D93 /* DoubleCircleLinkedList04.PNG */,
+				0D1BDBAF28F9D935004F1D93 /* 循环链表扩展.PNG */,
+			);
+			path = "图片";
+			sourceTree = "<group>";
+		};
 		0D66C5C928F95E3B00D280E2 /* MJPrinter */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +505,7 @@
 		0DC90B9828F01E9000AA8754 /* 链表 */ = {
 			isa = PBXGroup;
 			children = (
+				0D1BDBA628F9D935004F1D93 /* 图片 */,
 				0DC90B9D28F01E9000AA8754 /* SingleLinkList.swift */,
 				0DC90B9928F01E9000AA8754 /* DoubleLinkList.swift */,
 				0DC90B9A28F01E9000AA8754 /* CircleSingleLineList.swift */,
@@ -381,6 +518,7 @@
 		0DC90B9E28F01E9000AA8754 /* AVL树 */ = {
 			isa = PBXGroup;
 			children = (
+				0D1BDB7D28F9D85A004F1D93 /* 图片 */,
 				0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */,
 				0DC90BA028F01E9000AA8754 /* AVLTree.swift */,
 			);
@@ -456,6 +594,7 @@
 			children = (
 				0D66C5C928F95E3B00D280E2 /* MJPrinter */,
 				0DC90BBB28F01E9100AA8754 /* Printer */,
+				0D1BDB9128F9D8D6004F1D93 /* 图片 */,
 				0DC90BC028F01E9200AA8754 /* TreeNode.swift */,
 				0DC90BC428F01E9200AA8754 /* BinaryTree.swift */,
 			);
@@ -543,6 +682,7 @@
 		0DC90BE228F01E9200AA8754 /* 红黑树 */ = {
 			isa = PBXGroup;
 			children = (
+				0D1BDB7F28F9D870004F1D93 /* 图片 */,
 				0DC90BBF28F01E9100AA8754 /* RBNode.swift */,
 				0DC90BE328F01E9200AA8754 /* RBTree.swift */,
 			);
