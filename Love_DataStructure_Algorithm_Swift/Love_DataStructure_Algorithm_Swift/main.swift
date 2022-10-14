@@ -192,7 +192,7 @@ func testBSTree() {
     printTree(tree: tree)
 }
 
-/// AVL树测试用例
+//MARK: - AVL树测试用例
 func testAVLTree() {
     
     let tree = AVLTree<Int>()
@@ -211,7 +211,6 @@ func testAVLTree() {
 }
 
 //MARK: - 红黑树测试用例
-/// 红黑树测试用例
 func testRBTree() {
 
     let tree = RBTree<Int>()

@@ -13,8 +13,6 @@ class RBNode<E: Comparable>: TreeNode<E> {
     //MARK: - 属性
     public var isRed = true
 
-//    public var children: [RBNode]
-
     
     //MARK: - 构造函数
     init(element: E?, parent: RBNode? = nil) {
