@@ -470,7 +470,6 @@
 			children = (
 				0DC90B9028F01E9000AA8754 /* HashNode.swift */,
 				0DC90B8E28F01E9000AA8754 /* HashMap.swift */,
-				0DC90B8F28F01E9000AA8754 /* HashSet.swift */,
 			);
 			path = "05-哈希表";
 			sourceTree = "<group>";
@@ -738,6 +737,7 @@
 				0DC90BF428F01E9300AA8754 /* Set.swift */,
 				0DC90BF228F01E9300AA8754 /* ListSet.swift */,
 				0DC90BF328F01E9300AA8754 /* TreeSet.swift */,
+				0DC90B8F28F01E9000AA8754 /* HashSet.swift */,
 			);
 			path = "03-集合";
 			sourceTree = "<group>";
