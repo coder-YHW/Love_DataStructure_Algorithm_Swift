@@ -9,6 +9,7 @@ import Cocoa
 
 class MapNode<K: Comparable, V: Comparable>: Comparable {
     
+    //MARK: - 属性
     public var key: K
     public var val: V?
     public var isRed = true
@@ -16,15 +17,17 @@ class MapNode<K: Comparable, V: Comparable>: Comparable {
     public var parent: MapNode?
     public var left: MapNode?
     public var right: MapNode?
-//    public var height = 1
     
     
+    //MARK: - 构造函数
     public init(_ key: K, _ val: V?, parent: MapNode? = nil) {
         self.key = key
         self.val = val
         self.parent = parent
     }
     
+    
+    //MARK: - 辅助函数
     /// 是否是叶子节点
     func isLeaf() -> Bool {
         return left == nil && right == nil
@@ -57,6 +60,7 @@ class MapNode<K: Comparable, V: Comparable>: Comparable {
     }
     
     
+    //MARK: - Comparable协议
     static func < (lhs: MapNode, rhs: MapNode) -> Bool {
         let lElement = lhs.val
         let rElement = rhs.val
@@ -67,11 +71,22 @@ class MapNode<K: Comparable, V: Comparable>: Comparable {
         return false
     }
     
+    static func > (lhs: MapNode, rhs: MapNode) -> Bool {
+        let lElement = lhs.val
+        let rElement = rhs.val
+        
+        if let lhsVal = lElement, let rhsVal = rElement {
+            return lhsVal > rhsVal
+        }
+        return false
+    }
+    
     static func == (lhs: MapNode, rhs: MapNode) -> Bool {
         return lhs.val == rhs.val
     }
     
     
+    // MARK: - 打印
     func string() -> String {
         let v = val == nil ? "nil" : String(describing: val)
         return """

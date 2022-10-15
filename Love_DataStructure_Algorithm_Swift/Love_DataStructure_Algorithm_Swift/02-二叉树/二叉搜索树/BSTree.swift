@@ -58,7 +58,7 @@ class BSTree<E: Comparable> : BinaryTree<E> {
             root = createNode(element: element, parent: nil)
             count += 1
             
-            // 添加节点后平衡二叉搜索树 - 子类实现
+            // 5、添加节点后平衡二叉搜索树 - 子类实现
             afterAdd(root!)
         
             return
@@ -79,6 +79,7 @@ class BSTree<E: Comparable> : BinaryTree<E> {
                 node = node?.left
             }else { // cmp == 0 覆盖
                 node?.element = element
+                
                 return
             }
         }
@@ -91,10 +92,10 @@ class BSTree<E: Comparable> : BinaryTree<E> {
             parent?.left = newNode
         }
         
-        // 索引+= 1
+        // 4、索引+= 1
         count += 1
         
-        // 添加节点后平衡二叉搜索树 - 子类实现
+        // 5、添加节点后平衡二叉搜索树 - 子类实现
         afterAdd(newNode)
     }
     

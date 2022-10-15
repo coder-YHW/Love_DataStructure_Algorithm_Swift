@@ -242,11 +242,37 @@ func testRBTree() {
 }
 
 
+//MARK: - TreeMap测试用例
+func printMap(map: TreeMap<Int, Int>) {
+    let log = InorderPrinter.printTree(map)
+    log.printIn()
+}
+
+func testTreeMap() {
+    
+    let treeMap = TreeMap<Int, Int>()
+    let keys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    let vals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    
+    for i in 0..<keys.count {
+        treeMap.put(key: keys[i], val: vals[i])
+    }
+    
+    printMap(map: treeMap)
+    
+    treeMap.traversal { key, val in
+        print("\(key):\(val)")
+    }
+}
+
+
 //MARK: - 测试入口
 
 //testArrayList()
 //testLinkList()
 
-testBSTree()
+//testBSTree()
 //testAVLTree()
 //testRBTree()
+
+testTreeMap()

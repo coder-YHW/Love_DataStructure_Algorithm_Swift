@@ -24,7 +24,7 @@ class TreeNode<E: Comparable>: Comparable {
     }
     
     
-    //MARK: - 方法
+    //MARK: - 辅助方法
     /// 是否是叶子节点
     func isLeaf() -> Bool {
         return left == nil && right == nil
@@ -70,7 +70,7 @@ class TreeNode<E: Comparable>: Comparable {
     }
     
     
-    //MARK: - Comparable
+    //MARK: - Comparable协议
     static func < (lhs: TreeNode<E>, rhs: TreeNode<E>) -> Bool {
         let lElement = lhs.element
         let rElement = rhs.element
@@ -98,8 +98,6 @@ class TreeNode<E: Comparable>: Comparable {
     }
     
 }
-
-
 
 
 // MARK: - 打印

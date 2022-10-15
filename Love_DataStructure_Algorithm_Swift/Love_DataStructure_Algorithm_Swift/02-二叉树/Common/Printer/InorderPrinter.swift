@@ -60,10 +60,10 @@ class InorderPrinter {
             let nodeStr = printStringNode(node, nodePrefix: "", leftPrefix: "", rightPrefix: "")
             string.append(nodeStr)
         }
-//        else if let node = tree?.getRoot() as? RBNode<Int> {
-//            let nodeStr = printStringTreeNode(node, nodePrefix: "", leftPrefix: "", rightPrefix: "")
-//            string.append(nodeStr)
-//        }
+        else if let node = tree?.getRoot() as? MapNode<Int, Int> {
+            let nodeStr = printStringTreeNode(node, nodePrefix: "", leftPrefix: "", rightPrefix: "")
+            string.append(nodeStr)
+        }
         else if let node = tree?.getRoot() as? Int {
             let nodeStr = printStringComparable(node, nodePrefix: "", leftPrefix: "", rightPrefix: "")
             string.append(nodeStr)
@@ -124,7 +124,7 @@ extension InorderPrinter {
      *  leftPrefix node整棵左子树的前缀字符串
      *  rightPrefix node整棵右子树的前缀字符串
      */
-    fileprivate func printStringTreeNode(_ node: RBNode<Int>, nodePrefix: String, leftPrefix: String, rightPrefix: String) -> String {
+    fileprivate func printStringTreeNode(_ node: MapNode<Int, Int>, nodePrefix: String, leftPrefix: String, rightPrefix: String) -> String {
         let left = tree?.left(node: node)
         let right = tree?.right(node: node)
         let string = tree?.string(node: node) ?? ""
@@ -139,7 +139,7 @@ extension InorderPrinter {
         length >>= 1
         
         var nodeString = ""
-        if let item = right as? RBNode<Int> {
+        if let item = right as? MapNode<Int, Int> {
             rightString.append(String.tk_blank(count: length))
             let newStr = printStringTreeNode(item, nodePrefix: rightPrefix + rightAppend, leftPrefix: rightPrefix + lineAppend, rightPrefix: rightPrefix + blankAppend)
             nodeString.append(newStr)
@@ -148,7 +148,7 @@ extension InorderPrinter {
         nodeString.append(string)
         nodeString.append("\n")
         
-        if let item = left as? RBNode<Int> {
+        if let item = left as? MapNode<Int, Int> {
             leftString.append(String.tk_blank(count: length))
             let newStr = printStringTreeNode(item, nodePrefix: leftPrefix + leftAppend, leftPrefix: leftPrefix + blankAppend, rightPrefix: leftPrefix + lineAppend)
             nodeString.append(newStr)

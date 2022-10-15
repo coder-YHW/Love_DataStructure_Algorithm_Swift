@@ -193,7 +193,7 @@ extension BinaryTree {
         }
         
         var node = root
-        var tmpNode: TreeNode<E>?
+        var currNode: TreeNode<E>?
 
         let stack = Statck<TreeNode<E>>()
         stack.push(node)
@@ -203,9 +203,9 @@ extension BinaryTree {
             let isLeaf = peek?.isLeaf() ?? false
 
             // 栈顶节点是否是椰子节点, 上一次访问节点是否是栈顶节点的子节点
-            if isLeaf || tmpNode?.parent == peek {
+            if isLeaf || currNode?.parent == peek {
                 node = stack.pop()
-                tmpNode = node
+                currNode = node
                 print(node!)
                 
             } else {
@@ -408,12 +408,12 @@ extension BinaryTree {
             return nil
         }
         
-        var tmpNode = node?.left
-        while tmpNode?.right != nil {
-            tmpNode = tmpNode?.right
+        var currNode = node?.left
+        while currNode?.right != nil {
+            currNode = currNode?.right
         }
         
-        return tmpNode
+        return currNode
     }
 
     /// 获取当前节点的后序节点
@@ -423,12 +423,12 @@ extension BinaryTree {
             return nil
         }
         
-        var tmpNode = node?.right
-        while tmpNode?.left != nil {
-            tmpNode = tmpNode?.left
+        var currNode = node?.right
+        while currNode?.left != nil {
+            currNode = currNode?.left
         }
         
-        return tmpNode
+        return currNode
     }
 }
  

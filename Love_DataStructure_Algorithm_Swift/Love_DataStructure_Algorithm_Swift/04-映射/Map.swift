@@ -8,6 +8,8 @@
 import Cocoa
 
 class Map<K: Comparable, V: Comparable> {
+    
+                
     /**元素个数*/
     func count() -> Int {
         return 0
@@ -22,10 +24,7 @@ class Map<K: Comparable, V: Comparable> {
     func clear() {}
     
     /**添加元素*/
-    @discardableResult
-    func put(key: K, val: V) -> V? {
-        return nil
-    }
+    func put(key: K, val: V) {}
     
     /**根据key查询value*/
     func get(key: K) -> V? {
@@ -33,9 +32,7 @@ class Map<K: Comparable, V: Comparable> {
     }
     
     /**删除元素*/
-    func remove(key: K) -> V? {
-        return nil
-    }
+    func remove(key: K) {}
     
     /**是否包含Key*/
     func containsKey(key: K) -> Bool {
