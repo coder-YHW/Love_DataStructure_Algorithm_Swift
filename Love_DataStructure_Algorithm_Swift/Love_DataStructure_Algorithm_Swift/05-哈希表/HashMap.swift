@@ -64,14 +64,13 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         
         if size == 0 { return false }
         
-        let queue = SingleQueue<HashNode<K, V>>()
-        
         for node in tables { // 遍历每一张红黑树
             
             guard let rootNode = node else { // 0、root为nil 空树 下一个
                 continue
             }
             
+            let queue = SingleQueue<HashNode<K, V>>()
             queue.enQueue(rootNode) // 1、根节点入队 再层序遍历整棵树
             
             while !queue.isEmpty() {
@@ -283,14 +282,15 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
     //MARK: 删除元素
     /**删除元素*/
     override func remove(key: K) {
-        remove(getNodeFromKey(key))
+        let node = getNodeFromKey(key)
+        remove(node: node)
     }
     
     /**删除元素*/
-    fileprivate func remove(_ node: HashNode<K, V>?) {
+    fileprivate func remove(node: HashNode<K, V>?) {
         
         // 0、可选类型非nil判断
-        guard var node else { return }
+        guard var node = node else { return }
         
         // 1、node的度为2 - 它的前驱节点或后继节点 只能是度为0或1的节点
         if node.hasTwoChildren() {

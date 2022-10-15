@@ -117,8 +117,8 @@ class ArrayList <E: Comparable>: AbstractList<E> {
         
         // index位置后面的值依次往前移动一位 - 注意移动顺序
         let element = elements[index];
-        for i in (index..<count) {
-            elements[i] = elements[i+1];
+        for i in (index+1)..<count {  // 范围：(index+1)..<count 赋值：elements[i-1] = elements[i];
+            elements[i-1] = elements[i];
         }
         
         elements[count-1] = nil;

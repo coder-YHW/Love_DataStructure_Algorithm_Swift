@@ -260,6 +260,9 @@ func testTreeMap() {
     
     printMap(map: treeMap)
     
+    treeMap.remove(key: 9)
+    printMap(map: treeMap)
+    
     treeMap.traversal { key, val in
         print("\(key):\(val)")
     }
@@ -283,7 +286,7 @@ func testHashMap() {
     assert(hashMap.containsKey(key: 11))
     assert(hashMap.containsValue(val: 33))
     
-    hashMap.remove(key: 11)
+    hashMap.remove(key: 33)
     print("删除33")
     
     hashMap.traversal { key, value in

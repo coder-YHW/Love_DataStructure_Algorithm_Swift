@@ -167,10 +167,10 @@ class ArrayListUpgrade<E: Comparable>: AbstractList<E> {
         }else { // 3、在数组中间删除元素
          
             // index位置后面的值依次往前移动一位 - 注意移动顺序
-            for i in (index..<count) {
+            for i in ((index+1)..<count) { // 范围：(index+1)..<count 赋值：elements[i-1] = elements[i];
                 // 索引映射
-                let curr = getIndex(index: i)
-                let next = getIndex(index: i+1) // 不能curr+1 可能会超过count
+                let curr = getIndex(index: i-1)
+                let next = getIndex(index: i) // 不能curr+1 可能会超过count
                 elements[curr] = elements[next];
             }
             
