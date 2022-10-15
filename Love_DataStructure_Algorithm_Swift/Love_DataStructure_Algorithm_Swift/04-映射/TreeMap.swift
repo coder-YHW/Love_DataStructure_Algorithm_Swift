@@ -49,7 +49,7 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
             
             if let key2 = node?.key {
                 
-                cmp = compare(element1: key, element2: key2)
+                cmp = compare(key1: key, key2: key2)
     
                 if cmp > 0 { // cmp > 0 右子树
                     node = node?.right
@@ -92,7 +92,7 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
         while !queue.isEmpty() {
             
             let node = queue.deQueue()
-            if  valEquals(element1: val, element2: node?.val) {
+            if  valEquals(val1: val, val2: node?.val) {
                 return true
             }
             
@@ -141,6 +141,24 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
         
     }
     
+    /// 所有key
+    func allKeys() -> [K] {
+        var array = [K]()
+        traversal { key, val in
+            array.append(key)
+        }
+        return array
+    }
+    
+    /// 所有value
+    func allValues() -> [V] {
+        var array = [V]()
+        traversal { key, val in
+            array.append(val)
+        }
+        return array
+    }
+    
     
     //MARK: 添加元素
     /**添加元素*/
@@ -166,7 +184,7 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
         
         while node != nil {
             
-            cmp = compare(element1: key, element2: node!.key)
+            cmp = compare(key1: key, key2: node!.key)
             parent = node // 更新父节点
             
             if cmp > 0 { // cmp > 0 右子树
@@ -282,10 +300,11 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
             // 1.1、找到后继节点 - 肯定是存在的
             let nextNode = nextNode(node)
             // 1.2、用后继节点的值覆盖度为2的节点
-            node.val = nextNode?.val
+            node.key = nextNode!.key
+            node.val = nextNode!.val
+            
             // 1.3、删除后继节点 - 用后继节点覆盖node 后续再删除node
             node = nextNode!
-            
         }
         
         // 删除node节点（后面node的度必然是0或1）
@@ -433,19 +452,21 @@ class TreeMap<K: Comparable, V: Comparable>: Map<K, V> {
 //MARK: - 比较器
 extension TreeMap {
     
-    fileprivate func compare(element1: K, element2: K) -> Int {
+    /// 比较两个key大小
+    fileprivate func compare(key1: K, key2: K) -> Int {
         
-        if element1 > element2 {
+        if key1 > key2 {
             return 1
-        }else if element1 < element2 {
+        }else if key1 < key2 {
             return -1
         }else {
             return 0
         }
     }
     
-    fileprivate func valEquals(element1: V?, element2: V?) ->Bool {
-        return element1 == nil ? element2 == nil : element1 == element2
+    /// 比较两个val是否相等
+    fileprivate func valEquals(val1: V?, val2: V?) ->Bool {
+        return val1 == nil ? val2 == nil : val1 == val2
     }
 }
 
@@ -613,7 +634,7 @@ extension TreeMap {
 }
 
 
-//MARK: 前驱节点/后继节点
+//MARK: 前驱节点 和 后继节点
 extension TreeMap {
     
     /** 获取当前节点的前序节点 */

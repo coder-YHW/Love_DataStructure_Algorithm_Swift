@@ -11,7 +11,7 @@ import Cocoa
 class AVLTree<E: Comparable>: BBSTree<E> {
     
     //MARK: override
-    /// 重写node构造方法
+    /// 重写node构造函数
     override func createNode(element: E?, parent: TreeNode<E>?) -> TreeNode<E> {
         return AVLNode(element: element, parent: parent as? AVLNode<E>)
     }

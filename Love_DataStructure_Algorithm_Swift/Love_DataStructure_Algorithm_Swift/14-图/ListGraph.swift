@@ -61,19 +61,23 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     
     /// 删除顶点
     override func removeVertex(val: V) {
-        let vertex = vertices.remove(key: val)
-        if vertex == nil { return }
-        
-        vertex?.outEdges.lists().forEach({ edge in
-            edge.to?.inEdges.remove(val: edge)
-            edges.remove(val: edge)
-        })
-        vertex?.inEdges.lists().forEach({ edge in
-            edge.from?.outEdges.remove(val: edge)
-            edges.remove(val: edge)
-        })
-        vertex?.outEdges.clear()
-        vertex?.inEdges.clear()
+//        let vertex = vertices.remove(key: val)
+//        if vertex == nil { return }
+//
+//        guard let vertex = vertices.remove(key: val) else {
+//            return
+//        }
+//
+//        vertex?.outEdges.lists().forEach({ edge in
+//            edge.to?.inEdges.remove(val: edge)
+//            edges.remove(val: edge)
+//        })
+//        vertex?.inEdges.lists().forEach({ edge in
+//            edge.from?.outEdges.remove(val: edge)
+//            edges.remove(val: edge)
+//        })
+//        vertex?.outEdges.clear()
+//        vertex?.inEdges.clear()
     }
     
     /// 删除边
@@ -199,7 +203,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
      * prim算法方式
      */
     override func mstPrim() -> HashSet<EdgeInfo<V, E>>? {
-        let verArr = vertices.values()
+        let verArr = vertices.allValues()
         guard let vertex = verArr.first else { return nil }
         
         let edgeInfos = HashSet<EdgeInfo<V, E>>()
@@ -233,7 +237,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         
         // 并查集
         let uf = GenericUnionFind<Vertex<V, E>>()
-        vertices.values().forEach { vertex in
+        vertices.allValues().forEach { vertex in
             uf.makeSet(vertex)
         }
         
@@ -404,9 +408,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
             }
         }
         
-        vertices.keys().forEach { v2 in
-            vertices.keys().forEach { v1 in
-                vertices.keys().forEach { v3 in
+        vertices.allKeys().forEach { v2 in
+            vertices.allKeys().forEach { v1 in
+                vertices.allKeys().forEach { v3 in
                     if v1 == v2 || v1 == v3 || v3 == v2 { return }
                     
                     // v1 -> v2
@@ -480,7 +484,7 @@ extension ListGraph {
         var verterx: Vertex<V, E>?
         var weight: Double = 0
         
-        paths.keys().forEach { ver in
+        paths.allKeys().forEach { ver in
             if verterx == nil {
                 verterx = ver
                 weight = paths.get(key: ver) ?? 0
@@ -501,7 +505,7 @@ extension ListGraph {
         var verterx: Vertex<V, E>?
         var pathInfo: PathInfo<V, E>?
         
-        paths.keys().forEach { ver in
+        paths.allKeys().forEach { ver in
             if verterx == nil {
                 verterx = ver
                 pathInfo = paths.get(key: ver)

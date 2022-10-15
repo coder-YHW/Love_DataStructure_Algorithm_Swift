@@ -113,14 +113,14 @@ struct GraphTest<V: Comparable & Hashable> {
     
     /// 从某一点出发的最短路径(权值最小)
     static func shortPath() {
-        let graph = undirectedGraph(GraphData.SP)
-        let map = graph.shortestPath("A" as! V)
-        map?.keys().forEach({ key in
-            let val = map?.get(key: key)
-            let keyStr = String(describing: key)
-            let valStr = String(describing: val)
-            print("A--\(keyStr): \(valStr)")
-        })
+//        let graph = undirectedGraph(GraphData.SP)
+//        let map = graph.shortestPath("A" as! V)
+//        map?.keys().forEach({ key in
+//            let val = map?.get(key: key)
+//            let keyStr = String(describing: key)
+//            let valStr = String(describing: val)
+//            print("A--\(keyStr): \(valStr)")
+//        })
     }
     
     /// 从某一点出发的最短路径(权值最小)

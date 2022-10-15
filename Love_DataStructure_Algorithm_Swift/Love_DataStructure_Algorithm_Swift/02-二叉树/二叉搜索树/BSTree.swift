@@ -161,7 +161,7 @@ class BSTree<E: Comparable> : BinaryTree<E> {
     
     //MARK: 平衡二叉搜索树 - 子类实现
     // (extension里定义的方法默认不能被子类重写)
-    /// 重写node构造方法
+    /// 重写node构造函数
     public func createNode(element: E?, parent: TreeNode<E>?) -> TreeNode<E> {
         return TreeNode(element: element, parent: parent)
     }

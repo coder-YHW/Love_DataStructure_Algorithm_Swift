@@ -265,6 +265,32 @@ func testTreeMap() {
     }
 }
 
+//MARK: - HashMap测试用例
+func testHashMap() {
+    
+    let hashMap = HashMap<Int, Int>()
+    
+    hashMap.put(key: 11, val: 11)
+    hashMap.put(key: 22, val: 22)
+    hashMap.put(key: 33, val: 33)
+    
+    let keys = [55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50];
+    let vals = [55, 87, 56, 74, 96, 22, 62, 20, 70, 68, 90, 50];
+    for i in 0..<keys.count {
+        hashMap.put(key: keys[i], val: vals[i])
+    }
+    
+    assert(hashMap.containsKey(key: 11))
+    assert(hashMap.containsValue(val: 33))
+    
+    hashMap.remove(key: 11)
+    print("删除33")
+    
+    hashMap.traversal { key, value in
+        print("\(key!):\(value!)")
+    }
+}
+
 
 //MARK: - 测试入口
 
@@ -275,4 +301,5 @@ func testTreeMap() {
 //testAVLTree()
 //testRBTree()
 
-testTreeMap()
+//testTreeMap()
+testHashMap()

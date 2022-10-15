@@ -24,7 +24,7 @@ class Map<K: Comparable, V: Comparable> {
     func clear() {}
     
     /**添加元素*/
-    func put(key: K, val: V) {}
+    func put(key: K?, val: V?) {}
     
     /**根据key查询value*/
     func get(key: K) -> V? {
