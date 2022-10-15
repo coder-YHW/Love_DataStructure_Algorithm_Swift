@@ -139,6 +139,7 @@ class DoubleLinkList<E: Comparable>: AbstractList<E> {
     /**
      * 删除index位置的元素
      */
+    @discardableResult
     override func remove(_ index: Int) -> E? {
         if rangeCheck(index) {
             return nil

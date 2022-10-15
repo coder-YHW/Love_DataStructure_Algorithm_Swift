@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1BDBBB28FA9413004F1D93 /* HashSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDBBA28FA9413004F1D93 /* HashSet.swift */; };
 		0D66C5A228F7DC9E00D280E2 /* QueueStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */; };
 		0D66C5A428F8081F00D280E2 /* StackQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5A328F8081F00D280E2 /* StackQueue.swift */; };
 		0D66C5AB28F86F0C00D280E2 /* AVLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */; };
@@ -19,7 +20,6 @@
 		0DC90AB828EF4F0300AA8754 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90AB728EF4F0300AA8754 /* main.swift */; };
 		0DC90BF528F01E9300AA8754 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B8C28F01E9000AA8754 /* PriorityQueue.swift */; };
 		0DC90BF628F01E9300AA8754 /* HashMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B8E28F01E9000AA8754 /* HashMap.swift */; };
-		0DC90BF728F01E9300AA8754 /* HashSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B8F28F01E9000AA8754 /* HashSet.swift */; };
 		0DC90BF828F01E9300AA8754 /* HashNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B9028F01E9000AA8754 /* HashNode.swift */; };
 		0DC90BF928F01E9300AA8754 /* AbstractList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B9328F01E9000AA8754 /* AbstractList.swift */; };
 		0DC90BFA28F01E9300AA8754 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90B9428F01E9000AA8754 /* List.swift */; };
@@ -172,6 +172,7 @@
 		0D1BDBB628F9D935004F1D93 /* LinkedList01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinkedList01.PNG; sourceTree = "<group>"; };
 		0D1BDBB828F9DA6A004F1D93 /* 恋上数据结构与算法-第二季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第二季.pdf"; sourceTree = "<group>"; };
 		0D1BDBB928F9DA6B004F1D93 /* 恋上数据结构与算法-第一季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第一季.pdf"; sourceTree = "<group>"; };
+		0D1BDBBA28FA9413004F1D93 /* HashSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashSet.swift; path = "Love_DataStructure_Algorithm_Swift/05-哈希表/HashSet.swift"; sourceTree = SOURCE_ROOT; };
 		0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueStack.swift; sourceTree = "<group>"; };
 		0D66C5A328F8081F00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVLNode.swift; sourceTree = "<group>"; };
@@ -202,7 +203,6 @@
 		0DC90AB728EF4F0300AA8754 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0DC90B8C28F01E9000AA8754 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		0DC90B8E28F01E9000AA8754 /* HashMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashMap.swift; sourceTree = "<group>"; };
-		0DC90B8F28F01E9000AA8754 /* HashSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashSet.swift; sourceTree = "<group>"; };
 		0DC90B9028F01E9000AA8754 /* HashNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashNode.swift; sourceTree = "<group>"; };
 		0DC90B9328F01E9000AA8754 /* AbstractList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractList.swift; sourceTree = "<group>"; };
 		0DC90B9428F01E9000AA8754 /* List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
@@ -737,7 +737,7 @@
 				0DC90BF428F01E9300AA8754 /* Set.swift */,
 				0DC90BF228F01E9300AA8754 /* ListSet.swift */,
 				0DC90BF328F01E9300AA8754 /* TreeSet.swift */,
-				0DC90B8F28F01E9000AA8754 /* HashSet.swift */,
+				0D1BDBBA28FA9413004F1D93 /* HashSet.swift */,
 			);
 			path = "03-集合";
 			sourceTree = "<group>";
@@ -813,7 +813,6 @@
 				0D66C5AB28F86F0C00D280E2 /* AVLNode.swift in Sources */,
 				0DC90C2C28F01E9300AA8754 /* MergeSort.swift in Sources */,
 				0DC90C1528F01E9300AA8754 /* Recursion.swift in Sources */,
-				0DC90BF728F01E9300AA8754 /* HashSet.swift in Sources */,
 				0D66C5D928F95E3B00D280E2 /* NSString+Trees.m in Sources */,
 				0DC90C3228F01E9300AA8754 /* UnionFindNode.swift in Sources */,
 				0DC90C3128F01E9300AA8754 /* UnionFind_QU_Rank_PC.swift in Sources */,
@@ -846,6 +845,7 @@
 				0DC90C1128F01E9300AA8754 /* AbstractHeap.swift in Sources */,
 				0DC90C1028F01E9300AA8754 /* DivideConquer.swift in Sources */,
 				0DC90C3928F01E9300AA8754 /* Const.swift in Sources */,
+				0D1BDBBB28FA9413004F1D93 /* HashSet.swift in Sources */,
 				0DC90C3F28F01E9300AA8754 /* CircleDeque.swift in Sources */,
 				0DC90BFE28F01E9300AA8754 /* CircleSingleLineList.swift in Sources */,
 				0DC90BFD28F01E9300AA8754 /* DoubleLinkList.swift in Sources */,

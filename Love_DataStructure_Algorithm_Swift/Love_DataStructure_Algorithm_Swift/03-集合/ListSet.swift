@@ -9,49 +9,64 @@ import Cocoa
 
 class ListSet<E: Hashable & Comparable>: Set<E> {
 
-    fileprivate var list = DoubleLinkList<E>()
     
+    //MARK: - 属性
+    fileprivate var linkList = DoubleLinkList<E>()
+    
+    
+    //MARK: - override
     /**元素个数**/
     override func size() -> Int {
-        return list.count
+        return linkList.count
     }
     
     /**是否为空**/
     override func isEmpty() -> Bool {
-        return list.isEmpty()
+        return linkList.isEmpty()
     }
     
     /**清除所有元素**/
     override func clear() {
-        list.clear()
+        linkList.clear()
     }
     
     /**是否包含某元素**/
     override func contains(_ val: E) -> Bool {
-        return list.contains(val)
+        return linkList.contains(val)
     }
     
     /**添加元素**/
     override func add(val: E) {
-        if !list.contains(val) {
-            list.add(val)
+        if !linkList.contains(val) { // 不存在才添加
+            linkList.add(val)
         }
     }
     
     /**删除元素**/
-    override func remove(val: E) -> E? {
-        let index = list.indexOfElement(val)
-        if index > 0 {
-            return list.remove(index)
+    override func remove(val: E) {
+        let index = linkList.indexOfElement(val)
+        if index != Const.notFound { // 存在才删除
+            linkList.remove(index)
         }
-        return nil
+    }
+    
+    /**遍历所有元素**/
+    override func traversal(setVisitor: ((E) -> ())? = nil) {
+        for i in 0..<size() {
+            if let node = linkList.get(i) {
+                
+                if let setVisitor {
+                    setVisitor(node)
+                }
+            }
+        }
     }
     
     /**获取所有元素**/
     override func lists() -> [E] {
         var array = [E]()
         for i in 0..<size() {
-            if let node = list.get(i) {
+            if let node = linkList.get(i) {
                 array.append(node)
             }
         }

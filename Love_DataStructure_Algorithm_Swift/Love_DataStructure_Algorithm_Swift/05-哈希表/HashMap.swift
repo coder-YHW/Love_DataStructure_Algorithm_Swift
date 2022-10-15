@@ -7,7 +7,7 @@
 
 import Cocoa
 
-
+// 注意闭包的写法: 1、any小写 2、协议不要: 3、多个协议用&隔开
 typealias Visitor = ((any Hashable, any Comparable) -> ())
 
 /// 哈希表

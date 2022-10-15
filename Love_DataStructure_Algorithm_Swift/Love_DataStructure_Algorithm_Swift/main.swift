@@ -184,12 +184,23 @@ func testBSTree() {
     }
     printTree(tree: tree)
 //    MJBinaryTrees.print(tree)
-
-    tree.remove(8)
-    printTree(tree: tree)
-
-    tree.remove(5)
-    printTree(tree: tree)
+    
+    // 遍历闭包
+    tree.inOrder { element in
+        print(element!)
+    }
+    
+    print("----------")
+    
+    tree.levelOrder { element in
+        print(element!)
+    }
+    
+//    tree.remove(8)
+//    printTree(tree: tree)
+//
+//    tree.remove(5)
+//    printTree(tree: tree)
 }
 
 //MARK: - AVL树测试用例
@@ -236,6 +247,6 @@ func testRBTree() {
 //testArrayList()
 //testLinkList()
 
-//testBSTree()
+testBSTree()
 //testAVLTree()
-testRBTree()
+//testRBTree()

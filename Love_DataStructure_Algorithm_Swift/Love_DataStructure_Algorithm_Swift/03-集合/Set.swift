@@ -7,8 +7,14 @@
 
 import Cocoa
 
+// 注意闭包的写法: 1、any小写 2、协议不要: 3、多个协议用&隔开
+typealias SetVisitor = ((any Comparable & Hashable) -> ())
+
+
+/// 集合 - 接口设计
 class Set<E: Comparable & Hashable> {
 
+    //MARK: - 接口设计
     /**元素个数**/
     func size() -> Int {
         return 0
@@ -31,9 +37,11 @@ class Set<E: Comparable & Hashable> {
     func add(val: E) {}
     
     /**删除元素**/
-    @discardableResult
-    func remove(val: E) -> E? {
-        return nil
+    func remove(val: E) {}
+    
+    /**遍历所有元素**/
+    func traversal(setVisitor: ((E) -> ())? = nil) {
+        
     }
     
     /**获取所有元素**/

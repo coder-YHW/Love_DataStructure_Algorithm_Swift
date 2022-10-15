@@ -7,6 +7,10 @@
 
 import Cocoa
 
+// 注意闭包的写法: 1、any小写 2、协议不要: 3、多个协议用&隔开
+typealias TreeVisitor = ((any Comparable) -> ())
+
+
 /// 二叉树
 class BinaryTree<E: Comparable> {
 
@@ -40,53 +44,68 @@ class BinaryTree<E: Comparable> {
 extension BinaryTree {
     
     /// 前序遍历(递归) - （root->左子树->右子树）
-    public func preOrder() {
-        preOrder(node: root)
+    public func preOrder(treeVisitor: ((E?) -> ())?) {
+        preOrder(node: root, treeVisitor: treeVisitor)
     }
     
-    fileprivate func preOrder(node: TreeNode<E>?) {
+    fileprivate func preOrder(node: TreeNode<E>?, treeVisitor: ((E?) -> ())? = nil) {
         
         if let node {
-            print(node)
+//            print(node)
+            if let treeVisitor {
+                treeVisitor(node.element)
+            }else {
+                print(node)
+            }
             
-            preOrder(node: node.left)
-            preOrder(node: node.right)
+            preOrder(node: node.left, treeVisitor: treeVisitor)
+            preOrder(node: node.right, treeVisitor: treeVisitor)
         }
     }
     
     /// 中序遍历(递归) - （左子树->root->右子树）
-    public func inOrder() {
-        inOrder(node: root)
+    public func inOrder(treeVisitor: ((E?) -> ())?) {
+        inOrder(node: root, treeVisitor: treeVisitor)
     }
     
-    fileprivate func inOrder(node: TreeNode<E>?) {
+    fileprivate func inOrder(node: TreeNode<E>?, treeVisitor: ((E?) -> ())? = nil) {
         
         if let node {
-            inOrder(node: node.left)
+            inOrder(node: node.left, treeVisitor: treeVisitor)
             
-            print(node)
+//            print(node)
+            if let treeVisitor {
+                treeVisitor(node.element)
+            }else {
+                print(node)
+            }
             
-            inOrder(node: node.right)
+            inOrder(node: node.right, treeVisitor: treeVisitor)
         }
     }
     
     /// 前序遍历(递归) - （左子树->右子树->root）
-    public func postOrder() {
-        postOrder(node: root)
+    public func postOrder(treeVisitor: ((E?) -> ())?) {
+        postOrder(node: root, treeVisitor: treeVisitor)
     }
     
-    fileprivate func postOrder(node: TreeNode<E>?) {
+    fileprivate func postOrder(node: TreeNode<E>?, treeVisitor: ((E?) -> ())? = nil) {
         
         if let node {
-            postOrder(node: node.left)
-            postOrder(node: node.right)
+            postOrder(node: node.left, treeVisitor: treeVisitor)
+            postOrder(node: node.right, treeVisitor: treeVisitor)
             
-            print(node)
+//            print(node)
+            if let treeVisitor {
+                treeVisitor(node.element)
+            }else {
+                print(node)
+            }
         }
     }
     
     /// 层序遍历(迭代)
-    func levelOrder()  {
+    func levelOrder(treeVisitor: ((E?) -> ())? = nil)  {
 
         if root == nil {
             return
@@ -97,14 +116,21 @@ extension BinaryTree {
         
         while !queue.isEmpty() {
             
-            let node = queue.deQueue()
-            print(node!)
+            guard let node = queue.deQueue() else {
+                return
+            }
+//            print(node)
+            if let treeVisitor {
+                treeVisitor(node.element)
+            }else {
+                print(node)
+            }
             
-            if let left = node?.left { // 1、左子节点入队
+            if let left = node.left { // 1、左子节点入队
                 queue.enQueue(left)
             }
             
-            if let right = node?.right { // 2、右子节点入队
+            if let right = node.right { // 2、右子节点入队
                 queue.enQueue(right)
             }
         }
@@ -445,106 +471,3 @@ extension BinaryTree: BinaryTreeProtocol {
         return "-"
     }
 }
-
-
-//    /// 添加节点
-//    func add(_ element: Int) {
-//        if root == nil {
-//            let node = TreeNode(element)
-//            root = node
-//            count += 1
-//
-//            // 添加之后调整节点
-//            afterAdd(node)
-//            return
-//        }
-//
-//        var node = root
-//        var parent = root
-//        var compare = 0
-//        while node != nil {
-//            parent = node
-//            if let tmp = node?.element {
-//                if tmp > element {
-//                    node = node?.left
-//                    compare = 1
-//                } else if tmp < element {
-//                    node = node?.right
-//                    compare = 2
-//                } else {
-//                    node?.element = element
-//                    return
-//                }
-//            } else {
-//                return
-//            }
-//        }
-//
-//        let current = TreeNode(element, parent: parent)
-//        if compare == 1 {
-//            parent?.left = current
-//        } else {
-//            parent?.right = current
-//        }
-//        count += 1
-//
-//        // 添加之后调整节点
-//        afterAdd(current)
-//    }
-//
-//    /// 删除节点
-//    func remove(_ element: Int) {
-//        if let node = getNode(element) {
-//            remove(node)
-//        }
-//    }
-
-//extension BinaryTree {
-//    /// 删除对应的node
-//    fileprivate func remove(_ node: TreeNode) {
-//        count -= 1
-//
-//        var tmpNode = node
-//        if tmpNode.hasTwoChildren() {
-//            // 找后继结点
-//            if let front = nextNode(tmpNode) {
-//                // 值覆盖
-//                tmpNode.element = front.element
-//                // 删除前寄结点
-//                tmpNode = front
-//            }
-//        }
-//
-//        // 删除节点(节点的度肯定是1或者0)
-//        let replacement = tmpNode.left != nil ? tmpNode.left : tmpNode.right
-//        if replacement != nil { // 度为1的节点
-//            replacement?.parent = tmpNode.parent
-//            if tmpNode == tmpNode.parent?.left {
-//                tmpNode.parent?.left = replacement
-//            } else if tmpNode == tmpNode.parent?.right {
-//                tmpNode.parent?.right = replacement
-//            } else {
-//                root = tmpNode
-//            }
-//
-//            // 平衡节点
-//            if let reNode = replacement {
-//                afterRemove(reNode)
-//            }
-//        } else if tmpNode.parent == nil {
-//            root = nil
-//
-//            // 平衡节点
-//            afterRemove(tmpNode)
-//        } else { // 叶子节点
-//            if tmpNode == tmpNode.parent?.left {
-//                tmpNode.parent?.left = nil
-//            } else {
-//                tmpNode.parent?.right = nil
-//            }
-//
-//            // 平衡节点
-//            afterRemove(tmpNode)
-//        }
-//    }
-//}

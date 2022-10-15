@@ -9,8 +9,12 @@ import Cocoa
 
 class HashSet<E: Hashable & Comparable>: Set<E> {
 
+    
+    //MARK: - 属性
     fileprivate let map = HashMap<E, E>()
     
+    
+    //MARK: - override
     /**元素个数*/
     override func size() -> Int {
         return map.count()
@@ -32,14 +36,23 @@ class HashSet<E: Hashable & Comparable>: Set<E> {
     }
     
     /**添加元素*/
-    override func add(val: E) {
+    override func add(val: E) {  // // HashMap会覆盖重复元素
         map.put(key: val, val: nil)
     }
     
     /**删除元素*/
-    @discardableResult
-    override func remove(val: E) -> E? {
-        return map.remove(key: val)
+    override func remove(val: E) {
+        map.remove(key: val)
+    }
+    
+    /**遍历所有元素**/
+    override func traversal(setVisitor: ((E) -> ())? = nil) {
+        
+        map.traversal { val, _ in
+            if let v = val, let setVisitor {
+                setVisitor(v)
+            }
+        }
     }
     
     /// 获取所有元素

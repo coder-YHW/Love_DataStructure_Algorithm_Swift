@@ -43,9 +43,8 @@ class List<E: Comparable> {
     
     /**
      * 删除index位置的元素
-     * @param index
-     * @return
      */
+    @discardableResult
     func remove(_ index: Int) -> E? {
         return nil
     }
