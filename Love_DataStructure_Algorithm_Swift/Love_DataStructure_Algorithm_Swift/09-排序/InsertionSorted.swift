@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 插入排序
-class InsertionSorted1<T: Comparable>: Sorted<T> {
+class InsertionSorted1<T: Comparable>: Sort<T> {
 
     /*
      * 插入排序会将数列分为两个部分, 头部是已经排序好的, 尾部是待排序的部分
@@ -28,7 +28,7 @@ class InsertionSorted1<T: Comparable>: Sorted<T> {
 }
 
 
-class InsertionSorted2<T: Comparable>: Sorted<T> {
+class InsertionSorted2<T: Comparable>: Sort<T> {
 
     /*
      * 将交换改为挪动
@@ -50,7 +50,7 @@ class InsertionSorted2<T: Comparable>: Sorted<T> {
 }
 
 
-class InsertionSorted3<T: Comparable>: Sorted<T> {
+class InsertionSorted3<T: Comparable>: Sort<T> {
 
     /*
      * 二分搜索查找索引

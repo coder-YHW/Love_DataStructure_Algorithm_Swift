@@ -68,12 +68,12 @@
 		0DC90C2328F01E9300AA8754 /* InsertionSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCB28F01E9200AA8754 /* InsertionSorted.swift */; };
 		0DC90C2428F01E9300AA8754 /* QuickSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCC28F01E9200AA8754 /* QuickSorted.swift */; };
 		0DC90C2528F01E9300AA8754 /* CountingSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCD28F01E9200AA8754 /* CountingSorted.swift */; };
-		0DC90C2628F01E9300AA8754 /* SelectedSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCE28F01E9200AA8754 /* SelectedSorted.swift */; };
-		0DC90C2728F01E9300AA8754 /* HeapSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCF28F01E9200AA8754 /* HeapSorted.swift */; };
-		0DC90C2828F01E9300AA8754 /* Sorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD028F01E9200AA8754 /* Sorted.swift */; };
+		0DC90C2628F01E9300AA8754 /* SelectionSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCE28F01E9200AA8754 /* SelectionSort.swift */; };
+		0DC90C2728F01E9300AA8754 /* HeapSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BCF28F01E9200AA8754 /* HeapSort.swift */; };
+		0DC90C2828F01E9300AA8754 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD028F01E9200AA8754 /* Sort.swift */; };
 		0DC90C2928F01E9300AA8754 /* BucketSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD128F01E9200AA8754 /* BucketSorted.swift */; };
 		0DC90C2A28F01E9300AA8754 /* ShellSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD228F01E9200AA8754 /* ShellSort.swift */; };
-		0DC90C2B28F01E9300AA8754 /* BubbleSorted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD328F01E9200AA8754 /* BubbleSorted.swift */; };
+		0DC90C2B28F01E9300AA8754 /* BubbleSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD328F01E9200AA8754 /* BubbleSort.swift */; };
 		0DC90C2C28F01E9300AA8754 /* MergeSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD428F01E9200AA8754 /* MergeSort.swift */; };
 		0DC90C2D28F01E9300AA8754 /* UnionFind_QF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD628F01E9200AA8754 /* UnionFind_QF.swift */; };
 		0DC90C2E28F01E9300AA8754 /* UnionFind_QU_Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BD728F01E9200AA8754 /* UnionFind_QU_Rank.swift */; };
@@ -253,12 +253,12 @@
 		0DC90BCB28F01E9200AA8754 /* InsertionSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsertionSorted.swift; sourceTree = "<group>"; };
 		0DC90BCC28F01E9200AA8754 /* QuickSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickSorted.swift; sourceTree = "<group>"; };
 		0DC90BCD28F01E9200AA8754 /* CountingSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountingSorted.swift; sourceTree = "<group>"; };
-		0DC90BCE28F01E9200AA8754 /* SelectedSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedSorted.swift; sourceTree = "<group>"; };
-		0DC90BCF28F01E9200AA8754 /* HeapSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapSorted.swift; sourceTree = "<group>"; };
-		0DC90BD028F01E9200AA8754 /* Sorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorted.swift; sourceTree = "<group>"; };
+		0DC90BCE28F01E9200AA8754 /* SelectionSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionSort.swift; sourceTree = "<group>"; };
+		0DC90BCF28F01E9200AA8754 /* HeapSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapSort.swift; sourceTree = "<group>"; };
+		0DC90BD028F01E9200AA8754 /* Sort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		0DC90BD128F01E9200AA8754 /* BucketSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketSorted.swift; sourceTree = "<group>"; };
 		0DC90BD228F01E9200AA8754 /* ShellSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShellSort.swift; sourceTree = "<group>"; };
-		0DC90BD328F01E9200AA8754 /* BubbleSorted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleSorted.swift; sourceTree = "<group>"; };
+		0DC90BD328F01E9200AA8754 /* BubbleSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleSort.swift; sourceTree = "<group>"; };
 		0DC90BD428F01E9200AA8754 /* MergeSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergeSort.swift; sourceTree = "<group>"; };
 		0DC90BD628F01E9200AA8754 /* UnionFind_QF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnionFind_QF.swift; sourceTree = "<group>"; };
 		0DC90BD728F01E9200AA8754 /* UnionFind_QU_Rank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnionFind_QU_Rank.swift; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 				0DC90BB128F01E9100AA8754 /* 06-堆 */,
 				0DC90B8B28F01E9000AA8754 /* 07-优先级队列 */,
 				0DC90C5B28F02A0D00AA8754 /* 08-Trie */,
-				0DC90BC928F01E9200AA8754 /* 12-排序 */,
+				0DC90BC928F01E9200AA8754 /* 09-排序 */,
 				0DC90BD528F01E9200AA8754 /* 13-并查集 */,
 				0DC90BA128F01E9100AA8754 /* 14-图 */,
 				0DC90BB628F01E9100AA8754 /* 15-递归 */,
@@ -644,22 +644,22 @@
 			path = "04-映射";
 			sourceTree = "<group>";
 		};
-		0DC90BC928F01E9200AA8754 /* 12-排序 */ = {
+		0DC90BC928F01E9200AA8754 /* 09-排序 */ = {
 			isa = PBXGroup;
 			children = (
+				0DC90BD028F01E9200AA8754 /* Sort.swift */,
+				0DC90BD328F01E9200AA8754 /* BubbleSort.swift */,
+				0DC90BCE28F01E9200AA8754 /* SelectionSort.swift */,
+				0DC90BCF28F01E9200AA8754 /* HeapSort.swift */,
 				0DC90BCA28F01E9200AA8754 /* RadixSorted.swift */,
 				0DC90BCB28F01E9200AA8754 /* InsertionSorted.swift */,
 				0DC90BCC28F01E9200AA8754 /* QuickSorted.swift */,
 				0DC90BCD28F01E9200AA8754 /* CountingSorted.swift */,
-				0DC90BCE28F01E9200AA8754 /* SelectedSorted.swift */,
-				0DC90BCF28F01E9200AA8754 /* HeapSorted.swift */,
-				0DC90BD028F01E9200AA8754 /* Sorted.swift */,
 				0DC90BD128F01E9200AA8754 /* BucketSorted.swift */,
 				0DC90BD228F01E9200AA8754 /* ShellSort.swift */,
-				0DC90BD328F01E9200AA8754 /* BubbleSorted.swift */,
 				0DC90BD428F01E9200AA8754 /* MergeSort.swift */,
 			);
-			path = "12-排序";
+			path = "09-排序";
 			sourceTree = "<group>";
 		};
 		0DC90BD528F01E9200AA8754 /* 13-并查集 */ = {
@@ -827,13 +827,13 @@
 				0D66C5D728F95E3B00D280E2 /* MJPrinter.m in Sources */,
 				0DC90C3428F01E9300AA8754 /* UnionFind_QU_Rank_PS.swift in Sources */,
 				0DC90BFA28F01E9300AA8754 /* List.swift in Sources */,
-				0DC90C2628F01E9300AA8754 /* SelectedSorted.swift in Sources */,
+				0DC90C2628F01E9300AA8754 /* SelectionSort.swift in Sources */,
 				0DC90BFB28F01E9300AA8754 /* ListNode.swift in Sources */,
 				0DC90C0D28F01E9300AA8754 /* RecallSecord.swift in Sources */,
 				0DC90C0728F01E9300AA8754 /* Graph.swift in Sources */,
 				0DC90C0B28F01E9300AA8754 /* Vertex.swift in Sources */,
 				0DC90C3528F01E9300AA8754 /* UnionFind_QU.swift in Sources */,
-				0DC90C2728F01E9300AA8754 /* HeapSorted.swift in Sources */,
+				0DC90C2728F01E9300AA8754 /* HeapSort.swift in Sources */,
 				0DC90C0F28F01E9300AA8754 /* RecallFirst.swift in Sources */,
 				0DC90C0028F01E9300AA8754 /* LinkeExercises.swift in Sources */,
 				0DC90C2E28F01E9300AA8754 /* UnionFind_QU_Rank.swift in Sources */,
@@ -877,11 +877,11 @@
 				0D66C5A428F8081F00D280E2 /* StackQueue.swift in Sources */,
 				0D1BDBBF28FBC7D2004F1D93 /* LinkHashMap.swift in Sources */,
 				0DC90C4328F01E9300AA8754 /* TreeSet.swift in Sources */,
-				0DC90C2B28F01E9300AA8754 /* BubbleSorted.swift in Sources */,
+				0DC90C2B28F01E9300AA8754 /* BubbleSort.swift in Sources */,
 				0DC90C1628F01E9300AA8754 /* BinaryTreeInfo.swift in Sources */,
 				0DC90AB828EF4F0300AA8754 /* main.swift in Sources */,
 				0DC90BFF28F01E9300AA8754 /* CircleDoubleLinkList.swift in Sources */,
-				0DC90C2828F01E9300AA8754 /* Sorted.swift in Sources */,
+				0DC90C2828F01E9300AA8754 /* Sort.swift in Sources */,
 				0DC90C3D28F01E9300AA8754 /* Pirater.swift in Sources */,
 				0DC90C1A28F01E9300AA8754 /* RBNode.swift in Sources */,
 				0DC90C1428F01E9300AA8754 /* BinaryHeap.swift in Sources */,

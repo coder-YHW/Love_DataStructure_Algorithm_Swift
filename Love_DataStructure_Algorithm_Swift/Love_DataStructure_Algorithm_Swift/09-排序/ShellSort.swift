@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 希尔排序
-class ShellSort<T: Comparable>: Sorted<T> {
+class ShellSort<T: Comparable>: Sort<T> {
 
     override func sortAction() {
         let stepArr = sedgewickStepArray()

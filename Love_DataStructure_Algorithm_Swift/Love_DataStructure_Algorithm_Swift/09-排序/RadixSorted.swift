@@ -9,7 +9,7 @@ import Cocoa
 
 
 /// 基数排序
-class RadixSorted<T: Comparable>: Sorted<T> {
+class RadixSorted<T: Comparable>: Sort<T> {
     
 
     override func sortAction() {

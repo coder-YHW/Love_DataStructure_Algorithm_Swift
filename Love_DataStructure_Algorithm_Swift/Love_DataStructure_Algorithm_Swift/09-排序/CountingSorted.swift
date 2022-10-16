@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 计数排序
-class CountingSorted<T: Comparable>: Sorted<T> {
+class CountingSorted<T: Comparable>: Sort<T> {
     
     override func sortAction() {
         guard let intArray = dataArray as? [Int] else { return }

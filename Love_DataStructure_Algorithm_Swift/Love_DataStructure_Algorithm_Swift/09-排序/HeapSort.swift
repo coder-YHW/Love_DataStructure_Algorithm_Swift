@@ -1,5 +1,5 @@
 //
-//  HeapSorted.swift
+//  HeapSort.swift
 //  Love_DataStructure_Algorithm_Swift
 //
 //  Created by 余衡武 on 2022/10/7.
@@ -7,31 +7,33 @@
 
 import Cocoa
 
-/// 堆排序
-class HeapSorted<T: Comparable>: Sorted<T> {
+/// 堆排序 - 选择排序进阶版
+class HeapSort<T: Comparable>: Sort<T> {
     
     /// 堆元素个数
     fileprivate var heapCount = 0
     
     /// 通过堆排序
     override func sortAction() {
+        
         heapCount = dataArray.count
+        
         // 创建堆
         let lastIndex = heapCount >> 1 - 1
-        for i in (0...lastIndex).reversed() {
-            downUp(i)
+        for i in (0...lastIndex).reversed() {  // 0 <= i <= (heapCount/2 - 1)
+            siftDown(i)
         }
         
-        while heapCount > 1 {
+        while heapCount > 1 { // heapCount > 1
             // 交换堆顶元素和尾部元素
             swap(i1: 0, i2: heapCount - 1)
             heapCount -= 1
-            downUp(0)
+            siftDown(0)
         }
     }
     
     /// 下滤
-    fileprivate func downUp(_ index: Int) {
+    fileprivate func siftDown(_ index: Int) {
         let value = dataArray[index]
         let half = heapCount >> 1
         var currentIndex = index

@@ -316,6 +316,28 @@ func testBinaryHeap() {
     
 }
 
+
+//MARK: - 排序算法
+func testSort() {
+    
+    let data = [51, 30, 39, 92, 74, 25, 16, 93, 91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 90, 6, 65, 49, 3, 26, 61, 21, 48]
+    
+    
+//    let sort = BubbleSort1<Int>()
+//    let sort = BubbleSort2<Int>()
+//    let sort = BubbleSort3<Int>()
+//    let sort = SelectionSort<Int>()
+    let sort = HeapSort<Int>()
+
+    
+    
+    
+    
+    let array = sort.sorted(by: data)
+    print(array)
+}
+
+
 //MARK: - 测试入口
 
 //testArrayList()
@@ -328,4 +350,6 @@ func testBinaryHeap() {
 //testTreeMap()
 //testHashMap()
 
-testBinaryHeap()
+//testBinaryHeap()
+
+testSort()

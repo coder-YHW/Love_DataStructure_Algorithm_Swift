@@ -7,19 +7,21 @@
 
 import Cocoa
 
-class Sorted<T: Comparable> {
+class Sort<T: Comparable> {
 
+    //MARK: - 属性
     /// 存储数组
     var dataArray = [T]()
     /// 比较次数
-    var cmpCount = 0
+    fileprivate var cmpCount = 0
     /// 交换次数
-    var swapCount = 0
+    fileprivate var swapCount = 0
     /// 耗时
-    var time: Double = 0
+    fileprivate var time: Double = 0
     
     
-    /// 比较数组
+    //MARK: - 方法
+    /// 排序数组
     final func sorted(by array: [T]) -> [T] {
         if array.count < 2 { return array }
         dataArray = array
@@ -37,8 +39,8 @@ class Sorted<T: Comparable> {
     }
     
     /// 比较算法
-    func compareTo(_ item: Sorted) -> Int {
-        // 先比较韩勇时间
+    func compareTo(_ item: Sort) -> Int {
+        // 先比较消耗时间
         var result = Int(time - item.time)
         if result != 0 { return result }
         
@@ -52,7 +54,8 @@ class Sorted<T: Comparable> {
 }
 
 
-extension Sorted {
+//MARK: - 辅助方法
+extension Sort {
     /*
      * 根据索引比较
      * 返回值等于0，代表 array[i1] == array[i2]
@@ -85,7 +88,7 @@ extension Sorted {
 }
 
 
-extension Sorted {
+extension Sort {
     /// 数字转化
     func numString(_ number: Int) -> String {
         if number < 10000 { return "\(number)" }

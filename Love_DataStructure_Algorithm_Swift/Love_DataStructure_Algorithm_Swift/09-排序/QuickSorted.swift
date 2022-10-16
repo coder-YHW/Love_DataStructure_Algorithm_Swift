@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 快速排序
-class QuickSorted<T: Comparable>: Sorted<T> {
+class QuickSorted<T: Comparable>: Sort<T> {
 
     
     override func sortAction() {

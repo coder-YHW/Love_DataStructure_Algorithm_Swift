@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 归并排序
-class MergeSort<T: Comparable>: Sorted<T> {
+class MergeSort<T: Comparable>: Sort<T> {
 
     fileprivate var leftArray = [T]()
 
