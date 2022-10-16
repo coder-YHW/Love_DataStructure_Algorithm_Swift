@@ -10,15 +10,19 @@ import Cocoa
 
 class AbstractHeap<E: Comparable> {
     
+    
+    //MARK: - 比较器
     /// 比较
     var comparable: ((E, E) -> Bool)?
     
     
+    //MARK: - 构造函数
     init(compare: ((E, E) -> Bool)? = nil) {
         self.comparable = compare
     }
     
     
+    //MARK: - 方法
     /// 元素的数量
     func count() -> Int {
         return 0
@@ -39,7 +43,7 @@ class AbstractHeap<E: Comparable> {
     func addAll(vals: [E]) { }
     
     /// 获得堆顶元素
-    func top() -> E? {
+    func getTop() -> E? {
         return nil
     }
     
@@ -53,6 +57,8 @@ class AbstractHeap<E: Comparable> {
         return nil
     }
     
+    
+    //MARK: - 比较器
     func compare(lhs: E, rhs: E) -> Bool {
         if let com = comparable {
             return com(lhs, rhs)

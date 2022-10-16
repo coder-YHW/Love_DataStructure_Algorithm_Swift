@@ -9,12 +9,18 @@ import Cocoa
 
 class PriorityQueue<E: Comparable> {
 
+    
+    //MARK: - 属性
     fileprivate var heap = BinaryHeap<E>()
     
+    
+    //MARK: - 构造函数
     init(compare: ((E, E) -> Bool)? = nil) {
         heap = BinaryHeap(compare: compare)
     }
     
+    
+    //MARK: - 方法
     /// 元素的数量
     func count() -> Int {
         return heap.count()
@@ -40,8 +46,8 @@ class PriorityQueue<E: Comparable> {
         return heap.remove()
     }
 
-    /// 获取对顶元素
+    /// 获取队头元素
     func front() -> E? {
-        return heap.top()
+        return heap.getTop() // 获取堆顶元素
     }
 }

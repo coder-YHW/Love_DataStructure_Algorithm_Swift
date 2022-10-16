@@ -7,7 +7,6 @@
 
 import Cocoa
 
-
 /// 最大堆
 class MaxHeap<E: Comparable>: BinaryHeap<E> {
 

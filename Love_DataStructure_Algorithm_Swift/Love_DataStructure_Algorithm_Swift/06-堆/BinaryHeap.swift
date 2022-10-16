@@ -8,40 +8,57 @@
 
 import Cocoa
 
-
+/// /// 二叉堆（最大堆）-（完全二叉树、完全二叉堆）
+/// 通过索引index拿到左右子树、父节点来操作完全二叉树
+/// 思想是完全二叉树 实际操作的是数组
 class BinaryHeap<E: Comparable>: AbstractHeap<E> {
 
     
-    fileprivate var valueArray = [E]()
+    //MARK: - 属性
+    fileprivate var elements = [E]()
     
+    
+    //MARK: - override构造函数
     init(vals: [E] = [], compare: ((E, E) -> Bool)? = nil) {
         super.init(compare: compare)
         
         if vals.count > 0 {
-            vals.forEach({ valueArray.append($0) })
+            vals.forEach({ elements.append($0) })
             heapify()
         }
     }
-
     
-    func array() -> [E] {
-        return valueArray
-    }
     
+    //MARK: - override
     /// 元素的数量
     override func count() -> Int {
-        return valueArray.count
+        return elements.count
     }
-    
-    /**清空元素*/
+        
+    /// 清空元素
     override func clear() {
-        valueArray.removeAll()
+        elements.removeAll()
     }
     
+    /// 获得堆顶元素
+    override func getTop() -> E? {
+        if isEmpty() { return nil }
+        return elements.first
+    }
+    
+    /// 返回排序好的数组
+    func getArray() -> [E] {
+        return Array(elements)
+    }
+    
+    
+    //MARK: - 添加删除替换
     /**添加元素*/
     override func add(val: E) {
-        valueArray.append(val)
-        shiftUp(valueArray.count - 1)
+        // 1、将新元素加到数组最后
+        elements.append(val)
+        // 2、从（count-1）开始上滤- 性质修正
+        shiftUp(elements.count - 1)
     }
     
     /**添加元素-数组*/
@@ -51,113 +68,160 @@ class BinaryHeap<E: Comparable>: AbstractHeap<E> {
         }
     }
     
-    /// 获得堆顶元素
-    override func top() -> E? {
-        return valueArray.first
-    }
-    
     /// 删除堆顶元素
     @discardableResult
     override func remove() -> E? {
-        let firstVal = valueArray.first
-        if valueArray.count < 2 {
-            return firstVal
-        }
         
-        // 吧最后一个元素放到第一个
-        let lastVal = valueArray.removeLast()
-        valueArray[0] = lastVal
-        downUp(0)
+        // 0、空堆
+        if isEmpty() { return nil}
+        // 1、获得堆顶元素
+        let top = getTop()
         
-        return firstVal
+        // 2、数组最后一个元素替换堆顶元素root
+        let last = elements.last
+        elements[0] = last!
+        // 3、将数组最后一个元素删除
+        elements.removeLast()
+        
+        // 4、从0开始下滤 - 性质修正
+        siftDown(0)
+        
+        return top
     }
     
     /// 删除堆顶元素的同时插入一个新元素
     @discardableResult
     override func replace(val: E) -> E? {
+        // 0、默认top为空
         var top: E? = nil
-        if valueArray.count == 0 {
-            valueArray.append(val)
+        
+        if elements.count == 0 { // 1、特殊情况 堆为空 添加进去即可
+            elements.append(val)
         } else {
-            top = valueArray.first
-            valueArray[0] = val
-            downUp(0)
+            // 2、将新元素替换堆顶元素，再下滤
+            top = elements.first
+            elements[0] = val
+            
+            // 3、从0开始下滤 - 性质修正
+            siftDown(0)
         }
+        
         return top
     }
 }
 
 
+//MARK: - 上滤和下滤
 extension BinaryHeap {
-    /// 上滤
+    //MARK: 上滤
+    /// 上滤 - 时间复杂度 O(longN)
     fileprivate func shiftUp(_ index: Int) {
-        var currentIndex = index
-        let val = valueArray[currentIndex]
         
-        // 是否还有父节点
-        while currentIndex > 0 {
-            // 父节点索引: floor((i - 1) / 2)
+        // 1、currentIndex > 0时 沿着父节点往上找，比父节点大，就交换位置，比父节点小就退出循环
+        // 2、currentIndex == 0时 说明找到父节点位置 不需要再交换位置 终止循环
+        
+        // 0、保存element的值
+        var currentIndex = index
+        let element = elements[currentIndex]
+        
+        // 1、是否还有父节点
+        while currentIndex > 0 { // index == 0时 说明找到根节点位置 终止循环
+            // 1.1父节点索引: floor((i - 1) / 2)
             let parentIndex = (currentIndex - 1) >> 1
-            let parentVal = valueArray[parentIndex]
+            let parentVal = elements[parentIndex]
             
-            if !compare(lhs: val, rhs: parentVal) { break }
+            // 1.2、比父节点小
+            if !compare(lhs: element, rhs: parentVal) { break }
             
-            // 父节点放到currentIndex位置
-            valueArray[currentIndex] = parentVal
+            // 1.3比父节点大 - 交换位置 父节点放到currentIndex位置
+            elements[currentIndex] = parentVal
+            // 1.4、重新赋值currentIndex - node的索引位置index来到父元素位置
             currentIndex = parentIndex
         }
         
-        valueArray[currentIndex] = val
+        // 2、将element的值赋值到其索引位置
+        elements[currentIndex] = element
     }
     
-    /// 下滤
-    fileprivate func downUp(_ index: Int) {
-        let value = valueArray[index]
-        let half = valueArray.count >> 1
+/**完全二叉树性质
+*1、度为1的节点只有左子树
+*2、度为1的节点要么是1个，要么是0个
+*3、同样节点数量的二叉树，完全二叉树的高度最小
+*4、如果一颗完全二叉树有n个节点，那么其叶子结点个数n0 = floor((n + 1) / 2)，非叶子结点个数n1 + n2 = floor(n / 2)
+*5、如果一颗完全二叉树的高度为h (h>=1)，那么至少有2^(h - 1)个节点，至多有2^h - 1个节点（满二叉树）
+*     h = floor(log2n) + 1
+*/
+    
+    //MARK: 下滤
+    /// 下滤 - 时间复杂度 O(longN)
+    fileprivate func siftDown(_ index: Int) {
+        
+        // 0、保存element的值
+        let value = elements[index]
+        let half = elements.count >> 1
         var currentIndex = index
         
-        // 是否还有父节点
-        while currentIndex < half {
-            // 左子节点索引
-            var childIndex = currentIndex << 1 + 1
-            var childVal = valueArray[childIndex]
+/**
+ * 完全二叉树: 其叶子结点个数n0 = floor((n + 1) / 2)，非叶子结点个数n1 + n2 = floor(n / 2)
+ * 完全二叉树: 第一个叶子节点之后，全是叶子节点
+ * 完全二叉树: 第一个叶子节点的索引 == 非叶子节点的数量  (self.size / 2)
+ *
+ * 必须保证index位置是非叶子节点    —>    index < 第一个叶子节点的索引
+ * 第一个叶子节点的索引 == 非叶子节点的数量    —>   index < half
+*/
+        // 1、必须保证index位置是非叶子节点
+        while currentIndex < half {// 必须保证index位置是非叶子节点
+            // 完全二叉树index的节点有2种情况 (index是父节点编号  左子节点编号：2*index + 1  右子节点编号：2*index + 2)
+            // 1.1 只有左子节点 (有左子节点：2*index + 1 < self.size 无左子节点： 2*index + 1 >= self.size)
+            // 1.2 同时有左右子节点 选出左右子节点最大的那个 (有右子节点：2*index + 2 < self.size 无右子节点：2*index + 2 >= self.size )
             
-            // 右子节点索引
+            // 2、取出左右子节点交大的childVal
+            // 左子节点索引 （2*index + 1）
+            var childIndex = currentIndex << 1 + 1
+            var childVal = elements[childIndex] // 默认取左子节点
+            
+            // 右子节点索引 （2*index + 2）
             let rightIndex = childIndex + 1
             
-            // 如果存在右子节点 >
-            if rightIndex < valueArray.count && compare(lhs: valueArray[rightIndex], rhs: childVal) {
+            // 如果存在右子节点 且 右子节点>左子节点 那么用右子节点替换childVal、childIndex
+            if rightIndex < elements.count && compare(lhs: elements[rightIndex], rhs: childVal) {
                 childIndex = rightIndex
-                childVal = valueArray[rightIndex]
+                childVal = elements[rightIndex]
             }
             
-            // 比子节点都大
+            // 3、value >= childVal break 比两个子节点都大
             if !compare(lhs: childVal, rhs: value) { break }
                 
-            valueArray[currentIndex] = childVal
+            // 4、value < childVal 继续下滤
+            // 4.1、将子节点存放到index位置
+            elements[currentIndex] = childVal
+            // 4.2 更新currentIndex
             currentIndex = childIndex
         }
         
-        valueArray[currentIndex] = value
+        // 5、将node的值赋值到其索引位置
+        elements[currentIndex] = value
     }
     
+    
+    //MARK: 批量建堆
     /// 批量建堆
     fileprivate func heapify() {
-//        // 自上而下的上滤
-//        for i in 1..<valueArray.count {
+//        // 自上而下的上滤 - 效率低 等价于一个个add
+//        for i in 1..<elements.count {
 //            shiftUp(i)
 //        }
         
-        // 自下而上的下滤
-        let lastIndex = valueArray.count >> 1 - 1
+        // 自下而上的下滤 - 效率高
+        let lastIndex = elements.count >> 1 - 1
         for i in (0...lastIndex).reversed() {
-            downUp(i)
+            siftDown(i)
         }
     }
 }
 
 
-//MARK: 测试题
+//MARK: - 测试题
 extension BinaryHeap {
     /// 找出数组中最大的前K个数
     func getMax(_ vals: [E], max: Int) -> [E] {
@@ -167,16 +231,17 @@ extension BinaryHeap {
         for val in vals {
             if heap.count() < max {
                 heap.add(val: val)
-            } else if let top = heap.top(), top < val {
+            } else if let top = heap.getTop(), top < val {
                 heap.replace(val: val)
             }
         }
         
-        return heap.array()
+        return heap.getArray()
     }
 }
 
 
+//MARK: - 打印BinaryHeap
 extension BinaryHeap: BinaryTreeProtocol {
     func getRoot() -> Any? {
         return 0
@@ -185,7 +250,7 @@ extension BinaryHeap: BinaryTreeProtocol {
     func left(node: Any?) -> Any? {
         if let index = node as? Int {
             let childIndex = index << 1 + 1
-            return childIndex < valueArray.count ? childIndex as Any : nil
+            return childIndex < elements.count ? childIndex as Any : nil
         }
         return nil
     }
@@ -193,14 +258,14 @@ extension BinaryHeap: BinaryTreeProtocol {
     func right(node: Any?) -> Any? {
         if let index = node as? Int {
             let childIndex = index << 1 + 2
-            return childIndex < valueArray.count ? childIndex as Any : nil
+            return childIndex < elements.count ? childIndex as Any : nil
         }
         return nil
     }
     
     func string(node: Any?) -> String {
-        if let index = node as? Int, index < valueArray.count {
-            return "\(valueArray[index])"
+        if let index = node as? Int, index < elements.count {
+            return "\(elements[index])"
         }
         return "-"
     }

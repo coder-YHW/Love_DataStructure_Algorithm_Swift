@@ -295,6 +295,27 @@ func testHashMap() {
 }
 
 
+//MARK: - Heap测试用例
+func printHeap(_ heap: BinaryHeap<Int>) {
+    let log = InorderPrinter.printTree(heap)
+    log.printIn()
+}
+
+func testBinaryHeap() {
+    
+    let keys = [68, 72, 43, 50, 38, 10, 90, 65];
+    let heap = BinaryHeap(vals: keys)
+    
+    printHeap(heap)
+    
+    heap.remove()
+    printHeap(heap)
+    
+    heap.replace(val: 30)
+    printHeap(heap)
+    
+}
+
 //MARK: - 测试入口
 
 //testArrayList()
@@ -305,4 +326,6 @@ func testHashMap() {
 //testRBTree()
 
 //testTreeMap()
-testHashMap()
+//testHashMap()
+
+testBinaryHeap()
