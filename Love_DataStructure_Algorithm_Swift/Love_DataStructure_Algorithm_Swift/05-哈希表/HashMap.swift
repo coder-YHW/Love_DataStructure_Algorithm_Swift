@@ -149,6 +149,9 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         // 0、可选类型非nil判断
         guard let key = key else { return }
         
+        // 0、扩容检测
+        ensureCapacity()
+        
         let index = getHashIndexFromKey(key)
         var root = tables[index];
         
@@ -523,7 +526,7 @@ extension HashMap {
     }
 }
 
-//MARK: - - 比较两个key的大小
+//MARK: - - 比较器
 extension HashMap {
  
     /// 比较两个key大小
@@ -541,6 +544,30 @@ extension HashMap {
     /// 比较两个val是否相等
     fileprivate func valEquals(val1: V?, val2: V?) ->Bool {
         return val1 == nil ? val2 == nil : val1 == val2
+    }
+    
+    /// 比较两个key大小
+    fileprivate func compare(key1: K, key2: K, hashCode1: Int, hashCode2: Int) -> Int {
+        
+        var cmp = 0
+        
+        // 1、比较hsahCode
+        if hashCode1 > hashCode2 {
+            cmp = 1
+        }else if hashCode1 < hashCode1 {
+            cmp = -1
+        }
+        
+        // 2、比较key
+        if key1 > key2 {
+            cmp = 1
+        }else if key1 < key2 {
+            cmp = -1
+        }else {
+            cmp = 0
+        }
+        
+        return cmp
     }
 }
 
@@ -744,6 +771,114 @@ extension HashMap {
     }
 }
 
+
+//MARK: table数组的扩容与缩容
+extension HashMap {
+    
+    /// 重置数组容量
+    fileprivate func ensureCapacity() {
+        // 1、装填因子<= 0.75 不扩容
+        let oldCapacity = tables.count
+        if Double(size) / Double(tables.count) <= loadFactor { return }
+
+        // 2、装填因子>0.75 扩容为原来的2倍
+        let oldTable = tables // 保存旧table
+        tables = Array(repeating: nil, count: oldTable.count << 1)
+        
+        // 3、旧值设回
+        for i in 0..<oldCapacity { // 3.1、遍历每一颗红黑树的根节点
+//        tables[i] = oldTable[i]; 扩容之后 hashIndex变了 不能这么做
+            
+            guard let root = oldTable[i] else { continue }
+            
+            // 3.2、根据root 遍历每一颗红黑树的所有节点
+            let queue = SingleQueue<HashNode<K, V>>()
+            queue.enQueue(root)
+            
+            while !queue.isEmpty() {
+                
+                let node = queue.deQueue()
+                // 3.3、把node从旧数组移动到新数组
+//                moveNode(node) //  调到下面 避免node重置后无法入队
+                
+                if let left = node?.left {
+                    queue.enQueue(left)
+                }
+                
+                if let right = node?.right {
+                    queue.enQueue(right)
+                }
+                
+                // 3.3、把node从旧数组移动到新数组
+                moveNode(node!) // node不可能为空
+            }
+        }
+    }
+
+    /// 把node从旧数组移动到新数组 -
+    /// (跟添加很像 只是不需要创建新节点 将已存在的旧节点移到新数组即可)
+    fileprivate func moveNode(_ newNode: HashNode<K, V>) {
+        
+        // 0、重置node所有线
+        newNode.parent = nil
+        newNode.left = nil
+        newNode.right = nil
+        newNode.isRed = true
+
+        // 1、根据旧hashCode 重新计算索引 取出对应位置的root
+        let index = getHashIndexFromHashCode(newNode.hashCode) // 重新计算索引
+        var root = tables[index]
+        
+        // 2、root为空 添加根节点root到桶数组 修复红黑树性质
+        if root == nil {
+            root = newNode
+            tables[index] = root
+            
+            afterPut(root!) // 修复红黑树性质
+            return
+        }
+
+        // 3、root不为空 添加新的节点到对应红黑树 修复红黑树性质
+        // 此时哈希冲突（不同的key得哈希化后得到了相同的hashCode）
+        var parent = root
+        var node = root
+        var cmp = 0
+        
+        // 找到要添加位置的父节点
+        while node != nil {
+            
+            if let key1 = newNode.key, let key2 = node!.key {
+                
+                cmp = compare(key1: key1, key2: key2, hashCode1: newNode.hashCode, hashCode2: node!.hashCode)
+                parent = node
+                
+                if cmp > 0 {
+                    node = node!.right
+                } else if cmp < 0 {
+                    node = node!.left
+                }else {
+                    // key相等 - 旧表里不可能存在相等的元素
+                    return
+                }
+                
+            }else {
+                return
+            }
+        }
+
+        // 4、newNode替换
+        if cmp > 0 {
+            parent?.right = newNode
+        } else {
+            parent?.left = newNode
+        }
+        newNode.parent = parent // 注意：记得加上这一句
+
+        afterPut(newNode) // 5、修复红黑树性质
+    }
+
+}
+
 //MARK: - Comparable协议
 extension HashMap: Comparable {
 
@@ -760,71 +895,3 @@ extension HashMap: Comparable {
     }
 }
 
-/// 重置数组容量
-//    fileprivate func resertSize() {
-//        // 装填因子 <= 0.75
-//        if size / tables.count <= capacity { return }
-//
-//        let oldTable = tables
-//        tables = Array(repeating: nil, count: oldTable.count << 1)
-//        let queue = SingleQueue<HashNode<K, V>>()
-//
-//        for i in 0..<tables.count {
-//            if oldTable[i] == nil { continue }
-//
-//            queue.enQueue(oldTable[i])
-//            while !queue.isEmpty() {
-//                let node = queue.deQueue()
-//                if let left = node?.left {
-//                    queue.enQueue(left)
-//                }
-//                if let right = node?.right {
-//                    queue.enQueue(right)
-//                }
-//
-//             moveNode(node)
-//            }
-//        }
-//    }
-
-/// 挪动代码得放到最后面
-//    fileprivate func moveNode(_ newNode: HashNode<K, V>?) {
-//        newNode?.parent = nil
-//        newNode?.left = nil
-//        newNode?.right = nil
-//        newNode?.isRed = true
-//
-//        let index = getHashIndexFromHashCode(newNode?.hashCode)
-//        var root = tables[index]
-//        if root == nil {
-//            root = newNode
-//            tables[index] = root
-//            afterPut(root)
-//            return
-//        }
-//
-//        // 添加新的节点到红黑树
-//        var parent = root
-//        var node = root
-//        var cmp = 0
-//        let h1 = newNode?.hashCode ?? 0
-//        while node != nil {
-//            parent = node
-//            let h2 = node?.hashCode ?? 0
-//            cmp = h1 - h2
-//            if cmp > 0 {
-//                node = node?.right
-//            } else if cmp < 0 {
-//                node = node?.left
-//            }
-//        }
-//
-//        newNode?.parent = parent
-//        if cmp > 0 {
-//            parent?.right = newNode
-//        } else {
-//            parent?.left = newNode
-//        }
-//
-//        fixAfterPut(newNode)
-//    }
