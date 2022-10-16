@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0D1BDBBB28FA9413004F1D93 /* HashSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDBBA28FA9413004F1D93 /* HashSet.swift */; };
+		0D1BDBBD28FBC7BA004F1D93 /* LinkHashNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDBBC28FBC7BA004F1D93 /* LinkHashNode.swift */; };
+		0D1BDBBF28FBC7D2004F1D93 /* LinkHashMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1BDBBE28FBC7D2004F1D93 /* LinkHashMap.swift */; };
 		0D66C5A228F7DC9E00D280E2 /* QueueStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */; };
 		0D66C5A428F8081F00D280E2 /* StackQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5A328F8081F00D280E2 /* StackQueue.swift */; };
 		0D66C5AB28F86F0C00D280E2 /* AVLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */; };
@@ -173,6 +175,8 @@
 		0D1BDBB828F9DA6A004F1D93 /* 恋上数据结构与算法-第二季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第二季.pdf"; sourceTree = "<group>"; };
 		0D1BDBB928F9DA6B004F1D93 /* 恋上数据结构与算法-第一季.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "恋上数据结构与算法-第一季.pdf"; sourceTree = "<group>"; };
 		0D1BDBBA28FA9413004F1D93 /* HashSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashSet.swift; path = "Love_DataStructure_Algorithm_Swift/05-哈希表/HashSet.swift"; sourceTree = SOURCE_ROOT; };
+		0D1BDBBC28FBC7BA004F1D93 /* LinkHashNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHashNode.swift; sourceTree = "<group>"; };
+		0D1BDBBE28FBC7D2004F1D93 /* LinkHashMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkHashMap.swift; sourceTree = "<group>"; };
 		0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueStack.swift; sourceTree = "<group>"; };
 		0D66C5A328F8081F00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVLNode.swift; sourceTree = "<group>"; };
@@ -470,6 +474,8 @@
 			children = (
 				0DC90B9028F01E9000AA8754 /* HashNode.swift */,
 				0DC90B8E28F01E9000AA8754 /* HashMap.swift */,
+				0D1BDBBC28FBC7BA004F1D93 /* LinkHashNode.swift */,
+				0D1BDBBE28FBC7D2004F1D93 /* LinkHashMap.swift */,
 			);
 			path = "05-哈希表";
 			sourceTree = "<group>";
@@ -869,6 +875,7 @@
 				0D66C5D828F95E3B00D280E2 /* MJBinaryTrees.m in Sources */,
 				0DC90C2F28F01E9300AA8754 /* GenericUnionFind.swift in Sources */,
 				0D66C5A428F8081F00D280E2 /* StackQueue.swift in Sources */,
+				0D1BDBBF28FBC7D2004F1D93 /* LinkHashMap.swift in Sources */,
 				0DC90C4328F01E9300AA8754 /* TreeSet.swift in Sources */,
 				0DC90C2B28F01E9300AA8754 /* BubbleSorted.swift in Sources */,
 				0DC90C1628F01E9300AA8754 /* BinaryTreeInfo.swift in Sources */,
@@ -880,6 +887,7 @@
 				0DC90C1428F01E9300AA8754 /* BinaryHeap.swift in Sources */,
 				0DC90BF828F01E9300AA8754 /* HashNode.swift in Sources */,
 				0DC90C4428F01E9300AA8754 /* Set.swift in Sources */,
+				0D1BDBBD28FBC7BA004F1D93 /* LinkHashNode.swift in Sources */,
 				0DC90C0828F01E9300AA8754 /* PathInfo.swift in Sources */,
 				0DC90C2228F01E9300AA8754 /* RadixSorted.swift in Sources */,
 				0DC90C0E28F01E9300AA8754 /* RecallLeetCode.swift in Sources */,

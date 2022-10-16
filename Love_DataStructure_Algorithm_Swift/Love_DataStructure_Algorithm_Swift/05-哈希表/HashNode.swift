@@ -22,7 +22,7 @@ class HashNode<K: Hashable, V: Comparable>: Comparable {
     
     
     //MARK: - 构造函数
-    public init(_ key: K?, _ val: V?, parent: HashNode? = nil) {
+    init(_ key: K?, _ val: V?, parent: HashNode? = nil) {
         self.key = key
         self.val = val
         self.parent = parent

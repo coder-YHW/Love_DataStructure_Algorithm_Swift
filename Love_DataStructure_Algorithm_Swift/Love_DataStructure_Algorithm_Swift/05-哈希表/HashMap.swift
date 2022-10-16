@@ -25,6 +25,21 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         tables = Array(repeating: nil, count: capacity)
     }
     
+    //MARK: - 子类重写
+    /// node构造函数 -
+    public func createNode(_ key: K?, _ val: V?, parent: HashNode<K, V>? = nil) -> HashNode<K, V> {
+        return HashNode(key, val, parent: parent)
+    }
+    
+    /// 修复LinkHashMap性质  子类重写 ( 删除度为1或0的节点 node)
+    public func fixLinkHashMapAfterRemove1(_ node: HashNode<K, V>) {
+//        print("子类重写 - 修复LinkHashMap性质")
+    }
+    
+    /// 修复LinkHashMap性质 - 子类重写 ( 删除度为2的节点 node)
+    public func fixLinkHashMapAfterRemove2(_ node: HashNode<K, V>, _ replaceNode: HashNode<K, V>) {
+//        print("子类重写 - 修复LinkHashMap性质")
+    }
     
     //MARK: - override
     /**元素个数*/
@@ -64,13 +79,14 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         
         if size == 0 { return false }
         
+        let queue = SingleQueue<HashNode<K, V>>()
         for node in tables { // 遍历每一张红黑树
             
             guard let rootNode = node else { // 0、root为nil 空树 下一个
                 continue
             }
             
-            let queue = SingleQueue<HashNode<K, V>>()
+//            let queue = SingleQueue<HashNode<K, V>>()
             queue.enQueue(rootNode) // 1、根节点入队 再层序遍历整棵树
             
             while !queue.isEmpty() {
@@ -102,6 +118,7 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         for i in 0..<tables.count {
             if tables[i] == nil { continue }
             
+//            let queue = SingleQueue<HashNode<K, V>>()
             queue.enQueue(tables[i])
             
             while !queue.isEmpty() {
@@ -157,7 +174,8 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         
         // 1、添加第一个节点- 根节点
         if root == nil {
-            root = HashNode(key, val)
+//            root = HashNode(key, val)
+            root = createNode(key, val)
             tables[index] = root // 将根节点放入到桶数组里 注意：一定不要忘了这一句
             size += 1
             
@@ -197,7 +215,8 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
         }
         
         // 3、根据找到的父节点-插入新节点
-        let newNode = HashNode(key, val, parent: parent)
+//        let newNode = HashNode(key, val, parent: parent)
+        let newNode = createNode(key, val, parent: parent)
         if cmp > 0 {
             parent?.right = newNode
         } else {
@@ -306,6 +325,9 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
             
             // 1.3、删除后继节点 - 用后继节点覆盖node 后续再删除node
             node = nextNode!
+            
+            // 修复LinkHashMap性质
+            fixLinkHashMapAfterRemove2(node, nextNode!)
         }
         
         // 删除node节点（后面node的度必然是0或1）
@@ -330,6 +352,9 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
             // 删除节点后平衡红黑树
             afterRemove(replcaeNode)
             
+            // 修复LinkHashMap性质
+            fixLinkHashMapAfterRemove1(replcaeNode)
+            
         }else { // 3、node的度为0 （更改父节点的左子树或右子树为replcaeNode == nil）
             
             if node.parent == nil {
@@ -346,6 +371,9 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
             
             // 删除节点后平衡红黑树
             afterRemove(node)
+            
+            // 修复LinkHashMap性质
+            fixLinkHashMapAfterRemove1(node)
         }
     }
     
@@ -783,8 +811,10 @@ extension HashMap {
 
         // 2、装填因子>0.75 扩容为原来的2倍
         let oldTable = tables // 保存旧table
-        tables = Array(repeating: nil, count: oldTable.count << 1)
+        let newCapacity = oldTable.count << 1
+        tables = Array(repeating: nil, count: newCapacity)
         
+        let queue = SingleQueue<HashNode<K, V>>()
         // 3、旧值设回
         for i in 0..<oldCapacity { // 3.1、遍历每一颗红黑树的根节点
 //        tables[i] = oldTable[i]; 扩容之后 hashIndex变了 不能这么做
@@ -792,7 +822,7 @@ extension HashMap {
             guard let root = oldTable[i] else { continue }
             
             // 3.2、根据root 遍历每一颗红黑树的所有节点
-            let queue = SingleQueue<HashNode<K, V>>()
+//            let queue = SingleQueue<HashNode<K, V>>()
             queue.enQueue(root)
             
             while !queue.isEmpty() {
@@ -813,6 +843,8 @@ extension HashMap {
                 moveNode(node!) // node不可能为空
             }
         }
+        
+        print("扩容为：\(newCapacity)")
     }
 
     /// 把node从旧数组移动到新数组 -
