@@ -1,5 +1,5 @@
 //
-//  CountingSorted.swift
+//  CountingSort.swift
 //  Love_DataStructure_Algorithm_Swift
 //
 //  Created by 余衡武 on 2022/10/28.
@@ -8,7 +8,7 @@
 import Cocoa
 
 /// 计数排序
-class CountingSorted<T: Comparable>: Sort<T> {
+class CountingSort<T: Comparable>: Sort<T> {
     
     override func sortAction() {
         guard let intArray = dataArray as? [Int] else { return }

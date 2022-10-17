@@ -30,6 +30,10 @@ class Sort<T: Comparable> {
         sortAction()
         let end = Date().timeIntervalSince1970
         time = end - begin
+        
+        
+        print("比较次数：\(cmpCount) 交换次数：\(swapCount) 耗时：\(time)")
+        
         return dataArray
     }
     

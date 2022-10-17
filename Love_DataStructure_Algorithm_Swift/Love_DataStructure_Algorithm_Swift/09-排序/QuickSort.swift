@@ -1,5 +1,5 @@
 //
-//  QuickSorted.swift
+//  QuickSort.swift
 //  Love_DataStructure_Algorithm_Swift
 //
 //  Created by 余衡武 on 2022/10/26.
@@ -7,8 +7,8 @@
 
 import Cocoa
 
-/// 快速排序
-class QuickSorted<T: Comparable>: Sort<T> {
+/// 快速排序 - 逐渐将每一个元素都转换成轴点元素
+class QuickSort<T: Comparable>: Sort<T> {
 
     
     override func sortAction() {
@@ -23,9 +23,11 @@ class QuickSorted<T: Comparable>: Sort<T> {
      */
     fileprivate func quickSort(begin: Int, end: Int) {
         if end - begin < 2 { return }
+        
+        // 1、构造出 [begin, end) 范围的轴点元素
         let pivot = pivotIndex(first: begin, last: end)
         
-        // 对子序列排序
+        // 2、对子序列再次快速排序
         quickSort(begin: begin, end: pivot)
         quickSort(begin: pivot + 1, end: end)
     }
@@ -41,24 +43,30 @@ class QuickSorted<T: Comparable>: Sort<T> {
         let random = Int.random(in: first..<last)
         swap(i1: random, i2: first)
         
+        // 0、索引处理
         let pivotVal = dataArray[first]
         var begin = first
         var end = last - 1
         
+        // 1、左右扫描
         while begin < end {
+            
+            // 1.1、从右往左扫描 <-
             while begin < end {
-                if cmp(e1: pivotVal, e2: dataArray[end]) < 0 {
+                if cmp(e1: pivotVal, e2: dataArray[end]) < 0 { // 轴点元素 < 右边元素 ： end--
                     end -= 1
-                } else {
+                } else { // 轴点元素 >= 右边元素 : 调换位置
                     dataArray[begin] = dataArray[end]
                     begin += 1
                     break
                 }
             }
+            
+            // 1.2、从左往右扫描 ->
             while begin < end {
-                if cmp(e1: pivotVal, e2: dataArray[begin]) > 0 {
+                if cmp(e1: pivotVal, e2: dataArray[begin]) > 0 { // 轴点元素 > 左边元素 ： begin++
                     begin += 1
-                } else {
+                } else { // 轴点元素 <= 左边元素 : 调换位置
                     dataArray[end] = dataArray[begin]
                     end -= 1
                     break
@@ -66,7 +74,9 @@ class QuickSorted<T: Comparable>: Sort<T> {
             }
         }
         
+        // 2、将轴点元素放入最终位置
         dataArray[begin] = pivotVal
-        return begin
+        // 返回轴点元素最终位置
+        return begin // begin = end
     }
 }

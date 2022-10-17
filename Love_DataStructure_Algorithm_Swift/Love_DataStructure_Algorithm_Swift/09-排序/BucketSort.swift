@@ -1,5 +1,5 @@
 //
-//  BucketSorted.swift
+//  BucketSort.swift
 //  Love_DataStructure_Algorithm_Swift
 //
 //  Created by 余衡武 on 2022/10/4.
@@ -8,7 +8,7 @@
 import Cocoa
 
 
-class BucketSorted {
+class BucketSort {
     
     /// 存储数组
     var dataArray = [Double]()
@@ -38,7 +38,7 @@ class BucketSorted {
         var index = 0
         for i in 0..<buckets.count {
             guard let bucket = buckets[i] else { continue }
-            let quick = QuickSorted<Double>()
+            let quick = QuickSort<Double>()
             let arr = quick.sorted(by: bucket)
             for val in arr {
                 dataArray[index] = val

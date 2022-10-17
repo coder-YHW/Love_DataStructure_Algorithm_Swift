@@ -1,5 +1,5 @@
 //
-//  RadixSorted.swift
+//  RadixSort.swift
 //  Love_DataStructure_Algorithm_Swift
 //
 //  Created by 余衡武 on 2022/10/14.
@@ -9,7 +9,7 @@ import Cocoa
 
 
 /// 基数排序
-class RadixSorted<T: Comparable>: Sort<T> {
+class RadixSort<T: Comparable>: Sort<T> {
     
 
     override func sortAction() {
