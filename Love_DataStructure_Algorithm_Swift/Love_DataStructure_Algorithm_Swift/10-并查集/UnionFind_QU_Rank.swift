@@ -33,9 +33,10 @@ class UnionFind_QU_Rank: UnionFind_QU {
             parents[p1] = p2
         } else if rankArr[p2] < rankArr[p1] {
             parents[p2] = p1
-        } else {
-            parents[p1] = p2
-            rankArr[p2] += 1
+        } else { // rank1 = rank2
+            parents[p1] = p2 // 2种都可以
+            
+            rankArr[p2] += 1 // 更新rank
         }
     }
 }
