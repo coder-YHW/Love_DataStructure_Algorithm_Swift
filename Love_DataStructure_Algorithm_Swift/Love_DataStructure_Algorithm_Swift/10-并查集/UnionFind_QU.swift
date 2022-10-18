@@ -10,7 +10,7 @@ import Cocoa
 /// Quick Union
 class UnionFind_QU: UnionFind {
 
-    /// 通过parent链条不断地向上找，直到找到根节点  - 时间复杂度O(nlogn)
+    /// 通过parent链条不断地向上找，直到找到根节点  - 时间复杂度O(logn)
     override func find(v: Int) -> Int {
         rangeCheck(v: v)
         

@@ -32,10 +32,12 @@ class UnionFind_QU_Size: UnionFind_QU {
         // 节点少的合并到节点多的
         if sizeArr[p1] < sizeArr[p2] {
             parents[p1] = p2
-            sizeArr[p2] += sizeArr[p1]
+            
+            sizeArr[p2] += sizeArr[p1] // 更新size
         } else {
             parents[p2] = p1
-            sizeArr[p1] += sizeArr[p2]
+            
+            sizeArr[p1] += sizeArr[p2] // 更新size
         }
     }
 }

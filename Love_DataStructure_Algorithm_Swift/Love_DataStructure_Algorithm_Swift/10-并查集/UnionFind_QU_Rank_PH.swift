@@ -21,7 +21,7 @@ class UnionFind_QU_Rank_PH: UnionFind_QU_Rank {
         var val = v
         if parents[val] != val {
             let parent = parents[val]
-            let grand = parents[parent]
+            let grand  = parents[parent]
             parents[val] = grand
             
             val = grand // 使路径上每隔一个节点就指向其祖父节点
