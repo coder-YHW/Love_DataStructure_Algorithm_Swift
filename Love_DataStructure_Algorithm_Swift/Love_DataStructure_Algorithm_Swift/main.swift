@@ -320,7 +320,7 @@ func testBinaryHeap() {
 //MARK: - 排序算法
 func testSort() {
     
-    let data = [51, 30, 39, 92, 74, 25, 16, 93, 91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 90, 6, 65, 49, 3, 26, 61, 21, 48]
+    let data = [51, 30, 39, 30, 39, 92, 74, 25, 16, 93, 91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 90, 6, 65, 49, 3, 26, 61, 21, 48]
     
     
 //    let sort = BubbleSort1<Int>()
@@ -329,15 +329,16 @@ func testSort() {
 //    let sort = SelectionSort<Int>()
 //    let sort = HeapSort<Int>()
 //    let sort = InsertionSort1<Int>()
-//    let sort = InsertionSort2<Int>()
+    let sort = InsertionSort2<Int>()
 //    let sort = InsertionSort3<Int>()
 //    let sort = InsertionSort4<Int>()
 //    let sort = BinarySearch<Int>()
 //    let sort = MergeSort<Int>()
 //    let sort = QuickSort<Int>()
-    let sort = ShellSort<Int>()
-
-    
+//    let sort = ShellSort<Int>()
+//    let sort = CountingSort<Int>()
+//    let sort = RadixSort<Int>()
+//    let sort = BucketSort()
     
     
     let array = sort.sorted(by: data)

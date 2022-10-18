@@ -10,13 +10,18 @@ import Cocoa
 /// 泛型并查集
 class GenericUnionFind<V: Hashable & Comparable> {
 
+    
+    //MARK: - 属性
     fileprivate let nodes = HashMap<V, UnionFindNode<V>>()
     
+    
+    //MARK: - 方法
     func makeSet(_ val: V) {
         if nodes.containsKey(key: val) { return }
         let node = UnionFindNode(val: val)
         nodes.put(key: val, val: node)
     }
+    
     
     /// 查找V所属的集合(根节点)
     func find(val: V?) -> V? {

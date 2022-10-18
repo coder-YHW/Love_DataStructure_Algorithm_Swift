@@ -712,16 +712,16 @@
 		0DC90BD528F01E9200AA8754 /* 13-并查集 */ = {
 			isa = PBXGroup;
 			children = (
-				0DC90BD628F01E9200AA8754 /* UnionFind_QF.swift */,
-				0DC90BD728F01E9200AA8754 /* UnionFind_QU_Rank.swift */,
-				0DC90BD828F01E9200AA8754 /* GenericUnionFind.swift */,
 				0DC90BD928F01E9200AA8754 /* UnionFind.swift */,
-				0DC90BDA28F01E9200AA8754 /* UnionFind_QU_Rank_PC.swift */,
-				0DC90BDB28F01E9200AA8754 /* UnionFindNode.swift */,
-				0DC90BDC28F01E9200AA8754 /* UnionFind_QU_Rank_PH.swift */,
-				0DC90BDD28F01E9200AA8754 /* UnionFind_QU_Rank_PS.swift */,
+				0DC90BD628F01E9200AA8754 /* UnionFind_QF.swift */,
 				0DC90BDE28F01E9200AA8754 /* UnionFind_QU.swift */,
 				0DC90BDF28F01E9200AA8754 /* UnionFind_QU_Size.swift */,
+				0DC90BD728F01E9200AA8754 /* UnionFind_QU_Rank.swift */,
+				0DC90BDA28F01E9200AA8754 /* UnionFind_QU_Rank_PC.swift */,
+				0DC90BDD28F01E9200AA8754 /* UnionFind_QU_Rank_PS.swift */,
+				0DC90BDC28F01E9200AA8754 /* UnionFind_QU_Rank_PH.swift */,
+				0DC90BDB28F01E9200AA8754 /* UnionFindNode.swift */,
+				0DC90BD828F01E9200AA8754 /* GenericUnionFind.swift */,
 			);
 			path = "13-并查集";
 			sourceTree = "<group>";

@@ -9,15 +9,21 @@ import Cocoa
 
 class UnionFindNode<V: Hashable & Comparable>: Comparable {
     
+    
+    //MARK: - 属性
     var value: V?
     var parent: UnionFindNode<V>?
     var rank = 1
     
+    
+    //MARK: - 构造函数
     init(val: V?) {
         value = val
         parent = self
     }
     
+    
+    //MARK: - Comparable
     static func == (lhs: UnionFindNode<V>, rhs: UnionFindNode<V>) -> Bool {
         return lhs.value == rhs.value
     }
