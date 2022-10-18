@@ -14,9 +14,12 @@ import Cocoa
  */
 class UnionFind {
 
+    //MARK: - 属性
     /// 当前集
     var parents = [Int]()
     
+    
+    //MARK: - 构造函数
     init(capacity: Int) {
         if capacity <= 0 {
             fatalError("capacity must be >= 1")
@@ -29,6 +32,7 @@ class UnionFind {
     }
     
     
+    //MARK: - 方法
     /// 查找V所属的集合(根节点)
     func find(v: Int) -> Int {
         fatalError()

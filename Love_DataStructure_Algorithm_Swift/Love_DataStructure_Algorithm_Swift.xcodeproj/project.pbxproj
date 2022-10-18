@@ -495,7 +495,7 @@
 				0DC90B8B28F01E9000AA8754 /* 07-优先级队列 */,
 				0DC90C5B28F02A0D00AA8754 /* 08-Trie */,
 				0DC90BC928F01E9200AA8754 /* 09-排序 */,
-				0DC90BD528F01E9200AA8754 /* 13-并查集 */,
+				0DC90BD528F01E9200AA8754 /* 10-并查集 */,
 				0DC90BA128F01E9100AA8754 /* 14-图 */,
 				0DC90BB628F01E9100AA8754 /* 15-递归 */,
 				0DC90BAA28F01E9100AA8754 /* 16-回溯 */,
@@ -709,7 +709,7 @@
 			path = "09-排序";
 			sourceTree = "<group>";
 		};
-		0DC90BD528F01E9200AA8754 /* 13-并查集 */ = {
+		0DC90BD528F01E9200AA8754 /* 10-并查集 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BD928F01E9200AA8754 /* UnionFind.swift */,
@@ -723,7 +723,7 @@
 				0DC90BDB28F01E9200AA8754 /* UnionFindNode.swift */,
 				0DC90BD828F01E9200AA8754 /* GenericUnionFind.swift */,
 			);
-			path = "13-并查集";
+			path = "10-并查集";
 			sourceTree = "<group>";
 		};
 		0DC90BE028F01E9200AA8754 /* 栈 */ = {

@@ -7,11 +7,10 @@
 
 import Cocoa
 
-
 /// Quick Union
 class UnionFind_QU: UnionFind {
 
-    /// 通过parent链条不断地向上找，直到找到根节点
+    /// 通过parent链条不断地向上找，直到找到根节点  - 时间复杂度O(nlogn)
     override func find(v: Int) -> Int {
         rangeCheck(v: v)
         
@@ -22,12 +21,13 @@ class UnionFind_QU: UnionFind {
         return val
     }
     
-    /// 将v1的根节点嫁接到v2的根节点上
+    /// 将v1的根节点嫁接到v2的根节点上- 时间复杂度O(nlogn)
     override func union(v1: Int, v2: Int) {
         let p1 = find(v: v1)
         let p2 = find(v: v2)
         if p1 == p2 { return }
         
+        // 替换根节点
         parents[p1] = p2
     }
 }

@@ -18,7 +18,7 @@ class UnionFind_QU_Rank_PC: UnionFind_QU_Rank {
         rangeCheck(v: v)
         
         if parents[v] != v {
-            parents[v] = find(v: parents[v])
+            parents[v] = find(v: parents[v]) // 递归调用 - 沿着父节点继续往上找 使路径上的所有节点都指向根节点, 从而降低树的高度
         }
         return parents[v]
     }

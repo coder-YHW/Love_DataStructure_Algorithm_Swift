@@ -11,7 +11,7 @@ import Cocoa
  * Quick Union - 基于size的优化
  * 元素少的树嫁接到元素多的树
  */
-class UnionFind_QU_Size: UnionFind_QF {
+class UnionFind_QU_Size: UnionFind_QU {
 
     /// 存储集合的元素个数
     fileprivate var sizeArr = [Int]()
@@ -29,6 +29,7 @@ class UnionFind_QU_Size: UnionFind_QF {
         let p2 = find(v: v2)
         if p1 == p2 { return }
         
+        // 节点少的合并到节点多的
         if sizeArr[p1] < sizeArr[p2] {
             parents[p1] = p2
             sizeArr[p2] += sizeArr[p1]
