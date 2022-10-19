@@ -63,7 +63,7 @@ class ListSet<E: Hashable & Comparable>: Set<E> {
     }
     
     /**获取所有元素**/
-    override func lists() -> [E] {
+    override func allElements() -> [E] {
         var array = [E]()
         for i in 0..<size() {
             if let node = linkList.get(i) {

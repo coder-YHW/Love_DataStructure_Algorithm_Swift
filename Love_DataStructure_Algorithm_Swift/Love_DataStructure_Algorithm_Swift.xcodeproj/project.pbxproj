@@ -197,6 +197,7 @@
 		0D1BDBFC28FD6A99004F1D93 /* insertionSort.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = insertionSort.gif; sourceTree = "<group>"; };
 		0D1BDBFD28FD6A99004F1D93 /* bubbleSort.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = bubbleSort.gif; sourceTree = "<group>"; };
 		0D1BDBFE28FD6A99004F1D93 /* 希尔排序.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "希尔排序.gif"; sourceTree = "<group>"; };
+		0D1BDC3428FF1158004F1D93 /* 排序算法00.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "排序算法00.PNG"; sourceTree = "<group>"; };
 		0D66C5A128F7DC9E00D280E2 /* QueueStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueStack.swift; sourceTree = "<group>"; };
 		0D66C5A328F8081F00D280E2 /* StackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackQueue.swift; sourceTree = "<group>"; };
 		0D66C5AA28F86F0C00D280E2 /* AVLNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVLNode.swift; sourceTree = "<group>"; };
@@ -406,6 +407,7 @@
 		0D1BDBEC28FD6A99004F1D93 /* 图片 */ = {
 			isa = PBXGroup;
 			children = (
+				0D1BDC3428FF1158004F1D93 /* 排序算法00.PNG */,
 				0D1BDBF128FD6A99004F1D93 /* 冒泡排序.gif */,
 				0D1BDBFD28FD6A99004F1D93 /* bubbleSort.gif */,
 				0D1BDBF828FD6A99004F1D93 /* 选择排序.gif */,
@@ -496,12 +498,12 @@
 				0DC90C5B28F02A0D00AA8754 /* 08-Trie */,
 				0DC90BC928F01E9200AA8754 /* 09-排序 */,
 				0DC90BD528F01E9200AA8754 /* 10-并查集 */,
-				0DC90BA128F01E9100AA8754 /* 14-图 */,
-				0DC90BB628F01E9100AA8754 /* 15-递归 */,
-				0DC90BAA28F01E9100AA8754 /* 16-回溯 */,
-				0DC90BE928F01E9300AA8754 /* 17-贪心 */,
-				0DC90BAF28F01E9100AA8754 /* 18-分治 */,
-				0DC90BE728F01E9300AA8754 /* 19-动态规划 */,
+				0DC90BA128F01E9100AA8754 /* 11-图 */,
+				0DC90BB628F01E9100AA8754 /* 12-递归 */,
+				0DC90BAA28F01E9100AA8754 /* 13-回溯 */,
+				0DC90BE928F01E9300AA8754 /* 14-贪心 */,
+				0DC90BAF28F01E9100AA8754 /* 15-分治 */,
+				0DC90BE728F01E9300AA8754 /* 16-动态规划 */,
 			);
 			path = Love_DataStructure_Algorithm_Swift;
 			sourceTree = "<group>";
@@ -579,22 +581,22 @@
 			path = "AVL树";
 			sourceTree = "<group>";
 		};
-		0DC90BA128F01E9100AA8754 /* 14-图 */ = {
+		0DC90BA128F01E9100AA8754 /* 11-图 */ = {
 			isa = PBXGroup;
 			children = (
-				0DC90BA228F01E9100AA8754 /* GraphData.swift */,
-				0DC90BA328F01E9100AA8754 /* GraphTest.swift */,
+				0DC90BA928F01E9100AA8754 /* Vertex.swift */,
 				0DC90BA428F01E9100AA8754 /* Edge.swift */,
 				0DC90BA528F01E9100AA8754 /* Graph.swift */,
-				0DC90BA628F01E9100AA8754 /* PathInfo.swift */,
 				0DC90BA728F01E9100AA8754 /* ListGraph.swift */,
 				0DC90BA828F01E9100AA8754 /* EdgeInfo.swift */,
-				0DC90BA928F01E9100AA8754 /* Vertex.swift */,
+				0DC90BA628F01E9100AA8754 /* PathInfo.swift */,
+				0DC90BA228F01E9100AA8754 /* GraphData.swift */,
+				0DC90BA328F01E9100AA8754 /* GraphTest.swift */,
 			);
-			path = "14-图";
+			path = "11-图";
 			sourceTree = "<group>";
 		};
-		0DC90BAA28F01E9100AA8754 /* 16-回溯 */ = {
+		0DC90BAA28F01E9100AA8754 /* 13-回溯 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BAB28F01E9100AA8754 /* RecallThird.swift */,
@@ -602,15 +604,15 @@
 				0DC90BAD28F01E9100AA8754 /* RecallLeetCode.swift */,
 				0DC90BAE28F01E9100AA8754 /* RecallFirst.swift */,
 			);
-			path = "16-回溯";
+			path = "13-回溯";
 			sourceTree = "<group>";
 		};
-		0DC90BAF28F01E9100AA8754 /* 18-分治 */ = {
+		0DC90BAF28F01E9100AA8754 /* 15-分治 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BB028F01E9100AA8754 /* DivideConquer.swift */,
 			);
-			path = "18-分治";
+			path = "15-分治";
 			sourceTree = "<group>";
 		};
 		0DC90BB128F01E9100AA8754 /* 06-堆 */ = {
@@ -624,12 +626,12 @@
 			path = "06-堆";
 			sourceTree = "<group>";
 		};
-		0DC90BB628F01E9100AA8754 /* 15-递归 */ = {
+		0DC90BB628F01E9100AA8754 /* 12-递归 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BB728F01E9100AA8754 /* Recursion.swift */,
 			);
-			path = "15-递归";
+			path = "12-递归";
 			sourceTree = "<group>";
 		};
 		0DC90BB828F01E9100AA8754 /* 02-二叉树 */ = {
@@ -755,21 +757,21 @@
 			path = "00-pulic";
 			sourceTree = "<group>";
 		};
-		0DC90BE728F01E9300AA8754 /* 19-动态规划 */ = {
+		0DC90BE728F01E9300AA8754 /* 16-动态规划 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BE828F01E9300AA8754 /* DynamicProgramming.swift */,
 			);
-			path = "19-动态规划";
+			path = "16-动态规划";
 			sourceTree = "<group>";
 		};
-		0DC90BE928F01E9300AA8754 /* 17-贪心 */ = {
+		0DC90BE928F01E9300AA8754 /* 14-贪心 */ = {
 			isa = PBXGroup;
 			children = (
 				0DC90BEA28F01E9300AA8754 /* CoinExchange.swift */,
 				0DC90BEB28F01E9300AA8754 /* Pirater.swift */,
 			);
-			path = "17-贪心";
+			path = "14-贪心";
 			sourceTree = "<group>";
 		};
 		0DC90BEC28F01E9300AA8754 /* 队列 */ = {

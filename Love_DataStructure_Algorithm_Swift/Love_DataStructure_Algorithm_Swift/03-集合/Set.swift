@@ -45,7 +45,7 @@ class Set<E: Comparable & Hashable> {
     }
     
     /**获取所有元素**/
-    func lists() -> [E] {
+    func allElements() -> [E] {
         return []
     }
 }

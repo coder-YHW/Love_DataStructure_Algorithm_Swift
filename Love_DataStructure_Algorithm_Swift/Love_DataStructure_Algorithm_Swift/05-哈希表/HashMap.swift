@@ -535,7 +535,8 @@ extension HashMap {
             
             if let key1 = key, let key2 = node?.key {
                 
-                cmp = compare(key1: key1, key2: key2)
+//                cmp = compare(key1: key1, key2: key2)
+                cmp = compare(key1: key1, key2: key2, hashCode1: getHashCodeFromKey(key1), hashCode2: node!.hashCode)
                 
                 if cmp > 0 {
                     node = node?.right
@@ -545,8 +546,6 @@ extension HashMap {
                     return node
                 }
                 
-            }else {
-                return nil
             }
         }
     
@@ -577,16 +576,20 @@ extension HashMap {
     /// 比较两个key大小
     fileprivate func compare(key1: K, key2: K, hashCode1: Int, hashCode2: Int) -> Int {
         
-        var cmp = 0
-        
-        // 1、比较hsahCode
+        // 1、Hashable协议 重写 func hash(into hasher: inout Hasher) 方法
         if hashCode1 > hashCode2 {
-            cmp = 1
-        }else if hashCode1 < hashCode1 {
-            cmp = -1
+            return 1
+        }else if hashCode1 < hashCode2 {
+            return -1
         }
         
-        // 2、比较key
+        // 2、Equatable协议 重写 == 方法
+        if key1 == key2 {
+            return 0
+        }
+        
+        // 3、Comparable协议 重写> , < 方法
+        var cmp = 0
         if key1 > key2 {
             cmp = 1
         }else if key1 < key2 {

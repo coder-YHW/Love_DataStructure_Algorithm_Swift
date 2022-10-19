@@ -35,8 +35,8 @@ class RadixSort<T: Comparable>: Sort<T> {
         var divider = 1
         let maxInt = max as? Int ?? 0
         while divider <= maxInt {
-//            insertSort(divider)
-            insertSort1(divider)
+            insertSort(divider)
+//            insertSort1(divider)
             divider *= 10
         }
     }

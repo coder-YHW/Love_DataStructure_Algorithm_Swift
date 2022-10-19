@@ -57,7 +57,7 @@ class TreeSet<E: Hashable & Comparable>: Set<E> {
     }
     
     /**获取所有元素**/
-    override func lists() -> [E] {
+    override func allElements() -> [E] {
         
         var array = [E]()
         

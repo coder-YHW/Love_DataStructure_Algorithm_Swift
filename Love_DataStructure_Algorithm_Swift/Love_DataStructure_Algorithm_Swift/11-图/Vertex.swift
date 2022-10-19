@@ -9,14 +9,22 @@ import Cocoa
 
 struct Vertex<V: Comparable & Hashable, E: Comparable> {
 
+    //MARK: - 属性
+    /** value*/
     var value: V?
+    /** inEdges - 入度的边s - 多条无序*/
     var inEdges = HashSet<Edge<V, E>>()
+    /** outEdges - 出度的边s - 多条无序*/
     var outEdges = HashSet<Edge<V, E>>()
     
+    
+    //MARK: - 构造函数
     init(val: V) {
         self.value = val
     }
     
+    
+    //MARK: - 方法
     /// 哈希值
     func hashCode() -> Int {
         if let val = value {
@@ -27,17 +35,17 @@ struct Vertex<V: Comparable & Hashable, E: Comparable> {
     
     func toString() -> String {
         if let val = value {
-            return String(describing: val)
+            return "Vertex:\(val)"
         }
         return "nil"
     }
     
     func inEdgesString() -> String {
-        if inEdges.lists().isEmpty {
+        if inEdges.allElements().isEmpty {
             return "[]"
         }
         var string = ""
-        inEdges.lists().forEach { edge in
+        inEdges.allElements().forEach { edge in
             string += edge.toString()
             string += "\n"
         }
@@ -45,11 +53,11 @@ struct Vertex<V: Comparable & Hashable, E: Comparable> {
     }
     
     func outEdgesString() -> String {
-        if outEdges.lists().isEmpty {
+        if outEdges.allElements().isEmpty {
             return "[]"
         }
         var string = ""
-        outEdges.lists().forEach { edge in
+        outEdges.allElements().forEach { edge in
             string += edge.toString()
             string += "\n"
         }
@@ -69,5 +77,15 @@ extension Vertex: Hashable & Comparable {
     func hash(into hasher: inout Hasher) {
         let text = String(describing: value)
         hasher.combine(text)
+    }
+}
+
+
+// MARK: - 打印
+extension Vertex : CustomStringConvertible {
+    
+    var description: String {
+        
+        return "Vertex：\(value!)"
     }
 }

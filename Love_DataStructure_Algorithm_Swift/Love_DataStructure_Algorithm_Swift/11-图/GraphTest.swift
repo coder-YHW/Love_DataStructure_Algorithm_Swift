@@ -96,7 +96,7 @@ struct GraphTest<V: Comparable & Hashable> {
     /// 测试最小生成树, prim算法
     static func mstPrim(_ data: [[Any]]) {
         let graph = undirectedGraph(data)
-        let edgeArr = graph.mstPrim()?.lists() ?? []
+        let edgeArr = graph.mstPrim()?.allElements() ?? []
         for edge in edgeArr {
             print(edge.toString())
         }
@@ -105,7 +105,7 @@ struct GraphTest<V: Comparable & Hashable> {
     /// 测试最小生成树, prim算法
     static func mstKruskal(_ data: [[Any]]) {
         let graph = undirectedGraph(data)
-        let edgeArr = graph.mstKruskal()?.lists() ?? []
+        let edgeArr = graph.mstKruskal()?.allElements() ?? []
         for edge in edgeArr {
             print(edge.toString())
         }

@@ -9,25 +9,28 @@ import Cocoa
 
 class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E> {
 
-    fileprivate var vertices = HashMap<V, Vertex<V, E>>()
+    //MARK: - 属性
+    fileprivate var vertexs = HashMap<V, Vertex<V, E>>()
     fileprivate var edges = HashSet<Edge<V, E>>()
     
     
+    //MARK: - override
     /// 边的个数
     override func edgesSize() -> Int {
         return edges.size()
     }
     
-    /// 定点个数
-    override func verticesSize() -> Int {
-        return vertices.count()
+    /// 顶点个数
+    override func vertexsSize() -> Int {
+        return vertexs.count()
     }
     
+    //MARK: 添加删除
     /// 添加顶点
     override func addVertex(val: V) {
-        if vertices.containsKey(key: val) { return }
-        let ver = Vertex<V, E>(val: val)
-        vertices.put(key: val, val: ver)
+        if vertexs.containsKey(key: val) { return }
+        let vertex = Vertex<V, E>(val: val)
+        vertexs.put(key: val, val: vertex)
     }
     
     /// 添加边
@@ -37,67 +40,89 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     
     /// 添加边(带权重)
     override func addEdge(from: V, to: V, weight: Double?) {
-        var fromVertex = vertices.get(key: from)
+        
+        // 1、fromVertex是否存在
+        var fromVertex = vertexs.get(key: from)
         if fromVertex == nil {
             fromVertex = Vertex(val: from)
-            vertices.put(key: from, val: fromVertex)
-        }
-        var toVertex = vertices.get(key: to)
-        if toVertex == nil {
-            toVertex = Vertex(val: to)
-            vertices.put(key: to, val: toVertex)
+            vertexs.put(key: from, val: fromVertex)
         }
         
+        // 2、toVertex是否存在
+        var toVertex = vertexs.get(key: to)
+        if toVertex == nil {
+            toVertex = Vertex(val: to)
+            vertexs.put(key: to, val: toVertex)
+        }
+        
+        // 3、Edge是否存在 （Edge不存在 直接添加新edge）
         var edge = Edge(from: fromVertex, to: toVertex)
         edge.weight = weight
-        if fromVertex?.outEdges.remove(val: edge) != nil {
-            fromVertex?.inEdges.add(val: edge)
+        
+        // 3.1 Edge存在 先删除旧edge 再添加新edge - 3个HashSet都要删
+        if  fromVertex!.outEdges.contains(edge) {
+            fromVertex!.outEdges.remove(val: edge)
+            toVertex!.inEdges.remove(val: edge)
             edges.remove(val: edge)
         }
-        fromVertex?.outEdges.add(val: edge)
-        toVertex?.inEdges.add(val: edge)
+        
+        // 3.2 添加新edge - 3个HashSet都要加
+        fromVertex!.outEdges.add(val: edge)
+        toVertex!.inEdges.add(val: edge)
         edges.add(val: edge)
     }
     
     /// 删除顶点
     override func removeVertex(val: V) {
-//        let vertex = vertices.remove(key: val)
-//        if vertex == nil { return }
-//
-//        guard let vertex = vertices.remove(key: val) else {
-//            return
-//        }
-//
-//        vertex?.outEdges.lists().forEach({ edge in
-//            edge.to?.inEdges.remove(val: edge)
-//            edges.remove(val: edge)
-//        })
-//        vertex?.inEdges.lists().forEach({ edge in
-//            edge.from?.outEdges.remove(val: edge)
-//            edges.remove(val: edge)
-//        })
-//        vertex?.outEdges.clear()
-//        vertex?.inEdges.clear()
+
+        // 0、顶点不存在
+        guard let vertex = vertexs.get(key: val) else { return }
+
+        // 1、删除inEdges - 不能一边遍历的同时又删除元素，可以用enumerate()➕reversed()
+        let inEdgesArray = vertex.inEdges.allElements()
+        for (i, _) in inEdgesArray.enumerated().reversed() {
+            let edge = inEdgesArray[i]
+            removeEdge(from: edge.from?.value, to: edge.to?.value)
+        }
+        
+        // 2、删除outEdges - 不能一边遍历的同时又删除元素，可以用enumerate()➕reversed()
+        let outEdgesArray = vertex.outEdges.allElements()
+        for (i, _) in outEdgesArray.enumerated().reversed() {
+            let edge = outEdgesArray[i]
+            removeEdge(from: edge.from?.value, to: edge.to?.value)
+        }
     }
     
     /// 删除边
-    override func removeEdge(from: V, to: V) {
-        let fromVertex = vertices.get(key: from)
-        if fromVertex == nil { return }
-        let toVertex = vertices.get(key: to)
-        if toVertex == nil { return }
+    override func removeEdge(from: V?, to: V?) {
+        guard let from = from, let to = to else { return }
         
+        // 1、fromVertex不存在
+        guard let fromVertex = vertexs.get(key: from) else {
+            return
+        }
+        
+        // 2、toVertex不存在
+        guard let toVertex = vertexs.get(key: to) else {
+            return
+        }
+        
+        // 3、Edge是否存在
         let edge = Edge(from: fromVertex, to: toVertex)
-        if fromVertex?.outEdges.remove(val: edge) != nil {
-            toVertex?.inEdges.remove(val: edge)
+        
+        // 3.1、Edge存在才删除 - - 3个HashSet都要删
+        if fromVertex.outEdges.contains(edge) {
+            fromVertex.outEdges.remove(val: edge)
+            toVertex.inEdges.remove(val: edge)
             edges.remove(val: edge)
         }
     }
     
+    //MARK: - BFS
     /// 广度优先搜索(Breadth First Search)
     override func breadthFirstSearch(begin: V?, visitor: ((V) -> ())) {
         guard let key = begin else { return }
-        guard let beginVertex = vertices.get(key: key) else { return }
+        guard let beginVertex = vertexs.get(key: key) else { return }
         
         let vertexSet = HashSet<Vertex<V, E>>()
         let queue = SingleQueue<Vertex<V, E>>()
@@ -110,7 +135,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                     visitor(val)
                 }
                 
-                for edge in vertex.outEdges.lists() {
+                for edge in vertex.outEdges.allElements() {
                     if let toVertex = edge.to {
                         if vertexSet.contains(toVertex) { continue }
                         queue.enQueue(toVertex)
@@ -121,10 +146,11 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
     }
     
+    //MARK: DFS - 非递归
     /// 深度优先搜索(Depth First Search)[非递归]
     override func depthFirstSearch(begin: V?, visitor: ((V) -> ())) {
         guard let key = begin else { return }
-        guard let beginVertex = vertices.get(key: key) else { return }
+        guard let beginVertex = vertexs.get(key: key) else { return }
         
         let vertexSet = HashSet<Vertex<V, E>>()
         let statck = Statck<Vertex<V, E>>()
@@ -138,7 +164,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                     visitor(val)
                 }
                 
-                for edge in vertex.outEdges.lists() {
+                for edge in vertex.outEdges.allElements() {
                     if let toVertex = edge.to {
                         if vertexSet.contains(toVertex) { continue }
                         statck.push(toVertex)
@@ -149,15 +175,17 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
     }
     
+    //MARK: DFS - 递归
     /// 深度优先搜索(Depth First Search)[递归]
     override func depthFirstSearchCircle(begin: V?, visitor: ((V) -> ())) {
         guard let key = begin else { return }
-        guard let beginVertex = vertices.get(key: key) else { return }
+        guard let beginVertex = vertexs.get(key: key) else { return }
         
         let vertexSet = HashSet<Vertex<V, E>>()
         depthSearch(beginVertex, set: vertexSet, visitor: visitor)
     }
     
+    //MARK: 拓扑排序
     /*
      * 拓扑排序
      * AOV网的遍历, 把AOV的所有活动排成一个序列
@@ -165,7 +193,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     override func topologicalSort() -> [V] {
         let map = HashMap<Vertex<V, E>, Int>()
         let queue = SingleQueue<Vertex<V, E>>()
-        vertices.traversal { val, vertex in
+        vertexs.traversal { val, vertex in
             if let count = vertex?.inEdges.size() {
                 if count == 0 {
                     queue.enQueue(vertex)
@@ -182,7 +210,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                 valueArray.append(val)
             }
             
-            vertex?.outEdges.lists().forEach({ edge in
+            vertex?.outEdges.allElements().forEach({ edge in
                 if let vertex = edge.to, let count = map.get(key: vertex) {
                     if count == 1 {
                         queue.enQueue(vertex)
@@ -196,6 +224,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return valueArray
     }
     
+    //MARK: 最小生成树
     /*
      * 最小生成树
      * 最小权值生成树, 最小支撑树
@@ -203,14 +232,14 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
      * prim算法方式
      */
     override func mstPrim() -> HashSet<EdgeInfo<V, E>>? {
-        let verArr = vertices.allValues()
+        let verArr = vertexs.allValues()
         guard let vertex = verArr.first else { return nil }
         
         let edgeInfos = HashSet<EdgeInfo<V, E>>()
         let addedVertexs = HashSet<Vertex<V, E>>()
         addedVertexs.add(val: vertex)
-        let minHeap = MinHeap(vals: vertex.outEdges.lists())
-        let vertexSize = vertices.count()
+        let minHeap = MinHeap(vals: vertex.outEdges.allElements())
+        let vertexSize = vertexs.count()
         while !minHeap.isEmpty() && addedVertexs.size() < vertexSize {
             guard let edge = minHeap.remove() else { continue }
             if let toVertex = edge.to {
@@ -218,7 +247,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                 addedVertexs.add(val: toVertex)
             }
             edgeInfos.add(val: edge.edgeInfo())
-            if let edges = edge.to?.outEdges.lists() {
+            if let edges = edge.to?.outEdges.allElements() {
                 minHeap.addAll(vals: edges)
             }
         }
@@ -232,16 +261,16 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
      * prim算法方式
      */
     override func mstKruskal() -> HashSet<EdgeInfo<V, E>>? {
-        let edgeCount = vertices.count() - 1
+        let edgeCount = vertexs.count() - 1
         if edgeCount < 0 { return nil }
         
         // 并查集
         let uf = GenericUnionFind<Vertex<V, E>>()
-        vertices.allValues().forEach { vertex in
+        vertexs.allValues().forEach { vertex in
             uf.makeSet(vertex)
         }
         
-        let minHeap = MinHeap(vals: edges.lists())
+        let minHeap = MinHeap(vals: edges.allElements())
         let edgeInfos = HashSet<EdgeInfo<V, E>>()
         
         while !minHeap.isEmpty() && edgeInfos.size() < edgeCount {
@@ -254,16 +283,17 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return edgeInfos
     }
     
+    //MARK: 有向图
     /*
      * 有向图
      * 从某一点出发的最短路径(权值最小)
      * 返回权值
      */
     override func shortestPath(_ begin: V) -> HashMap<V, Double>? {
-        guard let beginVertex = vertices.get(key: begin) else { return nil }
+        guard let beginVertex = vertexs.get(key: begin) else { return nil }
         
         let waitPaths = HashMap<Vertex<V, E>, Double>()
-        beginVertex.outEdges.lists().forEach { edge in
+        beginVertex.outEdges.allElements().forEach { edge in
             if let toVertex = edge.to, let weight = edge.weight {
                 waitPaths.put(key: toVertex, val: weight)
             }
@@ -278,7 +308,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                 waitPaths.remove(key: minVertex)
                 
                 // 对minVertex的所有outEdges进行松弛操作
-                for edge in minVertex.outEdges.lists() {
+                for edge in minVertex.outEdges.allElements() {
                     // 如果edge.to已经完成, 就不在执行松弛操作
                     if let key = edge.to?.value {
                         if finishPaths.containsKey(key: key) {
@@ -304,12 +334,13 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
+    //MARK: Dijkstra
     /*
      * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 不支持有负权边
      */
     override func dijkstraShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
-        guard let beginVertex = vertices.get(key: begin) else { return nil }
+        guard let beginVertex = vertexs.get(key: begin) else { return nil }
         
         let waitPaths = HashMap<Vertex<V, E>, PathInfo<V, E>>()
         waitPaths.put(key: beginVertex, val: PathInfo())
@@ -322,7 +353,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                 waitPaths.remove(key: minVertex)
                     
                 // 对minVertex进行松弛操作
-                for edge in minVertex.outEdges.lists() {
+                for edge in minVertex.outEdges.allElements() {
                     if let toVal = edge.to?.value {
                         if finishPaths.containsKey(key: toVal) {
                             continue
@@ -354,19 +385,20 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
+    //MARK: bellmanFord
     /*
      * bellmanFord: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 支持有负权边
      * 支持检测是否有负权环
      */
     override func bellmanFordShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
-        guard vertices.get(key: begin) != nil else { return nil }
+        guard vertexs.get(key: begin) != nil else { return nil }
         
         let finishPaths = HashMap<V, PathInfo<V, E>>()
         finishPaths.put(key: begin, val: PathInfo())
         
-        for _ in 0..<vertices.count() - 1 {
-            for edge in edges.lists() {
+        for _ in 0..<vertexs.count() - 1 {
+            for edge in edges.allElements() {
                 if let fromVal = edge.from?.value {
                     guard let fromPath = finishPaths.get(key: fromVal) else { continue }
                     relax(edge, fromPath: fromPath, paths: finishPaths)
@@ -374,7 +406,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
             }
         }
         
-        for edge in edges.lists() {
+        for edge in edges.allElements() {
             if let fromVal = edge.from?.value {
                 guard let fromPath = finishPaths.get(key: fromVal) else { continue }
                 if relax(edge, fromPath: fromPath, paths: finishPaths) {
@@ -388,6 +420,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
+    //MARK: floydShortPath
     /*
      * Floyd: 多源最短路径算法,用于计算任意两个顶点的最短路径
      * 支持有负权边
@@ -395,7 +428,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     override func floydShortPath() -> HashMap<V, HashMap<V, PathInfo<V, E>>>? {
         let finishPaths = HashMap<V, HashMap<V, PathInfo<V, E>>>()
         
-        for edge in edges.lists() {
+        for edge in edges.allElements() {
             if let fromVal = edge.from?.value {
                 var map = finishPaths.get(key: fromVal)
                 if map == nil {
@@ -408,9 +441,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
             }
         }
         
-        vertices.allKeys().forEach { v2 in
-            vertices.allKeys().forEach { v1 in
-                vertices.allKeys().forEach { v3 in
+        vertexs.allKeys().forEach { v2 in
+            vertexs.allKeys().forEach { v1 in
+                vertexs.allKeys().forEach { v3 in
                     if v1 == v2 || v1 == v3 || v3 == v2 { return }
                     
                     // v1 -> v2
@@ -444,9 +477,10 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
+    //MARK: 输出字符串
     override func printString() {
         print("[顶点]-------------------")
-        vertices.traversal { val, vertex in
+        vertexs.traversal { val, vertex in
             print(String(describing: val))
             if let ver = vertex {
                 print("out-----------")
@@ -457,7 +491,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
         
         print("[边]-------------------")
-        edges.lists().forEach { edge in
+        edges.allElements().forEach { edge in
             print(edge.toString())
         }
     }
@@ -471,7 +505,7 @@ extension ListGraph {
         }
         
         set.add(val: vertex)
-        for edge in vertex.outEdges.lists() {
+        for edge in vertex.outEdges.allElements() {
             if let toVertex = edge.to {
                 if set.contains(toVertex) { continue }
                 depthSearch(toVertex, set: set, visitor: visitor)
@@ -557,4 +591,36 @@ extension ListGraph {
         
         return true
     }
+}
+
+
+// MARK: - 打印
+extension ListGraph {
+    
+    public func printListGraph() {
+        
+        for vertex in vertexs.allValues() {
+            
+            Swift.print("---------\(vertex)：打印开始-----------")
+            
+            vertex.inEdges.traversal { edge in
+                Swift.print("inEdges ：\(edge)")
+            }
+            
+            vertex.outEdges.traversal { edge in
+                Swift.print("outEdges：\(edge)")
+            }
+            
+            Swift.print("---------\(vertex)：打印结束-----------")
+        }
+        
+        
+        print("---------边打印开始-----------")
+        edges.traversal { edge in
+            print("\(edge)")
+        }
+        print("---------边打印结束-----------")
+    }
+    
+
 }
