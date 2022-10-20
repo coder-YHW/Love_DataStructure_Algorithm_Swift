@@ -185,22 +185,52 @@ func testBSTree() {
     printTree(tree: tree)
 //    MJBinaryTrees.print(tree)
     
-    // 遍历闭包
-    tree.inOrder { element in
-        print(element!)
-    }
+    //    tree.remove(8)
+    //    printTree(tree: tree)
+    //
+    //    tree.remove(5)
+    //    printTree(tree: tree)
+    
     
     print("----------")
+    // 层序遍历（迭代）
+//    tree.levelOrder { element in
+//        print(element!)
+//    }
     
-    tree.levelOrder { element in
+//    // 前序遍历（迭代）
+//    tree.preOrder { element in
+//        print(element!)
+//    }
+//    print("----------")
+//    // 前序遍历（递归）
+//    tree.preOrderCircle { element in
+//        print(element!)
+//    }
+    
+    
+    // 中序遍历（迭代）
+//    tree.inOrder { element in
+//        print(element!)
+//    }
+//    print("----------")
+//    // 中序遍历（递归）
+//    tree.inOrderCircle { element in
+//        print(element!)
+//    }
+    
+    
+    // 后序遍历（迭代）
+    tree.postOrder { element in
         print(element!)
     }
+    print("----------")
+    // 后序遍历（递归）
+    tree.postOrderCircle { element in
+        print(element!)
+    }
+
     
-//    tree.remove(8)
-//    printTree(tree: tree)
-//
-//    tree.remove(5)
-//    printTree(tree: tree)
 }
 
 //MARK: - AVL树测试用例
@@ -362,8 +392,20 @@ func testGraph() {
 //    graph.removeEdge(from: "V1", to: "V0")
 //    graph.printListGraph()
 
-    graph.removeVertex(val: "V0")
-    graph.printListGraph()
+//    graph.removeVertex(val: "V0")
+//    graph.printListGraph()
+    
+//    graph.depthFirstSearch(begin: "V1") { val in
+//        print("\(val)")
+//    }
+    
+    graph.depthFirstSearch(begin: "V1") { val in
+        print("\(val)")
+    }
+
+//    graph.depthFirstSearchCircle(begin: "V1") { val in
+//        print("\(val)")
+//    }
 }
 
 //MARK: - 测试入口

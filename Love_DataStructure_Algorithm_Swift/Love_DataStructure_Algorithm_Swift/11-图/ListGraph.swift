@@ -118,64 +118,76 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
     }
     
-    //MARK: - BFS
+    //MARK: - 图的遍历 - BFS - 层序遍历-队列实现
     /// 广度优先搜索(Breadth First Search)
     override func breadthFirstSearch(begin: V?, visitor: ((V) -> ())) {
+        // 0、非空检测
         guard let key = begin else { return }
         guard let beginVertex = vertexs.get(key: key) else { return }
         
+        // 1.1、创建一个hashSet 保存已经遍历过的顶点
         let vertexSet = HashSet<Vertex<V, E>>()
+        // 1.2、创建一个SingleQueue beginVertex入队
         let queue = SingleQueue<Vertex<V, E>>()
         queue.enQueue(beginVertex)
-        vertexSet.add(val: beginVertex)
+        vertexSet.add(val: beginVertex) // 注意：这句代码位置
         
         while !queue.isEmpty() {
+            
+            // 2、出队
             if let vertex = queue.deQueue() {
                 if let val = vertex.value {
                     visitor(val)
                 }
                 
+                // 3、遍历inEdges 将边.to中 所有非重复顶点入队
                 for edge in vertex.outEdges.allElements() {
                     if let toVertex = edge.to {
                         if vertexSet.contains(toVertex) { continue }
-                        queue.enQueue(toVertex)
-                        vertexSet.add(val: toVertex)
+                        queue.enQueue(toVertex) // 非重复顶点入队
+                        vertexSet.add(val: toVertex) // 注意：这句代码位置
                     }
                 }
             }
         }
     }
     
-    //MARK: DFS - 非递归
+    //MARK: 图的遍历 - DFS - 前序遍历-栈实现
     /// 深度优先搜索(Depth First Search)[非递归]
     override func depthFirstSearch(begin: V?, visitor: ((V) -> ())) {
+        // 0、非空检测
         guard let key = begin else { return }
         guard let beginVertex = vertexs.get(key: key) else { return }
         
+        // 1.1、创建一个hashSet 保存已经遍历过的顶点
         let vertexSet = HashSet<Vertex<V, E>>()
+        // 1.2、创建一个Statck beginVertex入栈
         let statck = Statck<Vertex<V, E>>()
         statck.push(beginVertex)
         vertexSet.add(val: beginVertex)
 
-        
         while !statck.isEmpty() {
+            
+            // 2、出栈
             if let vertex = statck.pop() {
+                // 遍历器
                 if let val = vertex.value {
                     visitor(val)
                 }
                 
+                // 3、遍历inEdges 将边.to中 所有非重复顶点入队
                 for edge in vertex.outEdges.allElements() {
                     if let toVertex = edge.to {
                         if vertexSet.contains(toVertex) { continue }
-                        statck.push(toVertex)
-                        vertexSet.add(val: toVertex)
+                        statck.push(toVertex) // 非重复顶点入栈
+                        vertexSet.add(val: toVertex) // 注意：这句代码位置
                     }
                 }
             }
         }
     }
     
-    //MARK: DFS - 递归
+    //MARK: 图的遍历 - DFS - 前序遍历-递归实现
     /// 深度优先搜索(Depth First Search)[递归]
     override func depthFirstSearchCircle(begin: V?, visitor: ((V) -> ())) {
         guard let key = begin else { return }
@@ -185,7 +197,25 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         depthSearch(beginVertex, set: vertexSet, visitor: visitor)
     }
     
-    //MARK: 拓扑排序
+    /// 深度优先搜索, 递归
+    fileprivate func depthSearch(_ vertex: Vertex<V, E>, set: HashSet<Vertex<V, E>>, visitor: ((V) -> ())) {
+        // 遍历器
+        if let val = vertex.value {
+            visitor(val)
+        }
+        set.add(val: vertex) // 注意：这句代码位置
+        
+        // 3.2、遍历inEdges 将边.to 递归调用
+        for edge in vertex.outEdges.allElements() {
+            
+            if let toVertex = edge.to {
+                if set.contains(toVertex) { continue }
+                depthSearch(toVertex, set: set, visitor: visitor) // 非重复顶点 - 递归调用
+            }
+        }
+    }
+    
+    //MARK: - 拓扑排序
     /*
      * 拓扑排序
      * AOV网的遍历, 把AOV的所有活动排成一个序列
@@ -479,20 +509,6 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
 }
 
 extension ListGraph {
-    /// 深度优先搜索, 递归
-    fileprivate func depthSearch(_ vertex: Vertex<V, E>, set: HashSet<Vertex<V, E>>, visitor: ((V) -> ())) {
-        if let val = vertex.value {
-            visitor(val)
-        }
-        
-        set.add(val: vertex)
-        for edge in vertex.outEdges.allElements() {
-            if let toVertex = edge.to {
-                if set.contains(toVertex) { continue }
-                depthSearch(toVertex, set: set, visitor: visitor)
-            }
-        }
-    }
     
     /// 根据权值, 筛选权值最小的路径
     fileprivate func minWeightPath(_ paths: HashMap<Vertex<V, E>, Double>) -> (Vertex<V, E>?, Double) {
