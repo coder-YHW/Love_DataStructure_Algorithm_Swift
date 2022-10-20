@@ -476,25 +476,6 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         
         return finishPaths
     }
-    
-    //MARK: 输出字符串
-    override func printString() {
-        print("[顶点]-------------------")
-        vertexs.traversal { val, vertex in
-            print(String(describing: val))
-            if let ver = vertex {
-                print("out-----------")
-                print(ver.outEdgesString())
-                print("in-----------")
-                print(ver.inEdgesString())
-            }
-        }
-        
-        print("[边]-------------------")
-        edges.allElements().forEach { edge in
-            print(edge.toString())
-        }
-    }
 }
 
 extension ListGraph {

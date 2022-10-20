@@ -31,31 +31,18 @@ struct Edge<V: Comparable & Hashable, E: Comparable> {
     func edgeInfo() -> EdgeInfo<V, E> {
         return EdgeInfo(from: from?.value, to: to?.value, weight: weight)
     }
-    
-    /// 哈希值
-//    func hashCode() -> Int {
-//        let hashCode1 = from?.hashValue
-//        let hashCode2 = to?.hashValue
-//        return (from?.hashCode() ?? 0) * 31 + (to?.hashCode() ?? 0)
-//    }
-
-    func toString() -> String {
-        let from = from?.toString() ?? ""
-        let to = to?.toString() ?? ""
-        let weight = String(describing: weight)
-        return "Edge [from=\(from), to=\(to), weight=\(weight)]"
-    }
 }
 
 
+//MARK: - Hashable & Comparable
 extension Edge: Hashable & Comparable {
     
-    /// 重写Comparable协议方法
+    /// 1、重写Equatable协议方法
     static func == (lhs: Edge<V, E>, rhs: Edge<V, E>) -> Bool {
         return lhs.from == rhs.from && lhs.to == lhs.to
     }
     
-    /// 重写Comparable协议方法
+    /// 2.1、重写Comparable协议方法
     static func < (lhs: Edge<V, E>, rhs: Edge<V, E>) -> Bool {
         if let lhsW = lhs.weight, let rhsW = rhs.weight {
             return lhsW < rhsW
@@ -66,7 +53,7 @@ extension Edge: Hashable & Comparable {
         return false
     }
     
-    /// 重写Comparable协议方法
+    /// 2.2、重写Comparable协议方法
     static func > (lhs: Edge<V, E>, rhs: Edge<V, E>) -> Bool {
         if let lhsW = lhs.weight, let rhsW = rhs.weight {
             return lhsW > rhsW
@@ -77,7 +64,7 @@ extension Edge: Hashable & Comparable {
         return false
     }
     
-    /// 重写Hashable协议方法
+    /// 3、重写Hashable协议方法
     func hash(into hasher: inout Hasher) {
         hasher.combine(from)
         hasher.combine(to)

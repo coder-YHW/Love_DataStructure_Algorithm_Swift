@@ -23,60 +23,25 @@ struct Vertex<V: Comparable & Hashable, E: Comparable> {
         self.value = val
     }
     
-    
-    //MARK: - 方法
-    /// 哈希值
-    func hashCode() -> Int {
-        if let val = value {
-            return val.hashValue
-        }
-        return 0
-    }
-    
-    func toString() -> String {
-        if let val = value {
-            return "Vertex:\(val)"
-        }
-        return "nil"
-    }
-    
-    func inEdgesString() -> String {
-        if inEdges.allElements().isEmpty {
-            return "[]"
-        }
-        var string = ""
-        inEdges.allElements().forEach { edge in
-            string += edge.toString()
-            string += "\n"
-        }
-        return string
-    }
-    
-    func outEdgesString() -> String {
-        if outEdges.allElements().isEmpty {
-            return "[]"
-        }
-        var string = ""
-        outEdges.allElements().forEach { edge in
-            string += edge.toString()
-            string += "\n"
-        }
-        return string
-    }
 }
 
+
+//MARK: - Hashable & Comparable
 extension Vertex: Hashable & Comparable {
-    static func < (lhs: Vertex<V, E>, rhs: Vertex<V, E>) -> Bool {
-        return false
-    }
     
+    /// 1、重写Equatable协议方法
     static func == (lhs: Vertex<V, E>, rhs: Vertex<V, E>) -> Bool {
         return lhs.value == rhs.value
     }
     
+    /// 2、重写Comparable协议方法
+    static func < (lhs: Vertex<V, E>, rhs: Vertex<V, E>) -> Bool {
+        return false
+    }
+    
+    /// 3、重写Hashable协议方法
     func hash(into hasher: inout Hasher) {
-        let text = String(describing: value)
-        hasher.combine(text)
+        hasher.combine(value)
     }
 }
 
