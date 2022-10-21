@@ -72,7 +72,7 @@ class Graph<V: Comparable & Hashable, E: Comparable & Hashable> {
      * 所有生成树中, 权值最小的那颗
      * prim算法方式
      */
-    func mstKruskal() -> HashSet<EdgeInfo<V, E>>? {
+    func mstKruskal() -> HashSet<Edge<V, E>>? {
         fatalError("mstKruskal")
     }
     

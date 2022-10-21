@@ -319,32 +319,45 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
      * 最小生成树
      * 最小权值生成树, 最小支撑树
      * 所有生成树中, 权值最小的那颗
-     * prim算法方式
+     * Kruskal算法方式
      */
-    override func mstKruskal() -> HashSet<EdgeInfo<V, E>>? {
+    override func mstKruskal() -> HashSet<Edge<V, E>>? {
+        // 1、 (顶点:n -> 边：n-1)
         let edgeCount = vertexs.count() - 1
         if edgeCount < 0 { return nil }
         
-        // 并查集
+        // 2、返回给外界的边Set
+        let edgeInfos = HashSet<Edge<V, E>>()
+        
+        // 3、创建一个最小堆 原地建堆
+        let minHeap = MinHeap(vals: edges.allElements())
+        
+        // 4、创建一个并查集 为所有顶点创建集合
         let uf = GenericUnionFind<Vertex<V, E>>()
         vertexs.allValues().forEach { vertex in
             uf.makeSet(vertex)
         }
         
-        let minHeap = MinHeap(vals: edges.allElements())
-        let edgeInfos = HashSet<EdgeInfo<V, E>>()
-        
+        // 5、循环寻找权重最小 且 不会够成循环的边
         while !minHeap.isEmpty() && edgeInfos.size() < edgeCount {
+            // 5.1、出堆 - 拿出堆顶元素（权重最小的边）
             if let edge = minHeap.remove() {
-                if uf.isSame(v1: edge.from, v2: edge.to) { continue }
-                uf.union(v1: edge.from, v2: edge.to)
-                edgeInfos.add(val: edge.edgeInfo())
+                // 5.2、查看边2顶点是否在同一集合内
+                if uf.isSame(v1: edge.from, v2: edge.to) {
+                    // 5.3 在同一集合内 再添加 会构成环
+                    continue
+                }else {
+                    // 5.4 不在同一集合内 选出这条边
+                    edgeInfos.add(val: edge)
+                    // 5.5 合并这两个顶点
+                    uf.union(v1: edge.from, v2: edge.to)
+                }
             }
         }
         return edgeInfos
     }
     
-    //MARK: 有向图
+    //MARK: - 有向图
     /*
      * 有向图
      * 从某一点出发的最短路径(权值最小)

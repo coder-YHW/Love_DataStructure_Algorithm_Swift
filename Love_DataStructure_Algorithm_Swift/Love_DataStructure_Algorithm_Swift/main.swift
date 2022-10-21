@@ -409,11 +409,10 @@ func testGraph() {
 //    graph.depthFirstSearchCircle(begin: "V1") { val in
 //        print("\(val)")
 //    }
-//    let <#name#> = <#value#>
     
-    GraphTest<Int>.topSortTest(GraphData.TOPO)
+//    GraphTest<Int>.topSortTest(GraphData.TOPO)
 //    GraphTest<Int>.mstPrim(GraphData.MST_01)
-//    GraphTest<Int>.mstKruskal(GraphData.MST_01)
+    GraphTest<Int>.mstKruskal(GraphData.MST_01)
     
 }
 

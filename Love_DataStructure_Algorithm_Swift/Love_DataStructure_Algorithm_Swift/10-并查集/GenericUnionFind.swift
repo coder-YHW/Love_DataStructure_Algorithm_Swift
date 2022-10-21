@@ -12,14 +12,14 @@ class GenericUnionFind<V: Hashable & Comparable> {
 
     
     //MARK: - 属性
-    fileprivate let nodes = HashMap<V, UnionFindNode<V>>()
+    fileprivate let nodeMap = HashMap<V, UnionFindNode<V>>()
     
     
     //MARK: - 方法
     func makeSet(_ val: V) {
-        if nodes.containsKey(key: val) { return }
+        if nodeMap.containsKey(key: val) { return }
         let node = UnionFindNode(val: val)
-        nodes.put(key: val, val: node)
+        nodeMap.put(key: val, val: node)
     }
     
     
@@ -53,16 +53,19 @@ class GenericUnionFind<V: Hashable & Comparable> {
 
 
 extension GenericUnionFind {
-    /// 找出V的跟节点
+    /// 找出Val的根节点
     fileprivate func findNode(_ val: V?) -> UnionFindNode<V>? {
+        // 1、找到节点
         guard let value = val else { return nil }
-        var node = nodes.get(key: value)
+        var node = nodeMap.get(key: value)
         if node == nil { return nil }
         
+        // 2、找到节点的根节点
         while node?.value != node?.parent?.value {
             node?.parent = node?.parent?.parent
             node = node?.parent
         }
+        
         return node
     }
 }
