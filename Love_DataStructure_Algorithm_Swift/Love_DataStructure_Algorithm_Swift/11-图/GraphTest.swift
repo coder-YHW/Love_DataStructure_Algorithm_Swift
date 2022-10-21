@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// 图测试用例
 struct GraphTest<V: Comparable & Hashable> {
 
     /// 测试生成图
@@ -107,20 +108,20 @@ struct GraphTest<V: Comparable & Hashable> {
         let graph = undirectedGraph(data)
         let edgeArr = graph.mstKruskal()?.allElements() ?? []
         for edge in edgeArr {
-            print(edge.toString())
+            print(edge)
         }
     }
     
     /// 从某一点出发的最短路径(权值最小)
     static func shortPath() {
-//        let graph = undirectedGraph(GraphData.SP)
-//        let map = graph.shortestPath("A" as! V)
-//        map?.keys().forEach({ key in
-//            let val = map?.get(key: key)
-//            let keyStr = String(describing: key)
-//            let valStr = String(describing: val)
-//            print("A--\(keyStr): \(valStr)")
-//        })
+        let graph = undirectedGraph(GraphData.SP)
+        let map = graph.shortestPath("A" as! V)
+        map?.allKeys().forEach({ key in
+            let val = map?.get(key: key)
+            let keyStr = String(describing: key)
+            let valStr = String(describing: val)
+            print("A--\(keyStr): \(valStr)")
+        })
     }
     
     /// 从某一点出发的最短路径(权值最小)

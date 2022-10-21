@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// 图测试数据
 struct GraphData {
     
 

@@ -412,8 +412,8 @@ func testGraph() {
     
 //    GraphTest<Int>.topSortTest(GraphData.TOPO)
 //    GraphTest<Int>.mstPrim(GraphData.MST_01)
-    GraphTest<Int>.mstKruskal(GraphData.MST_01)
-    
+//    GraphTest<Int>.mstKruskal(GraphData.MST_01)
+    GraphTest<String>.shortPath();
 }
 
 //MARK: - 测试入口

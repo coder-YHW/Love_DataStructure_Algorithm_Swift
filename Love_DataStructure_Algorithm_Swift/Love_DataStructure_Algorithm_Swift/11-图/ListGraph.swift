@@ -264,7 +264,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     
     //MARK:  AOE网问题
     
-    //MARK: - 最小生成树问题（光缆铺设）- Prim算法（切分定理）
+    //MARK: - 最小生成树问题（光缆铺设）- Prim算法（普里姆算法-切分定理）
     /*
      * 最小生成树
      * 最小权值生成树, 最小支撑树
@@ -314,7 +314,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return edgeInfos
     }
     
-    //MARK: 最小生成树问题（光缆铺设）- Kruskal算法
+    //MARK: 最小生成树问题（光缆铺设）- Kruskal算法(克鲁斯卡尔算法)
     /*
      * 最小生成树
      * 最小权值生成树, 最小支撑树
@@ -357,15 +357,17 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return edgeInfos
     }
     
-    //MARK: - 有向图
+    //MARK: - 最短路径问题 - 简单版 (拽石头-松弛操作）
     /*
      * 有向图
      * 从某一点出发的最短路径(权值最小)
      * 返回权值
      */
     override func shortestPath(_ begin: V) -> HashMap<V, Double>? {
+        // 0、取出开始值对应的顶点 空值校验
         guard let beginVertex = vertexs.get(key: begin) else { return nil }
         
+        // 1、等待被选择的路径s (key:toVertex value:weight) 从起点到其他点的路径信息
         let waitPaths = HashMap<Vertex<V, E>, Double>()
         beginVertex.outEdges.allElements().forEach { edge in
             if let toVertex = edge.to, let weight = edge.weight {
@@ -373,30 +375,42 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
             }
         }
         
+        // 2、已经确定的最小路径s 返回给外界  (key:vertex.value  value:weight)
         let finishPaths = HashMap<V, Double>()
+        // 5.1、原点首先加入 表示已处理
         finishPaths.put(key: begin, val: 0)
+        
+        // 3、筛选出最短路径 - 循环操作
         while !waitPaths.isEmpty() {
+            // 3.0、筛选出最短路径
             let minData = minWeightPath(waitPaths)
             if let minVertex = minData.0 {
+                // 3.1、将最短路径存入finishPaths
                 finishPaths.put(key: minVertex.value, val: minData.1)
+                // 3.2、将最短路径从waitPaths删除
                 waitPaths.remove(key: minVertex)
                 
-                // 对minVertex的所有outEdges进行松弛操作
+                // 4、对minVertex.outEdges进行松弛操作 更新waitPaths路径
                 for edge in minVertex.outEdges.allElements() {
-                    // 如果edge.to已经完成, 就不在执行松弛操作
+                    
+                    // 4.1、去除重复操作 - 无向路径可能会往回重复寻找
                     if let key = edge.to?.value {
                         if finishPaths.containsKey(key: key) {
                             continue
                         }
                         
-                        // 新的可选的最短路径
+                        // 4.2、原点到toVertex的新权重:edge.weight + minData.1
                         let newWeight = minData.1 + (edge.weight ?? 0)
-                        // 以前的最短路径
-                        if let oldWeight = waitPaths.get(key: minVertex) {
-                            if oldWeight > newWeight {
-                                waitPaths.put(key: edge.to, val: newWeight)
-                            }
-                        } else {
+                        // 4.4、以前没有到原点的旧路径 oldWeight为nil
+                        guard let oldWeight = waitPaths.get(key: minVertex) else {
+                            // 更新松弛之后的waitPaths
+                            waitPaths.put(key: edge.to, val: newWeight)
+                            continue
+                        }
+                        
+                        // 4.5、以前有到原点的旧路径旧路径 且 newWeight < oldWeight
+                        if oldWeight > newWeight {
+                            // 更新松弛之后的waitPaths
                             waitPaths.put(key: edge.to, val: newWeight)
                         }
                     }
@@ -404,11 +418,39 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
             }
         }
         
+        // 5.2、原点最后要删除
         finishPaths.remove(key: begin)
         return finishPaths
     }
     
-    //MARK: Dijkstra
+    /// 根据边信息, 筛选权值最小的路径
+    fileprivate func minPathInfo(_ paths: HashMap<Vertex<V, E>, PathInfo<V, E>>) -> (Vertex<V, E>?, PathInfo<V, E>?) {
+        var verterx: Vertex<V, E>?
+        var pathInfo: PathInfo<V, E>?
+        
+        paths.allKeys().forEach { ver in
+            if verterx == nil {
+                verterx = ver
+                pathInfo = paths.get(key: ver)
+            } else {
+                let path = paths.get(key: ver)
+                if let w1 = pathInfo?.weight, let w2 = path?.weight {
+                    if w1 > w2 {
+                        verterx = ver
+                        pathInfo = path
+                    }
+                } else {
+                    verterx = ver
+                    pathInfo = path
+                }
+            }
+        }
+        
+        return (verterx, pathInfo)
+    }
+
+    
+    //MARK: 单源最短路径算法1 - Dijkstra(迪杰斯特拉)
     /*
      * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 不支持有负权边
@@ -459,9 +501,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
-    //MARK: bellmanFord
+    //MARK: 单源最短路径算法2 - BellmanFord(贝尔曼-福特)
     /*
-     * bellmanFord: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
+     * BellmanFord: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 支持有负权边
      * 支持检测是否有负权环
      */
@@ -494,7 +536,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
-    //MARK: floydShortPath
+    //MARK: 多源最短路径算法 floydShortPath（弗洛伊德）
     /*
      * Floyd: 多源最短路径算法,用于计算任意两个顶点的最短路径
      * 支持有负权边
@@ -575,31 +617,7 @@ extension ListGraph {
         return (verterx, weight)
     }
     
-    /// 根据边信息, 筛选权值最小的路径
-    fileprivate func minPathInfo(_ paths: HashMap<Vertex<V, E>, PathInfo<V, E>>) -> (Vertex<V, E>?, PathInfo<V, E>?) {
-        var verterx: Vertex<V, E>?
-        var pathInfo: PathInfo<V, E>?
-        
-        paths.allKeys().forEach { ver in
-            if verterx == nil {
-                verterx = ver
-                pathInfo = paths.get(key: ver)
-            } else {
-                let path = paths.get(key: ver)
-                if let w1 = pathInfo?.weight, let w2 = path?.weight {
-                    if w1 > w2 {
-                        verterx = ver
-                        pathInfo = path
-                    }
-                } else {
-                    verterx = ver
-                    pathInfo = path
-                }
-            }
-        }
-        
-        return (verterx, pathInfo)
-    }
+
     
     /// 获取edge的边信息
     fileprivate func getPathInfo(_ paths: HashMap<V, HashMap<V, PathInfo<V, E>>>, from: V, to: V) -> PathInfo<V, E>? {
