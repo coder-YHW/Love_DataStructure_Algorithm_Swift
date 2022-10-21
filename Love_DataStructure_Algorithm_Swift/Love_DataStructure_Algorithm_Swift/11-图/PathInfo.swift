@@ -8,7 +8,7 @@
 import Cocoa
 
 
-/// 路径信息
+/// 路径信息 - 返回给外部使用的
 class PathInfo<V: Comparable, E: Comparable> {
     
     /// 权重

@@ -62,7 +62,7 @@ class Graph<V: Comparable & Hashable, E: Comparable & Hashable> {
      * 所有生成树中, 权值最小的那颗
      * prim算法方式
      */
-    func mstPrim() -> HashSet<EdgeInfo<V, E>>? {
+    func mstPrim() -> HashSet<Edge<V, E>>? {
         fatalError("mstPrim")
     }
     

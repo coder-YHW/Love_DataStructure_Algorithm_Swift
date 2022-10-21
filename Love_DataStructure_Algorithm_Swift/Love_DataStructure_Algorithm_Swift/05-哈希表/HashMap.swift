@@ -195,7 +195,7 @@ class HashMap<K: Hashable & Comparable, V: Comparable>: Map<K, V> {
             
             if let key2 = node!.key {
                 
-                cmp = compare(key1: key, key2: key2)
+                cmp = compare(key1: key, key2: key2, hashCode1: getHashCodeFromKey(key), hashCode2: node!.hashCode)
                 parent = node // 更新父节点
                 
                 if cmp > 0 { // cmp > 0 右子树
@@ -535,7 +535,6 @@ extension HashMap {
             
             if let key1 = key, let key2 = node?.key {
                 
-//                cmp = compare(key1: key1, key2: key2)
                 cmp = compare(key1: key1, key2: key2, hashCode1: getHashCodeFromKey(key1), hashCode2: node!.hashCode)
                 
                 if cmp > 0 {
@@ -555,18 +554,6 @@ extension HashMap {
 
 //MARK: - - 比较器
 extension HashMap {
- 
-    /// 比较两个key大小
-    fileprivate func compare(key1: K, key2: K) -> Int {
-        
-        if key1 > key2 {
-            return 1
-        }else if key1 < key2 {
-            return -1
-        }else {
-            return 0
-        }
-    }
     
     /// 比较两个val是否相等
     fileprivate func valEquals(val1: V?, val2: V?) ->Bool {

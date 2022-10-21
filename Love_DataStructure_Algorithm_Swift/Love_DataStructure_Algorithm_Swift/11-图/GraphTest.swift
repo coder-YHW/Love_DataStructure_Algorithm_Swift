@@ -98,7 +98,7 @@ struct GraphTest<V: Comparable & Hashable> {
         let graph = undirectedGraph(data)
         let edgeArr = graph.mstPrim()?.allElements() ?? []
         for edge in edgeArr {
-            print(edge.toString())
+            print(edge)
         }
     }
     
@@ -168,7 +168,7 @@ struct GraphTest<V: Comparable & Hashable> {
 
 
 extension GraphTest {
-    /// 有向图
+    /// 有向图 - 添加数据
     static func directedGraph(_ data: [[Any]]) -> ListGraph<V, Double> {
         let graph = ListGraph<V, Double>()
         for edge in data {
@@ -191,8 +191,9 @@ extension GraphTest {
         return graph
     }
     
-    /// 无向图
+    /// 无向图 - 添加数据
     static func undirectedGraph(_ data: [[Any]]) -> ListGraph<V, Double> {
+        
         let graph = ListGraph<V, Double>()
         for arr in data {
             if arr.count == 1 {

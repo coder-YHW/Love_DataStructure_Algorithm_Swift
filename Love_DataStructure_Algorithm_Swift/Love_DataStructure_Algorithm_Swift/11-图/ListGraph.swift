@@ -215,37 +215,45 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
     }
     
-    //MARK: - 拓扑排序
+    //MARK: - AOV网问题 - 拓扑排序（卡恩算法）
     /*
      * 拓扑排序
      * AOV网的遍历, 把AOV的所有活动排成一个序列
      */
     override func topologicalSort() -> [V] {
-        let map = HashMap<Vertex<V, E>, Int>()
-        let queue = SingleQueue<Vertex<V, E>>()
+        
+        // 0、初始化容器
+        var valueArray = [V]() // 数组装排序好之后顶点的value
+        let degreeMap = HashMap<Vertex<V, E>, Int>()  // 保存入度不为o的顶点 维护这张HashMap
+        let queue = SingleQueue<Vertex<V, E>>() // 队列保存入度为0的顶点
+        
+        // 1、遍历所有顶点 找出入度为0的顶点 记录入度不为0的顶点
         vertexs.traversal { val, vertex in
+            // 避免重复计算 用变量保存
             if let count = vertex?.inEdges.size() {
-                if count == 0 {
+                if count == 0 { // 1.1、找出入度为0的顶点 入队queue
                     queue.enQueue(vertex)
-                } else {
-                    map.put(key: vertex, val: count)
+                } else { // 1.2、记录入度不为0的顶点 存入degreeMap
+                    degreeMap.put(key: vertex, val: count)
                 }
             }
         }
         
-        var valueArray = [V]()
+        // 2、顶点一个个出队 把value加入数组 degreeMap中度--
         while !queue.isEmpty() {
-            let vertex = queue.deQueue()
+            let vertex = queue.deQueue() // 2.1、顶点一个个出队
             if let val = vertex?.value {
-                valueArray.append(val)
+                valueArray.append(val) // 2.2、把value加入数组 相当于删除这个顶点
             }
             
+            // 3、遍历vertex.outEdges所有to顶点 将入度为1的顶点入队 其他顶点度--
+            // 3.1、注意：一定要从我们自己维护的degreeMap里取度 不要从toVertex.inEdges.size里取
             vertex?.outEdges.allElements().forEach({ edge in
-                if let vertex = edge.to, let count = map.get(key: vertex) {
-                    if count == 1 {
+                if let vertex = edge.to, let count = degreeMap.get(key: vertex) { // 从我们自己维护的degreeMap里取度
+                    if count == 1 { // 3.1、将入度为1的顶点入队
                         queue.enQueue(vertex)
-                    } else {
-                        map.put(key: vertex, val: count - 1)
+                    } else { // 3.2、其他顶点的入度-- 更新degreeMap
+                        degreeMap.put(key: vertex, val: count - 1)
                     }
                 }
             })
@@ -254,36 +262,59 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return valueArray
     }
     
-    //MARK: 最小生成树
+    //MARK:  AOE网问题
+    
+    //MARK: - 最小生成树问题（光缆铺设）- Prim算法（切分定理）
     /*
      * 最小生成树
      * 最小权值生成树, 最小支撑树
      * 所有生成树中, 权值最小的那颗
      * prim算法方式
      */
-    override func mstPrim() -> HashSet<EdgeInfo<V, E>>? {
+    override func mstPrim() -> HashSet<Edge<V, E>>? {
+        
+        // 1、从图所有顶点中 随机取一个顶点
         let verArr = vertexs.allValues()
         guard let vertex = verArr.first else { return nil }
         
-        let edgeInfos = HashSet<EdgeInfo<V, E>>()
+        // 返回给外界的边Set
+        let edgeInfos = HashSet<Edge<V, E>>()
+        // 已经切分好或者将要切分的顶点Set
         let addedVertexs = HashSet<Vertex<V, E>>()
+        // 2.1、切分操作1 -  往addedVertexs里添加顶点（）
         addedVertexs.add(val: vertex)
+        // 2.2、切分操作2 - 创建一个最小堆 选出outEdges里权重最小的边
         let minHeap = MinHeap(vals: vertex.outEdges.allElements())
-        let vertexSize = vertexs.count()
-        while !minHeap.isEmpty() && addedVertexs.size() < vertexSize {
-            guard let edge = minHeap.remove() else { continue }
-            if let toVertex = edge.to {
-                if addedVertexs.contains(toVertex) { continue }
+        
+        // 堆不为空 && 还有顶点未切分
+        let count = vertexs.count();   // 计算数量耗时 放在条件前计算 只要计算一次就好
+        while !minHeap.isEmpty() && addedVertexs.size() < count {
+            
+            // 3、选出权重最小的那条边edge
+            guard let topEdge = minHeap.remove() else { continue }
+            
+            // 4、重复切分操作
+            if let toVertex = topEdge.to {
+                if addedVertexs.contains(toVertex) {
+                    continue // 已经切分过的顶点
+                }
+                
+                // 4.1 重复切分操作1 - edge.to中未切分过的顶点加入addedVertexs
                 addedVertexs.add(val: toVertex)
+                // 5、返回给外界的边Set
+                edgeInfos.add(val: topEdge)
             }
-            edgeInfos.add(val: edge.edgeInfo())
-            if let edges = edge.to?.outEdges.allElements() {
+            
+            // 4.2、重复切分操作2 - 最小堆 选出outEdges里权重最小的边
+            if let edges = topEdge.to?.outEdges.allElements() {
                 minHeap.addAll(vals: edges)
             }
         }
+        
         return edgeInfos
     }
     
+    //MARK: 最小生成树问题（光缆铺设）- Kruskal算法
     /*
      * 最小生成树
      * 最小权值生成树, 最小支撑树

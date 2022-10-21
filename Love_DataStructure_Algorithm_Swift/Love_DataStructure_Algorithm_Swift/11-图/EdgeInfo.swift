@@ -7,7 +7,7 @@
 
 import Cocoa
 
-/// 边信息
+/// 边信息 - 返回给外部使用的
 struct EdgeInfo<V: Comparable, E: Comparable> {
 
     /// 起始点
@@ -35,6 +35,7 @@ struct EdgeInfo<V: Comparable, E: Comparable> {
 }
  
 extension EdgeInfo: Comparable & Hashable {
+    
     static func < (lhs: EdgeInfo<V, E>, rhs: EdgeInfo<V, E>) -> Bool {
         if let lhsW = lhs.weight, let rhsW = rhs.weight {
             return lhsW < rhsW

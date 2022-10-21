@@ -119,6 +119,8 @@ extension BinaryHeap {
         
         // 1、currentIndex > 0时 沿着父节点往上找，比父节点大，就交换位置，比父节点小就退出循环
         // 2、currentIndex == 0时 说明找到父节点位置 不需要再交换位置 终止循环
+        // 数组越界保护
+        if index < 0 || index >= elements.count   { return }
         
         // 0、保存element的值
         var currentIndex = index
@@ -155,6 +157,9 @@ extension BinaryHeap {
     //MARK: 下滤
     /// 下滤 - 时间复杂度 O(longN)
     fileprivate func siftDown(_ index: Int) {
+        
+        // 数组越界保护
+        if index < 0 || index >= elements.count   { return }
         
         // 0、保存element的值
         let value = elements[index]
@@ -207,6 +212,7 @@ extension BinaryHeap {
     //MARK: 批量建堆
     /// 批量建堆
     fileprivate func heapify() {
+        
 //        // 自上而下的上滤 - 效率低 等价于一个个add
 //        for i in 1..<elements.count {
 //            shiftUp(i)
@@ -214,6 +220,8 @@ extension BinaryHeap {
         
         // 自下而上的下滤 - 效率高
         let lastIndex = elements.count >> 1 - 1
+        if  lastIndex < 0 { return }
+        
         for i in (0...lastIndex).reversed() {
             siftDown(i)
         }
