@@ -223,6 +223,12 @@
 		0D66C5E228F97EB300D280E2 /* 二叉搜索树删除01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "二叉搜索树删除01.PNG"; sourceTree = "<group>"; };
 		0D66C5E328F97EB300D280E2 /* 恢复平衡05-统一旋转.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "恢复平衡05-统一旋转.PNG"; sourceTree = "<group>"; };
 		0D66C5E428F97EB300D280E2 /* 恢复平衡01-LL-右旋转.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "恢复平衡01-LL-右旋转.PNG"; sourceTree = "<group>"; };
+		0D68035E2903EC5E00D101B3 /* 递归操作.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "递归操作.PNG"; sourceTree = "<group>"; };
+		0D68035F2903EC5E00D101B3 /* 汉诺塔01.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "汉诺塔01.PNG"; sourceTree = "<group>"; };
+		0D6803602903EC5F00D101B3 /* 上楼梯(跳台阶).PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上楼梯(跳台阶).PNG"; sourceTree = "<group>"; };
+		0D6803612903EC5F00D101B3 /* 斐波那契数列.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "斐波那契数列.PNG"; sourceTree = "<group>"; };
+		0D6803622903EC5F00D101B3 /* 递归思想.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "递归思想.PNG"; sourceTree = "<group>"; };
+		0D6803632903EC5F00D101B3 /* 汉诺塔02.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "汉诺塔02.PNG"; sourceTree = "<group>"; };
 		0DC90AB428EF4F0300AA8754 /* Love_DataStructure_Algorithm_Swift */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Love_DataStructure_Algorithm_Swift; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC90AB728EF4F0300AA8754 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0DC90B8C28F01E9000AA8754 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -463,6 +469,19 @@
 			path = "图片";
 			sourceTree = "<group>";
 		};
+		0D68035D2903EC5100D101B3 /* 图片 */ = {
+			isa = PBXGroup;
+			children = (
+				0D6803622903EC5F00D101B3 /* 递归思想.PNG */,
+				0D68035E2903EC5E00D101B3 /* 递归操作.PNG */,
+				0D6803612903EC5F00D101B3 /* 斐波那契数列.PNG */,
+				0D6803602903EC5F00D101B3 /* 上楼梯(跳台阶).PNG */,
+				0D68035F2903EC5E00D101B3 /* 汉诺塔01.PNG */,
+				0D6803632903EC5F00D101B3 /* 汉诺塔02.PNG */,
+			);
+			path = "图片";
+			sourceTree = "<group>";
+		};
 		0DC90AAB28EF4F0300AA8754 = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +645,7 @@
 		0DC90BB628F01E9100AA8754 /* 12-递归 */ = {
 			isa = PBXGroup;
 			children = (
+				0D68035D2903EC5100D101B3 /* 图片 */,
 				0DC90BB728F01E9100AA8754 /* Recursion.swift */,
 			);
 			path = "12-递归";

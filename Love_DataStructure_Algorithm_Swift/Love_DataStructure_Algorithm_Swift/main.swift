@@ -376,6 +376,7 @@ func testSort() {
 }
 
 
+//MARK: - 图-测试用例
 func testGraph() {
     
     let graph = ListGraph<String, Int>()
@@ -430,6 +431,55 @@ func testGraph() {
 //    GraphTest<String>.floydShortPath();
 }
 
+//MARK: - 算法思想-测试用例
+func testSuanFa() {
+    
+    // 求和问题1
+    assert(Recursion.sum1(n: 1) == 1)
+    assert(Recursion.sum1(n: 2) == 3)
+    assert(Recursion.sum1(n: 3) == 6)
+    assert(Recursion.sum1(n: 4) == 10)
+    
+    // 求和问题2
+    assert(Recursion.sum2(n: 1) == 1)
+    assert(Recursion.sum2(n: 2) == 3)
+    assert(Recursion.sum2(n: 3) == 6)
+    assert(Recursion.sum2(n: 4) == 10)
+    
+    // 斐波那契数列问题1
+    assert(Recursion.fib1(n: 1) == 1)
+    assert(Recursion.fib1(n: 2) == 1)
+    assert(Recursion.fib1(n: 3) == 2)
+    assert(Recursion.fib1(n: 4) == 3)
+    assert(Recursion.fib1(n: 5) == 5)
+    assert(Recursion.fib1(n: 6) == 8)
+    
+    // 斐波那契数列问题2
+    assert(Recursion.fib2(n: 1) == 1)
+    assert(Recursion.fib2(n: 2) == 1)
+    assert(Recursion.fib2(n: 3) == 2)
+    assert(Recursion.fib2(n: 4) == 3)
+    assert(Recursion.fib2(n: 5) == 5)
+    assert(Recursion.fib2(n: 6) == 8)
+    
+    // 跳台阶问题1
+    assert(Recursion.step1(n: 1) == 1)
+    assert(Recursion.step1(n: 2) == 2)
+    assert(Recursion.step1(n: 3) == 3)
+    assert(Recursion.step1(n: 4) == 5)
+    
+    // 跳台阶问题2
+    assert(Recursion.step2(n: 1) == 1)
+    assert(Recursion.step2(n: 2) == 2)
+    assert(Recursion.step2(n: 3) == 3)
+    assert(Recursion.step2(n: 4) == 5)
+    
+    // 汉诺塔问题
+    Recursion.hanoi(n: 3, a: "1", b: "2", c: "3")
+    
+    
+}
+
 //MARK: - 测试入口
 
 //testArrayList()
@@ -446,5 +496,7 @@ func testGraph() {
 
 //testSort()
 
-testGraph()
+//testGraph()
+
+testSuanFa()
 
