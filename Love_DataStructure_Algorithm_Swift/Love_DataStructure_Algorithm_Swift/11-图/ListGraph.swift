@@ -359,9 +359,10 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     
     //MARK: - 最短路径问题 - 简单版 (拽石头-松弛操作）
     /*
-     * 有向图
+     * 有向图、无向图都支持
      * 从某一点出发的最短路径(权值最小)
      * 返回权值
+     * 未优化代码
      */
     override func shortestPath(_ begin: V) -> HashMap<V, Double>? {
         // 0、取出开始值对应的顶点 空值校验
@@ -424,9 +425,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     }
     
     /// 根据边信息, 筛选权值最小的路径
-    fileprivate func minPathInfo(_ paths: HashMap<Vertex<V, E>, PathInfo<V, E>>) -> (Vertex<V, E>?, PathInfo<V, E>?) {
+    fileprivate func minPathInfo(_ paths: HashMap<Vertex<V, E>, Path<V, E>>) -> (Vertex<V, E>?, Path<V, E>?) {
         var verterx: Vertex<V, E>?
-        var pathInfo: PathInfo<V, E>?
+        var pathInfo: Path<V, E>?
         
         paths.allKeys().forEach { ver in
             if verterx == nil {
@@ -454,14 +455,15 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     /*
      * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 不支持有负权边
+     * 拽石头-松弛操作
      */
-    override func dijkstraShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
+    override func dijkstraShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
         guard let beginVertex = vertexs.get(key: begin) else { return nil }
         
-        let waitPaths = HashMap<Vertex<V, E>, PathInfo<V, E>>()
-        waitPaths.put(key: beginVertex, val: PathInfo())
+        let waitPaths = HashMap<Vertex<V, E>, Path<V, E>>()
+        waitPaths.put(key: beginVertex, val: Path())
         
-        let finishPaths = HashMap<V, PathInfo<V, E>>()
+        let finishPaths = HashMap<V, Path<V, E>>()
         while !waitPaths.isEmpty() {
             let minData = minPathInfo(waitPaths)
             if let minVertex = minData.0, let minPath = minData.1 {
@@ -480,7 +482,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                         // 以前的最短路径
                         var oldPath = waitPaths.get(key: minVertex)
                         if oldPath == nil {
-                            oldPath = PathInfo()
+                            oldPath = Path()
                             waitPaths.put(key: edge.to, val: oldPath)
                         } else {
                             if newWeight >= oldPath?.weight ?? 0 { continue }
@@ -488,7 +490,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                         }
                         
                         oldPath?.weight = newWeight
-                        oldPath?.edgeInfos.append(edge.edgeInfo())
+                        oldPath?.edgeInfos.append(edge)
                         for edge in minPath.edgeInfos {
                             oldPath?.edgeInfos.append(edge)
                         }
@@ -506,12 +508,14 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
      * BellmanFord: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 支持有负权边
      * 支持检测是否有负权环
+     * 支持检测是否有负权环 第V次还有权重更新 则有负权环
+     * 对所有边进行V-1次松弛操作（V是节点数量），得到所有可能的最短路径
      */
-    override func bellmanFordShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
+    override func bellmanFordShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
         guard vertexs.get(key: begin) != nil else { return nil }
         
-        let finishPaths = HashMap<V, PathInfo<V, E>>()
-        finishPaths.put(key: begin, val: PathInfo())
+        let finishPaths = HashMap<V, Path<V, E>>()
+        finishPaths.put(key: begin, val: Path())
         
         for _ in 0..<vertexs.count() - 1 {
             for edge in edges.allElements() {
@@ -540,57 +544,83 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     /*
      * Floyd: 多源最短路径算法,用于计算任意两个顶点的最短路径
      * 支持有负权边
+     * 时间复杂度: O(V^3)
      */
-    override func floydShortPath() -> HashMap<V, HashMap<V, PathInfo<V, E>>>? {
-        let finishPaths = HashMap<V, HashMap<V, PathInfo<V, E>>>()
+    override func floydShortPath() -> HashMap<V, HashMap<V, Path<V, E>>>? {
+        // 1、最小路径Map 返回给外界  (key:val  value:HashMap)
+        // 嵌套HashMap: HashMap<fromVal, HashMap<toValue, Path<V, E>>>()
+        let finishPaths = HashMap<V, HashMap<V, Path<V, E>>>()
         
+        // 2、将所有边加入finishPaths
         for edge in edges.allElements() {
             if let fromVal = edge.from?.value {
-                var map = finishPaths.get(key: fromVal)
-                if map == nil {
-                    map = HashMap()
-                    finishPaths.put(key: fromVal, val: map)
+                var pathMap = finishPaths.get(key: fromVal)
+                // 2.1、pathMap不存在 创建pathMap
+                if pathMap == nil {
+                    pathMap = HashMap()
+                    // 注意（key：fromVal  value:pathMap）
+                    finishPaths.put(key: fromVal, val: pathMap)
                 }
-                let pathInfo = PathInfo<V, E>()
-                pathInfo.edgeInfos.append(edge.edgeInfo())
-                map?.put(key: edge.to?.value, val: pathInfo)
+                
+                // 2.2、pathMap存在 - 创建路径信息 存入pathMap
+                // 创建路径信息
+                let pathInfo = Path<V, E>()
+                pathInfo.edgeInfos.append(edge)
+                // 注意给Path个初始权值
+                pathInfo.weight = edge.weight ?? 0;
+                // 注意（key：toValue  value:pathInfo）
+                let toValue = edge.to?.value
+                pathMap?.put(key: toValue, val: pathInfo)
             }
         }
         
-        vertexs.allKeys().forEach { v2 in
-            vertexs.allKeys().forEach { v1 in
-                vertexs.allKeys().forEach { v3 in
+        // 3、三层for循环 遍历allkeys 顺序不能乱
+        vertexs.allKeys().forEach { v2 in // v2
+            vertexs.allKeys().forEach { v1 in // v1
+                vertexs.allKeys().forEach { v3 in // v3
+                    // 异常情况处理
                     if v1 == v2 || v1 == v3 || v3 == v2 { return }
                     
                     // v1 -> v2
-                    guard let path12 = getPathInfo(finishPaths, from: v1, to: v2) else { return }
+                    guard let path12 = getPathInfo(finishPaths, from: v1, to: v2) else {
+                        return
+                    }
                     // v2 -> v3
-                    guard let path23 = getPathInfo(finishPaths, from: v2, to: v3) else { return }
-                    
+                    guard let path23 = getPathInfo(finishPaths, from: v2, to: v3) else {
+                        return
+                    }
                     // v1 -> v3
                     var path13 = getPathInfo(finishPaths, from: v1, to: v3)
                     
+                    // 新路径权重 - newWeight
                     let newWeight = path12.weight + path23.weight
+                    //  path13还不存在 创建path13
                     if path13 == nil {
-                        path13 = PathInfo()
-                        finishPaths.get(key: v1)?.put(key: v3, val: path13)
-                    } else {
-                        if newWeight >= path13?.weight ?? 0 { return }
-                        path13?.edgeInfos.removeAll()
+                        path13 = Path()
+                        let pathMap = finishPaths.get(key: v1)
+                        pathMap?.put(key: v3, val: path13)
+                    } else if let oldWeight = path13?.weight, newWeight >= oldWeight {
+                        // 权重：path12 + path23 >= path13 无需更新权重
+                        return
                     }
                     
+                    // 权重：path12 + path23 < path13 更新权重weight
                     path13?.weight = newWeight
-                    for edge in path12.edgeInfos {
-                        path13?.edgeInfos.append(edge)
-                    }
-                    for edge in path23.edgeInfos {
-                        path13?.edgeInfos.append(edge)
-                    }
+                    // 权重：path12 + path23 < path13 更新路径信息edgeInfos
+                    path13?.edgeInfos.removeAll()
+                    path13?.edgeInfos.append(contentsOf: path12.edgeInfos)
+                    path13?.edgeInfos.append(contentsOf: path23.edgeInfos)
                 }
             }
         }
         
         return finishPaths
+    }
+    
+    /// 获取edge的路径信息
+    fileprivate func getPathInfo(_ finishPaths: HashMap<V, HashMap<V, Path<V, E>>>, from: V, to: V) -> Path<V, E>? {
+        let pathMap = finishPaths.get(key: from)
+        return pathMap == nil ? nil : pathMap?.get(key: to)
     }
 }
 
@@ -619,15 +649,11 @@ extension ListGraph {
     
 
     
-    /// 获取edge的边信息
-    fileprivate func getPathInfo(_ paths: HashMap<V, HashMap<V, PathInfo<V, E>>>, from: V, to: V) -> PathInfo<V, E>? {
-        let fromMap = paths.get(key: from)
-        return fromMap == nil ? nil : fromMap?.get(key: to)
-    }
+
     
     /// 需要进行松弛的边
     @discardableResult
-    fileprivate func relax(_ edge: Edge<V, E>, fromPath: PathInfo<V, E>, paths: HashMap<V, PathInfo<V, E>>) -> Bool {
+    fileprivate func relax(_ edge: Edge<V, E>, fromPath: Path<V, E>, paths: HashMap<V, Path<V, E>>) -> Bool {
         // 新的可选的最短路径
         let newWeight = fromPath.weight + (edge.weight ?? 0)
         // 以前的最短路径
@@ -635,7 +661,7 @@ extension ListGraph {
             
         var oldPath = paths.get(key: toVal)
         if oldPath == nil {
-            oldPath = PathInfo()
+            oldPath = Path()
             paths.put(key: toVal, val: oldPath)
         } else {
             if newWeight >= oldPath?.weight ?? 0 { return false }
@@ -643,7 +669,7 @@ extension ListGraph {
         }
         
         oldPath?.weight = newWeight
-        oldPath?.edgeInfos.append(edge.edgeInfo())
+        oldPath?.edgeInfos.append(edge)
         for edgeInfo in fromPath.edgeInfos {
             oldPath?.edgeInfos.append(edgeInfo)
         }

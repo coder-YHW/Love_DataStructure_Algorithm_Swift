@@ -7,6 +7,7 @@
 
 import Cocoa
 
+/// 顶点
 struct Vertex<V: Comparable & Hashable, E: Comparable> {
 
     //MARK: - 属性

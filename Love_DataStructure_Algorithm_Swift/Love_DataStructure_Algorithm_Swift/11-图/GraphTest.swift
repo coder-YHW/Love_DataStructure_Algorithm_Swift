@@ -131,7 +131,7 @@ struct GraphTest<V: Comparable & Hashable> {
         map?.traversal(visitor: { val, path in
             let valStr = String(describing: val)
             if let pathInfo = path {
-                print("\(valStr): \(pathInfo.toString())")
+//                print("\(valStr): \(pathInfo.toString())")
             }
             print("------------------------------")
         })
@@ -144,7 +144,7 @@ struct GraphTest<V: Comparable & Hashable> {
         map?.traversal(visitor: { val, path in
             let valStr = String(describing: val)
             if let pathInfo = path {
-                print("\(valStr): \(pathInfo.toString())")
+//                print("\(valStr): \(pathInfo.toString())")
             }
             print("------------------------------")
         })
@@ -152,17 +152,16 @@ struct GraphTest<V: Comparable & Hashable> {
     
     /// 从某一点出发的最短路径(权值最小)
     static func floydShortPath() {
-        let graph = directedGraph(GraphData.NEGATIVE_WEIGHT1)
+        let graph = directedGraph(GraphData.SP)
         let map = graph.floydShortPath()
         map?.traversal(visitor: { val, pathMap in
+            print("------------\(val!)---------------")
             pathMap?.traversal(visitor: { value, path in
-                let valStr = String(describing: val)
-                let valueStr = String(describing: value)
                 if let pathInfo = path {
-                    print("\(valStr)--\(valueStr): \(pathInfo.toString())")
+                    print("from:\(val!)->to:\(value!) : \(pathInfo)")
                 }
             })
-            print("------------------------------")
+            
         })
     }
 }

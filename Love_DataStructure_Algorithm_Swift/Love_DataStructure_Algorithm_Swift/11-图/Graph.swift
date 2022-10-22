@@ -91,7 +91,7 @@ class Graph<V: Comparable & Hashable, E: Comparable & Hashable> {
      * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
      * 不支持有负权边
      */
-    func dijkstraShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
+    func dijkstraShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
         fatalError("dijkstraShortPath")
     }
     
@@ -101,7 +101,7 @@ class Graph<V: Comparable & Hashable, E: Comparable & Hashable> {
      * 支持有负权边
      * 支持检测是否有负权环
      */
-    func bellmanFordShortPath(_ begin: V) -> HashMap<V, PathInfo<V, E>>? {
+    func bellmanFordShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
         fatalError("bellmanFordShortPath")
     }
     
@@ -110,7 +110,7 @@ class Graph<V: Comparable & Hashable, E: Comparable & Hashable> {
      * Floyd: 多源最短路径算法,用于计算‘任意两个顶点的最短路径
      * 支持有负权边
      */
-    func floydShortPath() -> HashMap<V, HashMap<V, PathInfo<V, E>>>? {
+    func floydShortPath() -> HashMap<V, HashMap<V, Path<V, E>>>? {
         fatalError("bellmanFordShortPath")
     }
     

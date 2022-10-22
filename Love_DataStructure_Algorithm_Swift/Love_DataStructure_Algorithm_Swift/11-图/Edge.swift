@@ -24,13 +24,6 @@ struct Edge<V: Comparable & Hashable, E: Comparable> {
         self.from = from
         self.to = to
     }
-    
-    
-    //MARK: - 方法
-    /// 边信息
-    func edgeInfo() -> EdgeInfo<V, E> {
-        return EdgeInfo(from: from?.value, to: to?.value, weight: weight)
-    }
 }
 
 

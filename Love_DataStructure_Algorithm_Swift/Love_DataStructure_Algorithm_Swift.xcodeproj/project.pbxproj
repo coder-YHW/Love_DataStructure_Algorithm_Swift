@@ -39,9 +39,8 @@
 		0DC90C0528F01E9300AA8754 /* GraphTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA328F01E9100AA8754 /* GraphTest.swift */; };
 		0DC90C0628F01E9300AA8754 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA428F01E9100AA8754 /* Edge.swift */; };
 		0DC90C0728F01E9300AA8754 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA528F01E9100AA8754 /* Graph.swift */; };
-		0DC90C0828F01E9300AA8754 /* PathInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA628F01E9100AA8754 /* PathInfo.swift */; };
+		0DC90C0828F01E9300AA8754 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA628F01E9100AA8754 /* Path.swift */; };
 		0DC90C0928F01E9300AA8754 /* ListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA728F01E9100AA8754 /* ListGraph.swift */; };
-		0DC90C0A28F01E9300AA8754 /* EdgeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA828F01E9100AA8754 /* EdgeInfo.swift */; };
 		0DC90C0B28F01E9300AA8754 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BA928F01E9100AA8754 /* Vertex.swift */; };
 		0DC90C0C28F01E9300AA8754 /* RecallThird.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BAB28F01E9100AA8754 /* RecallThird.swift */; };
 		0DC90C0D28F01E9300AA8754 /* RecallSecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC90BAC28F01E9100AA8754 /* RecallSecord.swift */; };
@@ -244,9 +243,8 @@
 		0DC90BA328F01E9100AA8754 /* GraphTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTest.swift; sourceTree = "<group>"; };
 		0DC90BA428F01E9100AA8754 /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		0DC90BA528F01E9100AA8754 /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
-		0DC90BA628F01E9100AA8754 /* PathInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathInfo.swift; sourceTree = "<group>"; };
+		0DC90BA628F01E9100AA8754 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		0DC90BA728F01E9100AA8754 /* ListGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListGraph.swift; sourceTree = "<group>"; };
-		0DC90BA828F01E9100AA8754 /* EdgeInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeInfo.swift; sourceTree = "<group>"; };
 		0DC90BA928F01E9100AA8754 /* Vertex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		0DC90BAB28F01E9100AA8754 /* RecallThird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecallThird.swift; sourceTree = "<group>"; };
 		0DC90BAC28F01E9100AA8754 /* RecallSecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecallSecord.swift; sourceTree = "<group>"; };
@@ -586,10 +584,9 @@
 			children = (
 				0DC90BA928F01E9100AA8754 /* Vertex.swift */,
 				0DC90BA428F01E9100AA8754 /* Edge.swift */,
+				0DC90BA628F01E9100AA8754 /* Path.swift */,
 				0DC90BA528F01E9100AA8754 /* Graph.swift */,
 				0DC90BA728F01E9100AA8754 /* ListGraph.swift */,
-				0DC90BA828F01E9100AA8754 /* EdgeInfo.swift */,
-				0DC90BA628F01E9100AA8754 /* PathInfo.swift */,
 				0DC90BA228F01E9100AA8754 /* GraphData.swift */,
 				0DC90BA328F01E9100AA8754 /* GraphTest.swift */,
 			);
@@ -937,7 +934,7 @@
 				0DC90BF828F01E9300AA8754 /* HashNode.swift in Sources */,
 				0DC90C4428F01E9300AA8754 /* Set.swift in Sources */,
 				0D1BDBBD28FBC7BA004F1D93 /* LinkHashNode.swift in Sources */,
-				0DC90C0828F01E9300AA8754 /* PathInfo.swift in Sources */,
+				0DC90C0828F01E9300AA8754 /* Path.swift in Sources */,
 				0DC90C2228F01E9300AA8754 /* RadixSort.swift in Sources */,
 				0DC90C0E28F01E9300AA8754 /* RecallLeetCode.swift in Sources */,
 				0DC90C0528F01E9300AA8754 /* GraphTest.swift in Sources */,
@@ -958,7 +955,6 @@
 				0DC90BF628F01E9300AA8754 /* HashMap.swift in Sources */,
 				0DC90C2D28F01E9300AA8754 /* UnionFind_QF.swift in Sources */,
 				0DC90C0128F01E9300AA8754 /* SingleLinkList.swift in Sources */,
-				0DC90C0A28F01E9300AA8754 /* EdgeInfo.swift in Sources */,
 				0DC90C4128F01E9300AA8754 /* SingleQueue.swift in Sources */,
 				0D1BDBD228FD464E004F1D93 /* BinarySearch.swift in Sources */,
 			);
