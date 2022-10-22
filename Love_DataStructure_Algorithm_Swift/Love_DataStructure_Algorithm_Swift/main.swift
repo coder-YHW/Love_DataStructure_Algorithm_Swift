@@ -423,9 +423,9 @@ func testGraph() {
     /// 测试最短路径问题0
 //    GraphTest<String>.shortPath();
     /// 测试最短路径问题1 - Dijkstra算法
-//    GraphTest<String>.dijkstraShortPath();
+    GraphTest<String>.dijkstraShortPath();
     /// 测试最短路径问题2 - BellmanFords算法
-    GraphTest<String>.bellmanFordShortPath();
+//    GraphTest<String>.bellmanFordShortPath();
     /// 测试最短路径问题3- floyd算法
 //    GraphTest<String>.floydShortPath();
 }

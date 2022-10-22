@@ -480,33 +480,8 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                     
                 // 4、对minVertex.outEdges进行松弛操作 更新waitPaths路径
                 for edge in minVertex.outEdges.allElements() {
-                    
-                    // 4.1、去除重复操作 - 无向路径可能会往回重复寻找
-                    if let toVal = edge.to?.value {
-                        if finishPaths.containsKey(key: toVal) {
-                            continue
-                        }
-                        
-                        // 4.2、原点到toVertex的新权重:edge.weight + minData.1
-                        let newWeight = minPath.weight + (edge.weight ?? 0)
-                        // 4.3、以前没有到原点的旧路径 oldWeight为nil
-                        var oldPath = waitPaths.get(key: minVertex)
-                        if oldPath == nil {
-                            oldPath = Path()
-                            waitPaths.put(key: edge.to, val: oldPath)
-                        } else if newWeight >= oldPath!.weight  {
-                            // 5.1、newWeight >= oldWeight 没有更新的必要
-                            continue
-                        }
-                        
-                        // 5.2、oldWeight为nil 或则 newWeight < oldWeight 更新权重weight
-                        oldPath?.weight = newWeight
-                        
-                        // 5.3、oldWeight为nil 或则 newWeight < oldWeight 更新路径信息edgeInfos
-                        oldPath?.edgeInfos.removeAll()
-                        oldPath?.edgeInfos.append(contentsOf: minPath.edgeInfos)
-                        oldPath?.edgeInfos.append(edge)
-                    }
+                    /// 松弛操作封装一
+                    relax(edge, minPath: minPath, finishPaths: finishPaths, waitPaths: waitPaths)
                 }
             }
         }
@@ -539,6 +514,45 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         }
         
         return (verterx, pathInfo)
+    }
+    
+    /// 松弛操作封装一
+    @discardableResult
+    fileprivate func relax(_ edge: Edge<V, E>, minPath: Path<V, E>, finishPaths: HashMap<V, Path<V, E>>, waitPaths: HashMap<Vertex<V, E>, Path<V, E>>) -> Bool {
+        
+        // 4.0、松弛新节点
+        guard let minVertex = edge.to else {
+            return false
+        }
+        
+        // 4.1、去除重复操作 - 无向路径可能会往回重复寻找
+        if let toVal = edge.to?.value {
+            if finishPaths.containsKey(key: toVal) {
+                return false
+            }
+            
+            // 4.2、原点到toVertex的新权重:edge.weight + minData.1
+            let newWeight = minPath.weight + (edge.weight ?? 0)
+            // 4.3、以前没有到原点的旧路径 oldWeight为nil
+            var oldPath = waitPaths.get(key: minVertex)
+            if oldPath == nil {
+                oldPath = Path()
+                waitPaths.put(key: edge.to, val: oldPath)
+            } else if newWeight >= oldPath!.weight  {
+                // 5.1、newWeight >= oldWeight 没有更新的必要
+                return false
+            }
+            
+            // 5.2、oldWeight为nil 或则 newWeight < oldWeight 更新权重weight
+            oldPath?.weight = newWeight
+            
+            // 5.3、oldWeight为nil 或则 newWeight < oldWeight 更新路径信息edgeInfos
+            oldPath?.edgeInfos.removeAll()
+            oldPath?.edgeInfos.append(contentsOf: minPath.edgeInfos)
+            oldPath?.edgeInfos.append(edge)
+        }
+        
+        return true
     }
     
     //MARK: 单源最短路径算法2 - BellmanFord(贝尔曼-福特)
@@ -584,7 +598,7 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
-    /// 需要进行松弛的边
+    /// 松弛操作封装二
     @discardableResult
     fileprivate func relax(_ edge: Edge<V, E>, fromPath: Path<V, E>, paths: HashMap<V, Path<V, E>>) -> Bool {
 
