@@ -120,7 +120,7 @@ struct GraphTest<V: Comparable & Hashable> {
             let val = map?.get(key: key)
             let keyStr = String(describing: key)
             let valStr = String(describing: val)
-            print("A--\(keyStr): \(valStr)")
+            print("A->\(keyStr): \(valStr)")
         })
     }
     
@@ -129,9 +129,9 @@ struct GraphTest<V: Comparable & Hashable> {
         let graph = undirectedGraph(GraphData.SP)
         let map = graph.dijkstraShortPath("A" as! V)
         map?.traversal(visitor: { val, path in
-            let valStr = String(describing: val)
+
             if let pathInfo = path {
-//                print("\(valStr): \(pathInfo.toString())")
+                print("A->\(val!): \(pathInfo)")
             }
             print("------------------------------")
         })
@@ -139,12 +139,13 @@ struct GraphTest<V: Comparable & Hashable> {
     
     /// 从某一点出发的最短路径(权值最小)
     static func bellmanFordShortPath() {
-        let graph = directedGraph(GraphData.BF_SP)
+//        let graph = directedGraph(GraphData.BF_SP)
+        let graph = undirectedGraph(GraphData.SP)
         let map = graph.bellmanFordShortPath("A" as! V)
         map?.traversal(visitor: { val, path in
-            let valStr = String(describing: val)
+
             if let pathInfo = path {
-//                print("\(valStr): \(pathInfo.toString())")
+                print("\(val!): \(pathInfo)")
             }
             print("------------------------------")
         })

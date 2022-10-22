@@ -410,14 +410,24 @@ func testGraph() {
 //        print("\(val)")
 //    }
     
+    /// 测试拓扑排序
 //    GraphTest<Int>.topSortTest(GraphData.TOPO)
+    
+
+    /// 最小生成树问题 - 测试Prim算法
 //    GraphTest<Int>.mstPrim(GraphData.MST_01)
+    /// 最小生成树问题 - 测试Kruskal算法
 //    GraphTest<Int>.mstKruskal(GraphData.MST_01)
     
     
+    /// 测试最短路径问题0
 //    GraphTest<String>.shortPath();
-    
-    GraphTest<String>.floydShortPath();
+    /// 测试最短路径问题1 - Dijkstra算法
+//    GraphTest<String>.dijkstraShortPath();
+    /// 测试最短路径问题2 - BellmanFords算法
+    GraphTest<String>.bellmanFordShortPath();
+    /// 测试最短路径问题3- floyd算法
+//    GraphTest<String>.floydShortPath();
 }
 
 //MARK: - 测试入口

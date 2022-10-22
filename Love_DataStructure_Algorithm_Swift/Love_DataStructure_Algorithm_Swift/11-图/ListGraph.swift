@@ -383,11 +383,13 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         
         // 3、筛选出最短路径 - 循环操作
         while !waitPaths.isEmpty() {
-            // 3.0、筛选出最短路径
+            /// 3.0、根据边信息, 筛选权值最小的路径
             let minData = minWeightPath(waitPaths)
+            
             if let minVertex = minData.0 {
                 // 3.1、将最短路径存入finishPaths
                 finishPaths.put(key: minVertex.value, val: minData.1)
+                
                 // 3.2、将最短路径从waitPaths删除
                 waitPaths.remove(key: minVertex)
                 
@@ -402,9 +404,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                         
                         // 4.2、原点到toVertex的新权重:edge.weight + minData.1
                         let newWeight = minData.1 + (edge.weight ?? 0)
-                        // 4.4、以前没有到原点的旧路径 oldWeight为nil
+                        // 4.3、以前没有到原点的旧路径 oldWeight为nil
                         guard let oldWeight = waitPaths.get(key: minVertex) else {
-                            // 更新松弛之后的waitPaths
+                            // 4.4 oldWeight为nil 更新松弛之后的waitPaths
                             waitPaths.put(key: edge.to, val: newWeight)
                             continue
                         }
@@ -424,7 +426,96 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         return finishPaths
     }
     
-    /// 根据边信息, 筛选权值最小的路径
+    /// 根据权值, 筛选权值最小的路径
+    fileprivate func minWeightPath(_ paths: HashMap<Vertex<V, E>, Double>) -> (Vertex<V, E>?, Double) {
+        var verterx: Vertex<V, E>?
+        var weight: Double = 0
+        
+        paths.allKeys().forEach { ver in
+            if verterx == nil {
+                verterx = ver
+                weight = paths.get(key: ver) ?? 0
+            } else {
+                let tmpWeight = paths.get(key: ver) ?? 0
+                if weight > tmpWeight {
+                    verterx = ver
+                    weight = tmpWeight
+                }
+            }
+        }
+        
+        return (verterx, weight)
+    }
+
+    
+    //MARK: 单源最短路径算法1 - Dijkstra(迪杰斯特拉)
+    /*
+     * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
+     * 不支持有负权边
+     * 松弛操作：从起点开始 对新加入的顶点进行松弛操作
+     */
+    override func dijkstraShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
+        // 0、取出开始值对应的顶点 空值校验
+        guard let beginVertex = vertexs.get(key: begin) else { return nil }
+        
+        // 1、等待被选择的路径s (key:toVertex value:Path) 从起点到其他点的路径信息
+        // 从起点开始做松弛操作
+        let waitPaths = HashMap<Vertex<V, E>, Path<V, E>>()
+        waitPaths.put(key: beginVertex, val: Path())
+        
+        // 2、已经确定的最小路径s 返回给外界  (key:vertex.value  value:Path)
+        let finishPaths = HashMap<V, Path<V, E>>()
+        
+        // 3、筛选出最短路径 - 循环操作
+        while !waitPaths.isEmpty() {
+            /// 3.0、根据边信息, 筛选权值最小的路径
+            let minData = minPathInfo(waitPaths)
+            
+            if let minVertex = minData.0, let minPath = minData.1 {
+                // 3.1、将最短路径存入finishPaths
+                finishPaths.put(key: minVertex.value, val: minPath)
+                
+                // 3.2、将最短路径从waitPaths删除
+                waitPaths.remove(key: minVertex)
+                    
+                // 4、对minVertex.outEdges进行松弛操作 更新waitPaths路径
+                for edge in minVertex.outEdges.allElements() {
+                    
+                    // 4.1、去除重复操作 - 无向路径可能会往回重复寻找
+                    if let toVal = edge.to?.value {
+                        if finishPaths.containsKey(key: toVal) {
+                            continue
+                        }
+                        
+                        // 4.2、原点到toVertex的新权重:edge.weight + minData.1
+                        let newWeight = minPath.weight + (edge.weight ?? 0)
+                        // 4.3、以前没有到原点的旧路径 oldWeight为nil
+                        var oldPath = waitPaths.get(key: minVertex)
+                        if oldPath == nil {
+                            oldPath = Path()
+                            waitPaths.put(key: edge.to, val: oldPath)
+                        } else if newWeight >= oldPath!.weight  {
+                            // 5.1、newWeight >= oldWeight 没有更新的必要
+                            continue
+                        }
+                        
+                        // 5.2、oldWeight为nil 或则 newWeight < oldWeight 更新权重weight
+                        oldPath?.weight = newWeight
+                        
+                        // 5.3、oldWeight为nil 或则 newWeight < oldWeight 更新路径信息edgeInfos
+                        oldPath?.edgeInfos.removeAll()
+                        oldPath?.edgeInfos.append(contentsOf: minPath.edgeInfos)
+                        oldPath?.edgeInfos.append(edge)
+                    }
+                }
+            }
+        }
+        
+        finishPaths.remove(key: begin)
+        return finishPaths
+    }
+    
+    /// 根据边信息, 筛选权值最小的路径 minVertex
     fileprivate func minPathInfo(_ paths: HashMap<Vertex<V, E>, Path<V, E>>) -> (Vertex<V, E>?, Path<V, E>?) {
         var verterx: Vertex<V, E>?
         var pathInfo: Path<V, E>?
@@ -449,59 +540,6 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         
         return (verterx, pathInfo)
     }
-
-    
-    //MARK: 单源最短路径算法1 - Dijkstra(迪杰斯特拉)
-    /*
-     * Dijkstra: 单源最短路径算法,用于计算一个顶点到其他所有顶点的最短路径
-     * 不支持有负权边
-     * 拽石头-松弛操作
-     */
-    override func dijkstraShortPath(_ begin: V) -> HashMap<V, Path<V, E>>? {
-        guard let beginVertex = vertexs.get(key: begin) else { return nil }
-        
-        let waitPaths = HashMap<Vertex<V, E>, Path<V, E>>()
-        waitPaths.put(key: beginVertex, val: Path())
-        
-        let finishPaths = HashMap<V, Path<V, E>>()
-        while !waitPaths.isEmpty() {
-            let minData = minPathInfo(waitPaths)
-            if let minVertex = minData.0, let minPath = minData.1 {
-                finishPaths.put(key: minVertex.value, val: minPath)
-                waitPaths.remove(key: minVertex)
-                    
-                // 对minVertex进行松弛操作
-                for edge in minVertex.outEdges.allElements() {
-                    if let toVal = edge.to?.value {
-                        if finishPaths.containsKey(key: toVal) {
-                            continue
-                        }
-                        
-                        // 新的可选的最短路径
-                        let newWeight = minPath.weight + (edge.weight ?? 0)
-                        // 以前的最短路径
-                        var oldPath = waitPaths.get(key: minVertex)
-                        if oldPath == nil {
-                            oldPath = Path()
-                            waitPaths.put(key: edge.to, val: oldPath)
-                        } else {
-                            if newWeight >= oldPath?.weight ?? 0 { continue }
-                            oldPath?.edgeInfos.removeAll()
-                        }
-                        
-                        oldPath?.weight = newWeight
-                        oldPath?.edgeInfos.append(edge)
-                        for edge in minPath.edgeInfos {
-                            oldPath?.edgeInfos.append(edge)
-                        }
-                    }
-                }
-            }
-        }
-        
-        finishPaths.remove(key: begin)
-        return finishPaths
-    }
     
     //MARK: 单源最短路径算法2 - BellmanFord(贝尔曼-福特)
     /*
@@ -517,15 +555,21 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         let finishPaths = HashMap<V, Path<V, E>>()
         finishPaths.put(key: begin, val: Path())
         
-        for _ in 0..<vertexs.count() - 1 {
+        // 对所有边进行V-1次松弛操作（V是节点数量），得到所有可能的最短路径
+        let v = vertexs.count()
+        for _ in 0..<v - 1 {
             for edge in edges.allElements() {
                 if let fromVal = edge.from?.value {
-                    guard let fromPath = finishPaths.get(key: fromVal) else { continue }
+                    guard let fromPath = finishPaths.get(key: fromVal) else {
+                        // fromPath为nil 意味着以前没有记录 松弛失败 不需要处理
+                        continue
+                    }
                     relax(edge, fromPath: fromPath, paths: finishPaths)
                 }
             }
         }
         
+        // 对所有边进行第V次松弛操作（V是节点数量）如果还有权重更新 则有负权环
         for edge in edges.allElements() {
             if let fromVal = edge.from?.value {
                 guard let fromPath = finishPaths.get(key: fromVal) else { continue }
@@ -538,6 +582,51 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
         
         finishPaths.remove(key: begin)
         return finishPaths
+    }
+    
+    /// 需要进行松弛的边
+    @discardableResult
+    fileprivate func relax(_ edge: Edge<V, E>, fromPath: Path<V, E>, paths: HashMap<V, Path<V, E>>) -> Bool {
+
+        // 1、以前的最短路径 - 新增代码
+        guard let toVal = edge.to?.value else {
+            return false
+        }
+        
+//        // 去除重复操作 - 无向路径可能会往回重复寻找
+//        // bellmanFord算法不需要去重
+//        if finishPaths.containsKey(key: toVal) {
+//            continue
+//        }
+        // 2、fromPath为nil 意味着以前没有记录 松弛失败 不需要处理 (调用前已处理)
+
+            
+        // 3、原点到toVertex的新权重:edge.weight + minWeight
+        // 3.1、newWeight
+        let newWeight = fromPath.weight + (edge.weight ?? 0)
+        // 3.2、oldWeight
+        var oldPath = paths.get(key: toVal)
+
+        if oldPath == nil {
+            // 4.0、没有路径信息的 创建路径信息
+            oldPath = Path()
+            paths.put(key: toVal, val: oldPath)
+        } else {
+            if newWeight >= oldPath?.weight ?? 0 {
+                // 4.1、newWeight >= oldWeight 没有更新的必要
+                return false
+            }
+        }
+        
+        // 4.2、oldWeight为nil 或则 newWeight < oldWeight 更新权重weight
+        oldPath?.weight = newWeight
+        
+        // 4.3、oldWeight为nil 或则 newWeight < oldWeight 更新路径信息edgeInfos
+        oldPath?.edgeInfos.removeAll()
+        oldPath?.edgeInfos.append(contentsOf: fromPath.edgeInfos)
+        oldPath?.edgeInfos.append(edge)
+        
+        return true
     }
     
     //MARK: 多源最短路径算法 floydShortPath（弗洛伊德）
@@ -604,9 +693,9 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
                         return
                     }
                     
-                    // 权重：path12 + path23 < path13 更新权重weight
+                    // path13为nil 或者 权重：path12 + path23 < path13 更新权重weight
                     path13?.weight = newWeight
-                    // 权重：path12 + path23 < path13 更新路径信息edgeInfos
+                    // path13为nil 或者 权重：path12 + path23 < path13 更新路径信息edgeInfos
                     path13?.edgeInfos.removeAll()
                     path13?.edgeInfos.append(contentsOf: path12.edgeInfos)
                     path13?.edgeInfos.append(contentsOf: path23.edgeInfos)
@@ -621,60 +710,6 @@ class ListGraph<V: Comparable & Hashable, E: Comparable & Hashable>: Graph<V, E>
     fileprivate func getPathInfo(_ finishPaths: HashMap<V, HashMap<V, Path<V, E>>>, from: V, to: V) -> Path<V, E>? {
         let pathMap = finishPaths.get(key: from)
         return pathMap == nil ? nil : pathMap?.get(key: to)
-    }
-}
-
-extension ListGraph {
-    
-    /// 根据权值, 筛选权值最小的路径
-    fileprivate func minWeightPath(_ paths: HashMap<Vertex<V, E>, Double>) -> (Vertex<V, E>?, Double) {
-        var verterx: Vertex<V, E>?
-        var weight: Double = 0
-        
-        paths.allKeys().forEach { ver in
-            if verterx == nil {
-                verterx = ver
-                weight = paths.get(key: ver) ?? 0
-            } else {
-                let tmpWeight = paths.get(key: ver) ?? 0
-                if weight > tmpWeight {
-                    verterx = ver
-                    weight = tmpWeight
-                }
-            }
-        }
-        
-        return (verterx, weight)
-    }
-    
-
-    
-
-    
-    /// 需要进行松弛的边
-    @discardableResult
-    fileprivate func relax(_ edge: Edge<V, E>, fromPath: Path<V, E>, paths: HashMap<V, Path<V, E>>) -> Bool {
-        // 新的可选的最短路径
-        let newWeight = fromPath.weight + (edge.weight ?? 0)
-        // 以前的最短路径
-        guard let toVal = edge.to?.value else { return false }
-            
-        var oldPath = paths.get(key: toVal)
-        if oldPath == nil {
-            oldPath = Path()
-            paths.put(key: toVal, val: oldPath)
-        } else {
-            if newWeight >= oldPath?.weight ?? 0 { return false }
-            oldPath?.edgeInfos.removeAll()
-        }
-        
-        oldPath?.weight = newWeight
-        oldPath?.edgeInfos.append(edge)
-        for edgeInfo in fromPath.edgeInfos {
-            oldPath?.edgeInfos.append(edgeInfo)
-        }
-        
-        return true
     }
 }
 
