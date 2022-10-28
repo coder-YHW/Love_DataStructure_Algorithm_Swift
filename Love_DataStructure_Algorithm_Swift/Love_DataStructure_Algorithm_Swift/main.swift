@@ -199,14 +199,14 @@ func testBSTree() {
 //    }
     
 //    // 前序遍历（迭代）
-//    tree.preOrder { element in
-//        print(element!)
-//    }
-//    print("----------")
-//    // 前序遍历（递归）
-//    tree.preOrderCircle { element in
-//        print(element!)
-//    }
+    tree.preOrder { element in
+        print(element!)
+    }
+    print("----------")
+    // 前序遍历（递归）
+    tree.preOrderCircle { element in
+        print(element!)
+    }
     
     
     // 中序遍历（迭代）
@@ -221,14 +221,14 @@ func testBSTree() {
     
     
     // 后序遍历（迭代）
-    tree.postOrder { element in
-        print(element!)
-    }
-    print("----------")
-    // 后序遍历（递归）
-    tree.postOrderCircle { element in
-        print(element!)
-    }
+//    tree.postOrder { element in
+//        print(element!)
+//    }
+//    print("----------")
+//    // 后序遍历（递归）
+//    tree.postOrderCircle { element in
+//        print(element!)
+//    }
 
     
 }
@@ -475,17 +475,34 @@ func testSuanFa() {
     assert(Recursion.step2(n: 4) == 5)
     
     // 汉诺塔问题
-    Recursion.hanoi(n: 3, a: "1", b: "2", c: "3")
+//    Recursion.hanoi(n: 3, a: "1", b: "2", c: "3")
     
-    
+    // n皇后问题
+    let recall = RecallFirst()
+    recall.quaceQueens(8)
 }
+
+
+
+//MARK: - 字符串-测试用例
+func testSequence() {
+    
+    let text = "Hello Word!"
+    
+    let sequence = Sequence()
+    assert(sequence.indexOf1(text: text, pattern: "or") == 7)
+    assert(sequence.indexOf1(text: text, pattern: "o") == 4)
+    assert(sequence.indexOf2(text: text, pattern: "or") == 7)
+    assert(sequence.indexOf2(text: text, pattern: "o") == 4)
+}
+
 
 //MARK: - 测试入口
 
 //testArrayList()
 //testLinkList()
 
-//testBSTree()
+testBSTree()
 //testAVLTree()
 //testRBTree()
 
@@ -498,5 +515,7 @@ func testSuanFa() {
 
 //testGraph()
 
-testSuanFa()
+//testSuanFa()
+
+//testSequence()
 

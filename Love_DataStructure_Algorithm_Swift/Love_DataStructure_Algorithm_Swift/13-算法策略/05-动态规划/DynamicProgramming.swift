@@ -10,10 +10,18 @@ import Cocoa
 /// 动态规划, DP算法
 struct DynamicProgramming {
     
+    //MARK: - 大数乘法
+    
     
 }
 
-//MARK: 零钱兑换
+
+//MARK: - 新手动态规划三步曲
+///1、暴力递归
+///2、记忆化搜索
+///3、递推
+
+//MARK: - 零钱兑换
 /**
  * https://leetcode-cn.com/problems/coin-change/
  * 零钱兑换问题: 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
@@ -35,7 +43,7 @@ extension DynamicProgramming {
         return dp[amount] > amount ? Const.notFound : dp[amount]
     }
     
-    /// 暴力递归(自上而下的调用)
+    /// 1、暴力递归(自大到小的调用)
     static func coinChange1(_ amount: Int) -> Int {
         if amount < 1 { return Int.max }
         let coins = [25, 20, 5, 1]
@@ -48,7 +56,7 @@ extension DynamicProgramming {
         return min + 1
     }
     
-    /// 记忆化递归(自上而下的调用)
+    /// 2、记忆化搜索(自大到小的调用)
     static func coinChange2(_ amount: Int) -> Int {
         if amount < 1 { return Int.max }
         
@@ -75,7 +83,7 @@ extension DynamicProgramming {
     }
     
     
-    /// 递推(自下而上的调用)
+    /// 3、递推(自小到大的调用)
     static func coinChange3(_ amount: Int) -> Int {
         if amount < 1 { return Const.notFound }
         var dp = Array(repeating: 0, count: amount + 1)
@@ -92,7 +100,12 @@ extension DynamicProgramming {
 }
 
 
-//MARK: 最大连续子序列的和
+//MARK: - 高手动态规划三步曲
+///1、定义状态dp()：原问题、子问题的解
+///2、设置初始状态、边界状态：dp(0)、dp(1)、dp(2)
+///3、确定状态转移方程：递推-> 从0到n
+
+//MARK: - 最大连续子序列的和
 /**
  * 2. https://leetcode-cn.com/problems/maximum-subarray/
  * 最大连续子序列
@@ -100,19 +113,28 @@ extension DynamicProgramming {
  * 输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
  * 输出：6
  * 动态规划, DP算法
+ * 时间复杂度 O(n)
  */
 extension DynamicProgramming {
+
+    // 1、数组保存之前计算的值 - 空间复杂度O(n)
     static func maxSubArray(_ nums: [Int]) -> Int {
         if nums.count == 0 { return 0 }
         
-//        var dp = Array(repeating: Int.min, count: nums.count)
-//        dp[0] = nums[0]
-//        var maxSub = nums[0]
-//        for i in 1..<nums.count {
-//            dp[i] = max(dp[i - 1], 0) + nums[i]
-//            maxSub = max(maxSub, dp[i])
-//        }
-        
+        var dp = Array(repeating: Int.min, count: nums.count)
+        dp[0] = nums[0]
+        // 最大值
+        var maxSub = nums[0]
+        for i in 1..<nums.count {
+            dp[i] = max(dp[i - 1], 0) + nums[i]
+            maxSub = max(maxSub, dp[i])
+        }
+        return maxSub
+    }
+    
+    // 2、变量保存之前计算的值 节省内存 - 空间复杂度O(1)
+    static func maxSubArray1(_ nums: [Int]) -> Int {
+        if nums.count == 0 { return 0 }
         
         // 上一次的最大子序列和
         var dp = nums[0]
@@ -125,22 +147,11 @@ extension DynamicProgramming {
         return maxSub
     }
     
-    static func maxSubArray1(_ nums: [Int]) -> Int {
-        if nums.count == 0 { return 0 }
-        
-        var dp = Array(repeating: Int.min, count: nums.count)
-        dp[0] = nums[0]
-        var maxSub = nums[0]
-        for i in 1..<nums.count {
-            dp[i] = max(dp[i - 1], 0) + nums[i]
-            maxSub = max(maxSub, dp[i])
-        }
-        return maxSub
-    }
+    // 3、分治解法 时间复杂地O(nlogn)
 }
 
 
-//MARK: 最大上升子序列的长度
+//MARK: - 最大上升子序列的长度（LIS）
 /**
  * 2. https://leetcode-cn.com/problems/longest-increasing-subsequence/
  * 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
@@ -170,7 +181,7 @@ extension DynamicProgramming {
 }
 
 
-//MARK: 最长公共子序列
+//MARK: - 最长公共子序列
 /**
  * 3. https://leetcode-cn.com/problems/longest-common-subsequence/
  * 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0
@@ -262,7 +273,7 @@ extension DynamicProgramming {
 }
 
 
-//MARK: 最长公共子串
+//MARK: - 最长公共子串
 /**
  * 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子串。如果不存在 公共子串 ，返回 0
  * 输入：text1 = "abcde", text2 = "ace"
@@ -315,7 +326,7 @@ extension DynamicProgramming {
 }
 
 
-//MARK: 背包问题
+//MARK: - 0-1背包问题
 /**
  * 有n件物品和一个最大承重力为W的背包, 每件物品的重量是w1, 价值是v1, 在保证中重量不超过W的前提下, 选择某些物品装入背包, 背包的最大价值是多少
  * 每个物品只有一件, 也就是每个物品只能选择0件或者1件

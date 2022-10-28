@@ -276,42 +276,75 @@ extension BinaryTree {
     }
     
     /// 中序遍历(迭代) - （左子树->root->右子树）
-//    public func inOrderInvertTree() {
-//        inOrder(node: root)
-//    }
-//
-//    fileprivate func inOrderInvertTree(node: TreeNode<E>?) {
-//
-//        if let node {
-//            inOrder(node: node.left)
-//
-//            print(node)
-//            let temNode = node.left
-//            node.left = node.right
-//            node.right = temNode
-//
-//            // 注意 中序遍历：翻转之后的左子树才是翻转之前的右子树
-//            inOrder(node: node.left)
-//        }
-//    }
+    public func inOrderInvertTree() {
+        
+        if root == nil {
+            return
+        }
+        
+        // 0、创建栈
+        var node = root
+        let stack = Statck<TreeNode<E>>()
+        
+        while !stack.isEmpty() || node != nil { // 注意：或
+            // 1、一路往左走 直到最左位置 路上遇到的节点都入栈 （包括根节点）
+            while node != nil {
+                stack.push(node)
+                node = node?.left
+            }
+
+            // 2、不能再往左走了 弹出栈顶元素 赋值给node访问
+            guard let currNode = stack.pop() else {
+                break
+            }
+//            print(currNode)
+            let temNode = currNode.left
+            currNode.left = currNode.right
+            currNode.right = temNode
+            
+            // 3、查看一下currNode的右子树 如果右子树为nil 结束本次循环
+            node = currNode.right
+        }
+    }
     
-    /// 前序遍历(迭代) - （左子树->右子树->root）
-//    public func postOrderInvertTree() {
-//        postOrder(node: root)
-//    }
-//
-//    fileprivate func postOrderInvertTree(node: TreeNode<E>?) {
-//
-//        if let node {
-//            postOrder(node: node.left)
-//            postOrder(node: node.right)
-//
-//            print(node)
-//            let temNode = node.left
-//            node.left = node.right
-//            node.right = temNode
-//        }
-//    }
+    /// 后序遍历(迭代) - （左子树->右子树->root）
+    public func postOrderInvertTree() {
+        
+        if root == nil {
+            return
+        }
+        
+        // 1、将根节点入栈
+        let stack = Statck<TreeNode<E>>()
+        stack.push(root)
+        var currNode: TreeNode<E>? // 用来记录上一次弹出栈的节点 （子节点已出栈 轮到父节点）
+
+        while !stack.isEmpty() {
+            // 2、查看栈顶是否是叶子结点
+            guard let peek = stack.peek() else {
+                break
+            }
+
+            // 2.1、栈顶节点是否是椰子节点 或 上一次访问节点是否是栈顶节点的子节点 出栈 （子节点已出栈 轮到父节点）
+            if peek.isLeaf() || currNode?.parent == peek {
+                // 3、出栈
+                currNode = stack.pop()
+//                print(currNode!)
+                let temNode = currNode?.left
+                currNode?.left = currNode?.right
+                currNode?.right = temNode
+                
+            } else { // 2.2、栈顶不是叶子结点 右子树先入栈 左子节再入栈
+   
+                if let right = peek.right {  // 右子树先入栈
+                    stack.push(right)
+                }
+                if let left = peek.left { // 左子节再入栈
+                    stack.push(left)
+                }
+            }
+        }
+    }
     
     /// 层序遍历(迭代)
     public func levelOrderInvertTree()  {
@@ -326,7 +359,7 @@ extension BinaryTree {
         while !queue.isEmpty() {
             
             let node = queue.deQueue()
-            print(node!)
+//            print(node!)
             let temNode = node?.left
             node?.left = node?.right
             node?.right = temNode

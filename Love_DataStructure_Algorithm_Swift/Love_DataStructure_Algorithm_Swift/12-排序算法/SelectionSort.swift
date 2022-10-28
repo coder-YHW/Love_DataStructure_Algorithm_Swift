@@ -21,7 +21,7 @@ class SelectionSort<T: Comparable>: Sort<T> {
             
             for begin in 1...end {
                 
-                if cmp(i1: maxIndex, i2: begin) <= 0 { // 注意这一句
+                if cmp(i1: maxIndex, i2: begin) < 0 { // 注意这一句
                     maxIndex = begin // 2、更新最大值索引 = begin
                 }
             }
