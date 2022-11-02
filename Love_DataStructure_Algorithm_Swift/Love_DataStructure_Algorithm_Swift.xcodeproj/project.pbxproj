@@ -750,7 +750,6 @@
 				0DC90BCE28F01E9200AA8754 /* SelectionSort.swift */,
 				0DC90BCF28F01E9200AA8754 /* HeapSort.swift */,
 				0DC90BCB28F01E9200AA8754 /* InsertionSort.swift */,
-				0D1BDBD128FD464E004F1D93 /* BinarySearch.swift */,
 				0DC90BD428F01E9200AA8754 /* MergeSort.swift */,
 				0DC90BCC28F01E9200AA8754 /* QuickSort.swift */,
 				0DC90BD228F01E9200AA8754 /* ShellSort.swift */,
@@ -774,6 +773,7 @@
 				0DC90BDC28F01E9200AA8754 /* UnionFind_QU_Rank_PH.swift */,
 				0DC90BDB28F01E9200AA8754 /* UnionFindNode.swift */,
 				0DC90BD828F01E9200AA8754 /* GenericUnionFind.swift */,
+				0D1BDBD128FD464E004F1D93 /* BinarySearch.swift */,
 			);
 			path = "10-并查集";
 			sourceTree = "<group>";

@@ -107,7 +107,7 @@ extension BinaryTree {
         }
     }
     
-    // MARK: 层序遍历(迭代)
+    // MARK: - 层序遍历(迭代)
     /// 层序遍历(迭代)
     func levelOrder(treeVisitor: ((E?) -> ())? = nil)  {
 
@@ -239,6 +239,161 @@ extension BinaryTree {
                 if let left = peek.left { // 左子节再入栈
                     stack.push(left)
                 }
+            }
+        }
+    }
+    
+    // MARK: - 前序遍历(Morris)
+    /// 前序遍历(Morris)
+    public func preOrderMorris(treeVisitor: ((E?) -> ())?) {
+        
+        if root == nil {
+            return
+        }
+        
+        var curr : TreeNode<E>? = root // 记录当前遍历的节点
+        var mostRight : TreeNode<E>? = nil  // 记录当前节点的前驱节点
+        
+        while curr != nil {
+            // mostRight移动到curr的左子节点
+            mostRight = curr?.left
+            
+            if mostRight != nil { // 左子节点不为空
+                // 左子节点不为空 一直向右搜索直到空，即curr的前驱节点
+                // 或者 回到原始位置结束 （此时mostRight已经到最左边）
+                while mostRight?.right != nil && mostRight?.right != curr {
+                    mostRight = mostRight?.right
+                }
+                // 如果沿着mostRight一直找到了空，表示为第一次遍历到
+                // 那么连接到开始遍历的地方，且mostRight继续向左走，去连接下面的节点
+                if mostRight?.right == nil {
+                    
+//                    print(curr!)
+                    if let treeVisitor {
+                        treeVisitor(curr!.element)
+                    }
+                    
+                    // 如果最右节点还没有跟当前节点建立关系，就建立关系。 （画了一条线 把mostRight连接到curr）
+                    mostRight?.right = curr
+                    // curr继续往左走
+                    curr = curr?.left
+    
+                }else { // mostRight?.right == curr
+                    
+                    // 如果最右节点已经跟当前节点建立过关系，本次是第二次遍历到curr节点，则把关系清楚。
+                    mostRight?.right = nil
+                    
+                    // 回溯 - curr回到之前的位置
+                    curr = curr?.right
+                }
+            }else { // 左子节点mostRight为空 curr已经走到最左边，无法继续往左走了。
+//                print(curr!)
+                if let treeVisitor {
+                    treeVisitor(curr!.element)
+                }
+                
+                // 回溯 - curr回到之前的位置
+                curr = curr?.right
+            }
+
+        }
+    }
+    
+    // MARK: 中序遍历(Morris)
+    /// 后序遍历(Morris)
+    public func inOrderMorris(treeVisitor: ((E?) -> ())?) {
+        
+        if root == nil {
+            return
+        }
+        
+        var curr : TreeNode<E>? = root // 记录当前遍历的节点
+        var mostRight : TreeNode<E>? = nil  // 记录当前节点的前驱节点
+        
+        while curr != nil {
+            // mostRight移动到curr的左子节点
+            mostRight = curr?.left
+            
+            if mostRight != nil { // 左子节点不为空
+                // 左子节点不为空 一直向右搜索直到空，即curr的前驱节点
+                // 或者 回到原始位置结束 （此时mostRight已经到最左边）
+                while mostRight?.right != nil && mostRight?.right != curr {
+                    mostRight = mostRight?.right
+                }
+                // 如果沿着mostRight一直找到了空，表示为第一次遍历到
+                // 那么连接到开始遍历的地方，且mostRight继续向左走，去连接下面的节点
+                if mostRight?.right == nil {
+                    
+                    // 如果最右节点还没有跟当前节点建立关系，就建立关系。 （画了一条线 把mostRight连接到curr）
+                    mostRight?.right = curr
+                    // curr继续往左走
+                    curr = curr?.left
+
+                }else { // mostRight?.right == curr
+                    
+                    // 如果最右节点已经跟当前节点建立过关系，本次是第二次遍历到curr节点，则把关系清楚。
+                    mostRight?.right = nil
+                    
+//                    print(curr!)
+                    if let treeVisitor {
+                        treeVisitor(curr!.element)
+                    }
+                    
+                    // 回溯 - curr回到之前的位置
+                    curr = curr?.right
+                }
+                
+            }else { // 左子节点mostRight为空 curr已经走到最左边，无法继续往左走了。
+//                print(curr!)
+                if let treeVisitor {
+                    treeVisitor(curr!.element)
+                }
+                
+                // 回溯 - curr回到之前的位置
+                curr = curr?.right
+            }
+        }
+    }
+    
+    // MARK: 后序遍历(Morris)
+    /// 后序遍历(Morris)
+    public func postOrderMorris(treeVisitor: ((E?) -> ())?) {
+        
+        if root == nil {
+            return
+        }
+        
+        var curr : TreeNode<E>? = root // 记录当前遍历的节点
+        var mostRight : TreeNode<E>? = nil  // 记录当前节点的前驱节点
+        
+        while curr != nil {
+            // mostRight移动到curr的左子节点
+            mostRight = curr?.left
+            
+            if mostRight != nil { // 左子节点不为空
+                // 左子节点不为空 一直向右搜索直到空，即curr的前驱节点
+                // 或者 回到原始位置结束 （此时mostRight已经到最左边）
+                while mostRight?.right != nil && mostRight?.right != curr {
+                    mostRight = mostRight?.right
+                }
+                // 如果沿着mostRight一直找到了空，表示为第一次遍历到
+                // 那么连接到开始遍历的地方，且mostRight继续向左走，去连接下面的节点
+                if mostRight?.right == nil {
+                    
+                    // 如果最右节点还没有跟当前节点建立关系，就建立关系。 （画了一条线 把mostRight连接到curr）
+                    mostRight?.right = curr
+                    // curr继续往左走
+                    curr = curr?.left
+                    // continue
+                    continue
+                }else { // mostRight?.right == curr
+                    // 如果最右节点已经跟当前节点建立过关系，本次是第二次遍历到curr节点，则把关系清楚。
+                    mostRight?.right = nil
+                }
+            }else { // 左子节点mostRight为空 curr已经走到最左边，无法继续往左走了。
+                
+                // 回溯 - curr回到之前的位置
+                curr = curr?.right
             }
         }
     }

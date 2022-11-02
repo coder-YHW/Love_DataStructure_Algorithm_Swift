@@ -183,6 +183,10 @@ func testBSTree() {
         tree.add(e)
     }
     printTree(tree: tree)
+    
+    let s = Solution()
+    let p = s.lowestCommonAncestor(TreeNode(element: 7), TreeNode(element: 8), TreeNode(element: 5))
+    print(p)
 //    MJBinaryTrees.print(tree)
     
     //    tree.remove(8)
@@ -192,21 +196,26 @@ func testBSTree() {
     //    printTree(tree: tree)
     
     
-    print("----------")
+//    print("----------")
     // 层序遍历（迭代）
 //    tree.levelOrder { element in
 //        print(element!)
 //    }
     
 //    // 前序遍历（迭代）
-    tree.preOrder { element in
-        print(element!)
-    }
-    print("----------")
+//    tree.preOrder { element in
+//        print(element!)
+//    }
+//    print("----------")
+//    tree.preOrderMorris { element in
+//        print(element!)
+//    }
+//    print("----------")
     // 前序遍历（递归）
-    tree.preOrderCircle { element in
-        print(element!)
-    }
+//    tree.preOrderCircle { element in
+//        print(element!)
+//    }
+//    print("----------")
     
     
     // 中序遍历（迭代）
@@ -214,6 +223,9 @@ func testBSTree() {
 //        print(element!)
 //    }
 //    print("----------")
+//    tree.inOrderMorris { element in
+//        print(element!)
+//    }
 //    // 中序遍历（递归）
 //    tree.inOrderCircle { element in
 //        print(element!)
@@ -221,14 +233,14 @@ func testBSTree() {
     
     
     // 后序遍历（迭代）
-//    tree.postOrder { element in
-//        print(element!)
-//    }
-//    print("----------")
+    tree.postOrder { element in
+        print(element!)
+    }
+    print("----------")
 //    // 后序遍历（递归）
-//    tree.postOrderCircle { element in
-//        print(element!)
-//    }
+    tree.postOrderCircle { element in
+        print(element!)
+    }
 
     
 }
@@ -518,4 +530,36 @@ testBSTree()
 //testSuanFa()
 
 //testSequence()
+
+//var map = [Int:Int]()
+//let val = map[1]
+//let a = Array(String(121))
+//print("\(a)")
+
+//let s = BinarySearch<Int>()
+//let list = s.binarySearch([5,7,7,8,8,10], 8)
+//print(list)
+
+
+class Solution {
+    func lowestCommonAncestor(_ root: TreeNode<Int>?, _ p: TreeNode<Int>?, _ q: TreeNode<Int>?) -> TreeNode<Int>? {
+        // 边界条件 - 递归基
+        if root == nil || root === p || root === q { return root }
+        // 递归调用
+        let l = lowestCommonAncestor(root?.left,p,q)
+        let r = lowestCommonAncestor(root?.right,p,q)
+        
+        if l != nil && r != nil {
+            return root
+        }else if l != nil  {
+            return l
+        }else if r != nil {
+            return r
+        }else {
+            return nil
+        }
+    }
+}
+
+
 

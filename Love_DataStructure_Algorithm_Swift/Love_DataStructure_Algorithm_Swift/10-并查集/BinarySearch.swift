@@ -7,6 +7,7 @@
 
 import Cocoa
 
+//MARK: - 二分搜索查找索引
 class BinarySearch<T: Comparable>: Sort<T> {
 
     /*
@@ -48,5 +49,39 @@ class BinarySearch<T: Comparable>: Sort<T> {
             }
         }
         return begin
+    }
+}
+
+//MARK: - 二分搜索
+/// 二分搜索
+extension BinarySearch {
+    
+    // 二分搜索
+    public func binarySearch(_ nums: [Int], _ target: Int) -> [Int] {
+        // 二分搜索-有序数组
+        var l = 0 // 1、左边界
+        var r = nums.count - 1 // 2、右边界
+        while l <= r {
+            let mid = l + (r-l)>>1
+            if nums[mid] < target { // 1.1、左边界减半
+                l = mid + 1
+            }else if nums[mid] > target { // 2.1、右边界减半
+                r = mid - 1
+            }else  { // 3、命中
+                // 3.1、因为有重复元素
+                l = mid
+                r = mid
+                // 3.2、从中间mid向左搜索
+                while l > 0 && nums[l-1] == nums[l] {
+                    l -= 1
+                }
+                // 3.3、从中间mid向右搜索
+                while r < (nums.count-1) && nums[r+1] == nums[r] {
+                    r += 1
+                }
+                return [l, r]
+            }
+        }
+        return [-1, -1]
     }
 }
