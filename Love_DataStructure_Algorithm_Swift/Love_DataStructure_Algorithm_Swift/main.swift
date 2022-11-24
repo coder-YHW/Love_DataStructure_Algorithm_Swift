@@ -184,9 +184,6 @@ func testBSTree() {
     }
     printTree(tree: tree)
     
-    let s = Solution()
-    let p = s.lowestCommonAncestor(TreeNode(element: 7), TreeNode(element: 8), TreeNode(element: 5))
-    print(p)
 //    MJBinaryTrees.print(tree)
     
     //    tree.remove(8)
@@ -364,14 +361,16 @@ func testSort() {
     
     let data = [51, 30, 39, 30, 39, 92, 74, 25, 16, 93, 91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 90, 6, 65, 49, 3, 26, 61, 21, 48]
     
+//    let data = [51, 30, 39, 30, 39, 92, 74, 25, 16, 93, 91, 19, 54, 47, 73, 62, 76, 63, 35, 18, 90, 6, 65, 100, 101, 102, 103, 104, 105]
+    
     
 //    let sort = BubbleSort1<Int>()
 //    let sort = BubbleSort2<Int>()
-//    let sort = BubbleSort3<Int>()
+    let sort = BubbleSort3<Int>()
 //    let sort = SelectionSort<Int>()
 //    let sort = HeapSort<Int>()
 //    let sort = InsertionSort1<Int>()
-    let sort = InsertionSort2<Int>()
+//    let sort = InsertionSort2<Int>()
 //    let sort = InsertionSort3<Int>()
 //    let sort = InsertionSort4<Int>()
 //    let sort = BinarySearch<Int>()
@@ -514,7 +513,7 @@ func testSequence() {
 //testArrayList()
 //testLinkList()
 
-testBSTree()
+//testBSTree()
 //testAVLTree()
 //testRBTree()
 
@@ -523,7 +522,7 @@ testBSTree()
 
 //testBinaryHeap()
 
-//testSort()
+testSort()
 
 //testGraph()
 
@@ -531,35 +530,17 @@ testBSTree()
 
 //testSequence()
 
-//var map = [Int:Int]()
-//let val = map[1]
-//let a = Array(String(121))
-//print("\(a)")
+//var ans = [1,2,3];
+//print(ans.reverse())
 
-//let s = BinarySearch<Int>()
-//let list = s.binarySearch([5,7,7,8,8,10], 8)
+//let s = Solution()
+//let list = s.trap([4,2,0,3,2,5])
 //print(list)
 
-
-class Solution {
-    func lowestCommonAncestor(_ root: TreeNode<Int>?, _ p: TreeNode<Int>?, _ q: TreeNode<Int>?) -> TreeNode<Int>? {
-        // 边界条件 - 递归基
-        if root == nil || root === p || root === q { return root }
-        // 递归调用
-        let l = lowestCommonAncestor(root?.left,p,q)
-        let r = lowestCommonAncestor(root?.right,p,q)
-        
-        if l != nil && r != nil {
-            return root
-        }else if l != nil  {
-            return l
-        }else if r != nil {
-            return r
-        }else {
-            return nil
-        }
-    }
-}
+//let s = Solution()
+//let x = s.reverseStr("abcdefg", 2)
+//let x = s.reverseWords("the sky is blue")
+//print(x)
 
 
 

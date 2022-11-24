@@ -545,12 +545,11 @@ extension BinaryTree {
         
         while !queue.isEmpty() {
             
-            var node = queue.deQueue()
+            let node = queue.deQueue()
             //5、叶子结点 之后的节点都要是叶子结点
             if isLeaf && !(node?.isLeftChild())! {
                 return false
             }
-            
             
             if node?.left != nil {
                 // 1.1、node.left != nil && node.right != nil
@@ -585,7 +584,7 @@ extension BinaryTree {
         var leverCount = 1 // 每一层的个数
         
         while !queue.isEmpty() {
-            var node = queue.deQueue()
+            let node = queue.deQueue()
             leverCount -= 1
             
             if node?.left != nil {
