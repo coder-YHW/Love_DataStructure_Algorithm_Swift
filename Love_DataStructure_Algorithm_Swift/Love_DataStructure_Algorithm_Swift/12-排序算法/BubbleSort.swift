@@ -7,6 +7,7 @@
 
 import Cocoa
 
+//MARK: - 冒泡排序
 /// 冒泡排序1
 /// 平均、最坏复杂度O(n^2)  最好时间复杂度O(n) 空间复杂度O(1)
 /// 稳定排序
@@ -35,8 +36,7 @@ class BubbleSort1<T: Comparable>: Sort<T> {
 }
 
 
-
-
+//MARK: 冒泡排序(外层优化)
 /// 冒泡排序2 - 外层优化（如果排序过程中 已经有序 可以提前结束for循环）
 class BubbleSort2<T: Comparable>: Sort<T> {
     
@@ -65,6 +65,7 @@ class BubbleSort2<T: Comparable>: Sort<T> {
     }
 }
 
+//MARK: 冒泡排序(内层优化)
 /// 冒泡排序3 - 内层优化（如果排序过程中 后面部分有序 可以减少for循环范围）
 class BubbleSort3<T: Comparable>: Sort<T> {
     

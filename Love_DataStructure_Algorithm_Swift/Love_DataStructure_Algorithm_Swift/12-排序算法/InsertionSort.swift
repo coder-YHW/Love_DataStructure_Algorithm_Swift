@@ -7,10 +7,12 @@
 
 import Cocoa
 
-/// 插入排序
+
 /// 插入排序 - 平均、最坏时间复杂度O(n^2)、最好时间复杂度O(n)    空间复杂度O(1)
 /// 插入排序时间复杂度跟逆序对成正比关系
 /// 稳定排序
+
+//MARK: - 插入排序-写法一
 class InsertionSort1<T: Comparable>: Sort<T> {
 
     /*
@@ -21,17 +23,15 @@ class InsertionSort1<T: Comparable>: Sort<T> {
     override func sortAction() {
         for begin in 1..<dataArray.count {
             var current = begin
-            while current > 0 {
-                if cmp(i1: current, i2: current - 1) < 0 {
-                    swap(i1: current, i2: current - 1)
-                }
+            while current > 0 && cmp(i1: current, i2: current - 1) < 0 {
+                swap(i1: current, i2: current - 1)
                 current -= 1
             }
         }
     }
 }
 
-
+//MARK:  插入排序-写法二
 class InsertionSort2<T: Comparable>: Sort<T> {
 
     /*
@@ -55,7 +55,7 @@ class InsertionSort2<T: Comparable>: Sort<T> {
     }
 }
 
-
+//MARK:  插入排序-优化1（交换改挪动）
 class InsertionSort3<T: Comparable>: Sort<T> {
 
     /*
@@ -78,7 +78,7 @@ class InsertionSort3<T: Comparable>: Sort<T> {
     }
 }
 
-
+//MARK:  插入排序-优化2（二分搜索）
 class InsertionSort4<T: Comparable>: Sort<T> {
 
     /*

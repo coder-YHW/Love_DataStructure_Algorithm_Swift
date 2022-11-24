@@ -366,7 +366,7 @@ func testSort() {
     
 //    let sort = BubbleSort1<Int>()
 //    let sort = BubbleSort2<Int>()
-    let sort = BubbleSort3<Int>()
+//    let sort = BubbleSort3<Int>()
 //    let sort = SelectionSort<Int>()
 //    let sort = HeapSort<Int>()
 //    let sort = InsertionSort1<Int>()
@@ -375,7 +375,7 @@ func testSort() {
 //    let sort = InsertionSort4<Int>()
 //    let sort = BinarySearch<Int>()
 //    let sort = MergeSort<Int>()
-//    let sort = QuickSort<Int>()
+    let sort = QuickSort<Int>()
 //    let sort = ShellSort<Int>()
 //    let sort = CountingSort<Int>()
 //    let sort = RadixSort<Int>()
